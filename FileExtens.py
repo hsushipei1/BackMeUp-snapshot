@@ -14,5 +14,6 @@ def FileExtens():
   to search and then back up. For multiple extensions, please
   separate them by SPACE. e.g. >*.c *.f *.gs *.ctl
 -----------------------------------------------------------"""
-	FilExtIn = raw_input("> ")
+	FilExtIn = raw_input(">")
 	FilExtList = FilExtIn.split(" ")
+	return FilExtList

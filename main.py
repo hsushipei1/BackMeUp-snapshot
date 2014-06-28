@@ -45,6 +45,7 @@ from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 from ToBeBkUp import DirToBeBackup
 from FileExtens import FileExtens
+from BkupLoc import BackupLoc
 
 # 顯示專案版本以及作者資訊
 ProjInfo()
@@ -52,9 +53,16 @@ AuthrInfo()
 
 # 提示使用者輸入預備份的資料夾路徑
 DataBasDir = DirToBeBackup()
+print DataBasDir
 
 # 提示使用者輸入預備份的副檔名類型
-FileExtens()
+FilExtList = FileExtens()
+print FilExtList
+
+# 提示使用者輸入備份存放路徑
+BkupPath = BackupLoc()
+print BkupPath
+
 sys.exit("exit from main!")
 
 
