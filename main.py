@@ -48,7 +48,10 @@ from FileExtens import FileExtens
 from BkupLoc import BackupLoc
 from VerifIn import VeryifyInput
 
-# 顯示專案版本以及作者資訊
+## 清除終端機畫面
+os.system("clear")
+
+## 顯示專案版本以及作者資訊
 ProjInfo()
 AuthrInfo()
 
