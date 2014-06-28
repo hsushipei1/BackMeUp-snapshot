@@ -8,10 +8,11 @@
 """
 
 def FileExtens():
-	# 輸入請以空格隔開
 	print"""\
 -----------------------------------------------------------
-# Please insert file extension yo
+# Please insert the file extensions you want this program 
+  to search and then back up. For multiple extensions, please
+  separate them by SPACE. e.g. >*.c *.f *.gs *.ctl
 -----------------------------------------------------------"""
-	inp = raw_input("> ")
-	print inp.split(" ")
+	FilExtIn = raw_input("> ")
+	FilExtList = FilExtIn.split(" ")
