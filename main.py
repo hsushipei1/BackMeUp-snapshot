@@ -44,6 +44,7 @@ import os, ntpath, sys
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 from ToBeBkUp import DirToBeBackup
+from FileExtens import FileExtens
 
 # 顯示專案版本以及作者資訊
 ProjInfo()
@@ -52,7 +53,11 @@ AuthrInfo()
 # 提示使用者輸入預備份的資料夾路徑
 DataBasDir = DirToBeBackup()
 print DataBasDir
+
+# 提示使用者輸入預備份的副檔名類型
+FileExtens()
 sys.exit("exit from main!")
+
 
 #============== 正在開發中 Under development 2014/06/20 ================
 
