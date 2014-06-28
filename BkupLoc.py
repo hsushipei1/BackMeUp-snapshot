@@ -15,4 +15,16 @@ def BackupLoc():
 	while True:
 		BkupPath = raw_input(">")
 		if os.path.exist(BkupPath):
-			
+			return BkupPath
+		else:
+			print "Path %r doesn't exist!" %(BkupPath)
+			while True:
+				OptPrmt = "# What will you do?\
+ 1)Create it! 2)Try another 3)Leave (1/2/3)"
+				opt = raw_input(">")
+				if opt == "1":
+					os.makedir(BkupPath)
+
+
+
+

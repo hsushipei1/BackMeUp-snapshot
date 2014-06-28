@@ -14,7 +14,6 @@ def DirToBeBackup():
 	while True:
 		DataBasDir = raw_input(">")
 		if os.path.exists(DataBasDir):
-			DataBasDir = '"'+DataBasDir+'"'
 			return DataBasDir
 		else:
 			print "Path %r doesn't exist! \
