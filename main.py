@@ -51,42 +51,24 @@ from BkupLoc import BackupLoc
 ProjInfo()
 AuthrInfo()
 
+## 第一部份: 使用者輸入以及確認
+
 # 提示使用者輸入預備份的資料夾路徑
 DataBasDir = DirToBeBackup()
-print DataBasDir
 
 # 提示使用者輸入預備份的副檔名類型
 FilExtList = FileExtens()
-print FilExtList
 
 # 提示使用者輸入備份存放路徑
 BkupPath = BackupLoc()
-print BkupPath
+
+# 顯示使用者剛才輸入的內容，並讓使用者選擇是否繼續還是重新輸入。
+VeryifyInput(DataBasDir,FilExtList,BkupPath)
 
 sys.exit("exit from main!")
 
-
 #============== 正在開發中 Under development 2014/06/20 ================
 
-#----------------------------------------
-# Print out the user-input variables and
-# ask the user to double check the inputs
-#----------------------------------------
-print"""\
-# Please verify your inputs
-1) Parent directory to be backup
-=> %s
-
-2) Extensions of files you want to backup
-=> %s
-
-3) Backup location
-=> %s
-
-# Hit RETURN to continue or CTRL-C to quit
-""" %(DataBasDir,FilType,backupLoc)
-
-opt2 = raw_input(prompt)         # continue or not
 
 #-------------------
 # Establish database
