@@ -27,6 +27,8 @@ def BackupLoc():
 					print "%r is created!" %(BkupPath)
 					return BkupPath
 				elif opt == "2":
+					print "# Please enter the absolute path again"
+					break
 				elif opt == "3":
 					sys.exit("QUIT!")
 				else:
