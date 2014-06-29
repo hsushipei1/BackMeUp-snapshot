@@ -43,11 +43,15 @@ o 需要使用者輸入的參數
 import os, ntpath, sys
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
+from UserInputs import DirToBeBackup, FileExtens, BackupLoc, VeryifyInput
+from CreatDataBas import FindFile
+
+"""
 from ToBeBkUp import DirToBeBackup
 from FileExtens import FileExtens
 from BkupLoc import BackupLoc
 from VerifIn import VeryifyInput
-from CreatDataBas import FindFile
+"""
 
 ## 清除終端機畫面
 os.system("clear")
