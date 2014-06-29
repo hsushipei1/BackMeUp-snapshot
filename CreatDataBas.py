@@ -8,12 +8,20 @@ find ./ -name "*.c" -o -name "*.h"
 """
 
 def FindFile(DirToBeBackup,FilExtList):
-	for EachExten in FilExtList:
-		print EachExten
-		#FindCmd = "find "+str(DirToBeBackup)+" -name "+str(FilExtList)
+	if len(FilExtList) == 1:
+		print "len=1"
+	else:
+		print "len= %d" %(len(FilExtList))
+		
+
+
+
+	#for EachExten in FilExtList:
+		#print EachExten
+	#	FindCmd = "find "+str(DirToBeBackup)+" -name "+str(FilExtList)
 		#print FindCmd
 		#print os.system(FindCmd)
 
 
-FindFile("/home/hsushipei",["*.c","*,f","*.h"])
+FindFile("/home/hsushipei",["*.c"])
 
