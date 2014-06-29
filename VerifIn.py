@@ -21,10 +21,8 @@ def VeryifyInput(DirToBeBackup,FilExtList,BkupPath):
 -----------------------------------------------------------
 @ Absolute path to the directory you want to make a backup
 => %s
-
 @ List of file extensions
 => %s
-
 @ Path to save your backup
 => %s
 

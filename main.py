@@ -47,6 +47,7 @@ from ToBeBkUp import DirToBeBackup
 from FileExtens import FileExtens
 from BkupLoc import BackupLoc
 from VerifIn import VeryifyInput
+from CreatDataBas import FindFile
 
 ## 清除終端機畫面
 os.system("clear")
@@ -66,7 +67,9 @@ BkupPath = BackupLoc()
 VeryifyInput(DataBasDir,FilExtList,BkupPath)
 
 ## 第二部份：利用find指令搜尋使用者指定的副檔名檔案的位置
-print "find "+DataBasDir+" -iname "+FilType+" > "+DataBaseNam+""
+FindFile(DataBasDir,FilExtList)
+
+
 sys.exit("exit from main!")
 #os.system("find "+DataBasDir+" -iname "+FilType+" > "+DataBaseNam+"")
 

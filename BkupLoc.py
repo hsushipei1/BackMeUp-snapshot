@@ -26,7 +26,8 @@ def BackupLoc():
 					os.makedirs(BkupPath)
 					print "%r is created!" %(BkupPath)
 					return BkupPath
-				elif opt =="3":
+				elif opt == "2":
+				elif opt == "3":
 					sys.exit("QUIT!")
 				else:
 					print "Please try again!"
