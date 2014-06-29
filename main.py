@@ -46,13 +46,6 @@ from AuthrInfo import AuthrInfo
 from UserInputs import DirToBeBackup, FileExtens, BackupLoc, VeryifyInput
 from CreatDataBas import FindFile
 
-"""
-from ToBeBkUp import DirToBeBackup
-from FileExtens import FileExtens
-from BkupLoc import BackupLoc
-from VerifIn import VeryifyInput
-"""
-
 ## 清除終端機畫面
 os.system("clear")
 
