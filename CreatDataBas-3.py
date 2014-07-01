@@ -11,14 +11,23 @@ from os import *
 最後輸出這些檔案的絕對路徑
 """
 
+<Example: how to traverse directories>
+
 def FindFile(DirToBeBackup,FilExtList):
-	chdir("/home/hsushipei/Software")
-	for EachFil in glob("*.c"):
+	FilExt = FilExtList
+	for dirName, SubDir, fileList in walk("/home/hsushipei/Software"):
+		print "Dir %s found" %(dirName)
+		for fname in fileList:
+			print "\t%s" %(fname)
 
-FindFile(["/home/hsushipei","/home/hsushipei/Software"],\
-         ["*.c","*.f","*.h"])
+"""	
+	for file in glob("*.c"):
+			print file
+"""
 
-#FindFile("/home/hsushipei",["*.c"])
+#FindFile(["/home/hsushipei","/home/hsushipei/Software"],["*.c","*.f","*.h"])
+
+FindFile("/home/hsushipei",["*.c"])
 
 """
 Example Code
@@ -34,3 +43,4 @@ Example Code
 <how to use glob>
 http://stackoverflow.com/questions/3964681/find-all-files-in-directory-with-extension-txt-with-python
 
+"""
