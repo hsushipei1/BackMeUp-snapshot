@@ -6,20 +6,35 @@ import os, ntpath, sys
 提示使用者輸入欲備份的資料夾路徑
 """
 def DirToBeBackup():
-	print """\
+    print """\
 ------------------------------------------------------------
-# Please insert the absolute path of the directory you want to
-  backup. e.g. /data1/jackhsu/research (All the subdirectory 
-  under that directory will be backuped) 
+# Please insert the absolute paths of the directories you want
+  to backup and separate them with SPACEs 
+  e.g. /data1/jackhsu /home/research /usr/share/fonts
 ------------------------------------------------------------"""
-
-	while True:
-		DataBasDir = raw_input(">")
-		if os.path.exists(DataBasDir):
-			return DataBasDir
-		else:
-			print "Path %r doesn't exist! \
-Please try again or CTRL-C to quit" %(DataBasDir)
+    while True:
+        InPaths = raw_input(">")
+        BkupPathList = InPaths.split(" ")
+        # 製作陣列BoolChk，後面會依每個輸入的路徑檢查是否存在，把Boolean存入
+        BoolChk = []
+        # 依次判斷輸入的路徑是否存在
+        for EachIn in BkupPathList:
+            if os.path.exists(EachIn):
+                # 如果路徑存在，則BoolChk填入True
+                BoolChk.append("True")
+            elif not(os.path.exists(EachIn)):
+                # 如果路徑存在，則BoolChk填入False，並提示不存在
+                BoolChk.append("False")
+                print "%r does not exist! Please try again!" %(EachIn)
+        # ExistNum統計有幾個路徑是存在(True)的
+        ExistNum = BoolChk.count("True")
+        # 統計boolean，BoolChk中必須全為True才過，否則必須重新輸入路徑。
+        if ExistNum == len(BkupPathList):
+            # 回傳輸入的路徑
+            return BkupPathList
+        else:
+            # 重新輸入吧！
+            pass
 
 
 """
