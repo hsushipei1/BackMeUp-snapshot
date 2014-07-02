@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 from os import *
+from glob import *
 
 """
 # Use walk BIF to traverse subdirectoies and glob BIF to search for
@@ -9,8 +10,9 @@ from os import *
 """
 
 path = "/work/hsushipei/Programming/python/Project/"
-
+extension = ("*.c","*.h")
+ext_4_glob = []
 for DirPath, SubDirNam, FileList in walk(path):
-	for EachFile in FileList:
-		print DirPath+"/"+EachFile
+	chdir(DirPath)
+	print DirPath+" => "+str(glob("*.py"))
 
