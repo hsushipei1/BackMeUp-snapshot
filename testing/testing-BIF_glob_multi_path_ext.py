@@ -20,9 +20,10 @@ path_input = ["/work/hsushipei/Programming/python/HardWay",\
               "/work/hsushipei/Programming/c",\
               ]
 exten_input = ("*.c","*.py")
+data_base_name = "DataBase_testing"
 
 # function
-def find_multi_type_in_multi_dir(path_input,exten_input):
+def find_multi_type_in_multi_dir(path_input,exten_input,data_base_name=0):
 	"""
 	* find multiple extension in multiple path
 	path_input => a LIST. Absolute path to the directories this program 
@@ -40,8 +41,12 @@ def find_multi_type_in_multi_dir(path_input,exten_input):
 					pass
 				else:
 					for EachFileSamDir in glob_find_ext:
-						print DirPath+"/"+EachFileSamDir
+						# print DirPath+"/"+EachFileSamDir
+						#ToBeSave_path = DirPath+"/"+EachFileSamDir
+						ToBeSave_path = " "
+						ToBeSave_path.extend(DirPath+"/"+EachFileSamDir)
+						return ToBeSave_path
 
 # testing the function
-find_multi_type_in_multi_dir(path_input,exten_input)
+print find_multi_type_in_multi_dir(path_input,exten_input,data_base_name)
 
