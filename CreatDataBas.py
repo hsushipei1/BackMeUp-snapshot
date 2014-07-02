@@ -4,7 +4,6 @@
 from os import walk, chdir
 from glob import glob
 from sys import exit
-from pickle import load
 
 """
 Find multiple extensions file in multiply path.
@@ -25,6 +24,7 @@ def find_multi_type_in_multi_dir\
 	"""
 	# create data base
 	DataBase = open(data_base_name,"w")
+	# function core
 	for path in path_input:
 		# print path
 		for DirPath, SubDirNam, FileList in walk(path):

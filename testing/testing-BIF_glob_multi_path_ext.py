@@ -20,7 +20,7 @@ path_input = ["/home/hsushipei/Working/MeteorResearch",\
               "/home/hsushipei/Working/Programming/c",\
               "/home/hsushipei/Working/Programming/python",\
               ]
-exten_input = ("*.c","*.py","*.ncl")
+exten_input = ["*.c","*.py","*.ncl"]
 
 # function
 def find_multi_type_in_multi_dir\
@@ -50,6 +50,7 @@ def find_multi_type_in_multi_dir\
 						# for each loop
 						DataBase.write(ToBeSave_path)
 						DataBase.write("\n")
+
 
 # testing the function
 find_multi_type_in_multi_dir(path_input,exten_input)

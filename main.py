@@ -44,7 +44,7 @@ import os, ntpath, sys
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 from UserInputs import DirToBeBackup, FileExtens, BackupLoc, VeryifyInput
-from CreatDataBas import FindFile
+from CreatDataBas import find_multi_type_in_multi_dir
 
 ## 清除終端機畫面
 os.system("clear")
@@ -64,11 +64,9 @@ BkupPath = BackupLoc()
 VeryifyInput(DataBasDir,FilExtList,BkupPath)
 
 ## 第二部份：利用find指令搜尋使用者指定的副檔名檔案的位置
-FindFile(DataBasDir,FilExtList)
-
-
 sys.exit("exit from main!")
-#os.system("find "+DataBasDir+" -iname "+FilType+" > "+DataBaseNam+"")
+#find_multi_type_in_multi_dir(path_input,exten_input)
+
 
 #============== 正在開發中 Under development 2014/06/29 ================
 
