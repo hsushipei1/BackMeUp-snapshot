@@ -7,6 +7,8 @@ from sys import exit
 from pickle import load
 
 """
+Find multiple extensions file in multiply path.
+
 # Use walk BIF to traverse subdirectoies and glob BIF to search for
   multiple extensions.
 
@@ -14,13 +16,11 @@ from pickle import load
 """
 
 # input
-path_input = ["/work/hsushipei/Programming/python/HardWay",\
-              "/work/hsushipei/Programming/python/HeadFirst",\
-              "/work/hsushipei/Programming/python/Project",\
-              "/work/hsushipei/Programming/c",\
+path_input = ["/home/hsushipei/Working/MeteorResearch",\
+              "/home/hsushipei/Working/Programming/c",\
+              "/home/hsushipei/Working/Programming/python",\
               ]
-exten_input = ("*.c","*.py")
-#data_base_name="DataBaseName.txt"
+exten_input = ("*.c","*.py","*.ncl")
 
 # function
 def find_multi_type_in_multi_dir\
