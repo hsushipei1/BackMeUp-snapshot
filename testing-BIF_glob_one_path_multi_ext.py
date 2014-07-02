@@ -9,10 +9,13 @@ from glob import *
   multiple extensions.
 """
 
-path = "/work/hsushipei/Programming/python/Project/"
-extension = ("*.c","*.h")
-ext_4_glob = []
+# find multiple extension in one path
+path = "/home/hsushipei/Software/src"
+exten_Input = ("*.c","*.h","*.o")
 for DirPath, SubDirNam, FileList in walk(path):
 	chdir(DirPath)
-	print DirPath+" => "+str(glob("*.py"))
+	for Each_Exten in exten_Input:
+		print DirPath+" => "+str(glob(Each_Exten))
+
+# NEXT: find multiple extension in multiple path
 
