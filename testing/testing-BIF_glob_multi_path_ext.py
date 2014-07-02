@@ -1,13 +1,16 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
 
-from os import *
-from glob import *
-from sys import *
+from os import walk, chdir
+from glob import glob
+from sys import exit
+from pickle import load
 
 """
 # Use walk BIF to traverse subdirectoies and glob BIF to search for
   multiple extensions.
+
+# HsuShiPei(hsushipei1@gmail.com) 2014-07-02
 """
 
 # input
@@ -27,7 +30,7 @@ def find_multi_type_in_multi_dir(path_input,exten_input):
 	exten_input => a LIST. File extensions you want this program to look for 
 	"""
 	for path in path_input:
-		#print path
+		# print path
 		for DirPath, SubDirNam, FileList in walk(path):
 			chdir(DirPath)
 			for Each_Exten in exten_input:
@@ -36,7 +39,8 @@ def find_multi_type_in_multi_dir(path_input,exten_input):
 					# print "nothing is found"
 					pass
 				else:
-					print DirPath+" => "+str(glob_find_ext)
+					for EachFileSamDir in glob_find_ext:
+						print DirPath+"/"+EachFileSamDir
 
 # testing the function
 find_multi_type_in_multi_dir(path_input,exten_input)
