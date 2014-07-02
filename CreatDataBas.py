@@ -1,37 +1,46 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
-import os, ntpath, sys
+
+from os import walk, chdir
+from glob import glob
+from sys import exit
+from pickle import load
 
 """
-建立路徑資料庫
-find ./ -name "*.c" -o -name "*.h"
+Find multiple extensions file in multiply path.
+
+# Use walk BIF to traverse subdirectoies and glob BIF to search for
+  multiple extensions.
+
+# HsuShiPei(hsushipei1@gmail.com) 2014-07-02
 """
 
-def FindFile(DirToBeBackup,FilExtList):
-	if len(FilExtList) == 1:
-		FilExt = FilExtList.pop()
-		DirToBeBackup = str(DirToBeBackup)
-		FilExt = str(FilExt)
-		FindCmd = "find "+str(DirToBeBackup)+" -name "+str(FilExt)
-		print FindCmd
-	else:
-		try:
-			n = 0
-			for EachExten in FilExtList:
-				DirToBeBackup = str(DirToBeBackup)
-				FirstExt = str(FilExtList[0])
-				FindCmd = "find "+DirToBeBackup+" -name "+FirstExt
-				FilExt = FilExtList[n+1]
-				FindCmd.append(" -o -name "+FilExt)
-				n = n + 1
-		except:
-			print "error occured!"
-			print FindCmd
-			pass
-		
+def find_multi_type_in_multi_dir\
+		(path_input,exten_input,data_base_name=".DataBase.txt"):
+	"""
+	* find multiple extension in multiple path
+	path_input => a LIST. Absolute path to the directories this program 
+                          will search  
+	exten_input => a LIST. File extensions you want this program to look for 
+	"""
+	# create data base
+	DataBase = open(data_base_name,"w")
+	for path in path_input:
+		# print path
+		for DirPath, SubDirNam, FileList in walk(path):
+			chdir(DirPath)
+			for Each_Exten in exten_input:
+				glob_find_ext = glob(Each_Exten)
+				if not glob_find_ext:  # if glob_find_ext is empty
+					# print "nothing is found"
+					pass
+				else:
+					for EachFileSamDir in glob_find_ext:
+						# print DirPath+"/"+EachFileSamDir
+						ToBeSave_path = DirPath+"/"+EachFileSamDir
+						# Store the output(abs path) into DataBase
+						# for each loop
+						DataBase.write(ToBeSave_path)
+						DataBase.write("\n")
 
-print "END!!"
-
-FindFile("/home/hsushipei",["*.c","*.f","*.h"])
-#FindFile("/home/hsushipei",["*.c"])
 

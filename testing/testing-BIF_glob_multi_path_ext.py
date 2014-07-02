@@ -20,16 +20,19 @@ path_input = ["/work/hsushipei/Programming/python/HardWay",\
               "/work/hsushipei/Programming/c",\
               ]
 exten_input = ("*.c","*.py")
-data_base_name = "DataBase_testing"
+#data_base_name="DataBaseName.txt"
 
 # function
-def find_multi_type_in_multi_dir(path_input,exten_input,data_base_name=0):
+def find_multi_type_in_multi_dir\
+		(path_input,exten_input,data_base_name=".DataBase.txt"):
 	"""
 	* find multiple extension in multiple path
 	path_input => a LIST. Absolute path to the directories this program 
                           will search  
 	exten_input => a LIST. File extensions you want this program to look for 
 	"""
+	# create data base
+	DataBase = open(data_base_name,"w")
 	for path in path_input:
 		# print path
 		for DirPath, SubDirNam, FileList in walk(path):
@@ -42,11 +45,12 @@ def find_multi_type_in_multi_dir(path_input,exten_input,data_base_name=0):
 				else:
 					for EachFileSamDir in glob_find_ext:
 						# print DirPath+"/"+EachFileSamDir
-						#ToBeSave_path = DirPath+"/"+EachFileSamDir
-						ToBeSave_path = " "
-						ToBeSave_path.extend(DirPath+"/"+EachFileSamDir)
-						return ToBeSave_path
+						ToBeSave_path = DirPath+"/"+EachFileSamDir
+						# Store the output(abs path) into DataBase
+						# for each loop
+						DataBase.write(ToBeSave_path)
+						DataBase.write("\n")
 
 # testing the function
-print find_multi_type_in_multi_dir(path_input,exten_input,data_base_name)
+find_multi_type_in_multi_dir(path_input,exten_input)
 
