@@ -20,14 +20,14 @@ from user_input_verify import DirToBeBackup, FileExtens,\
                               BackupLoc, VeryifyInput
 from CreatDataBas import find_multi_type_in_multi_dir
 
-## 清除終端機畫面
+## Clear the terminal
 os.system("clear")
 
-## 顯示專案版本以及作者資訊
+## Show the project and author info 
 ProjInfo()
 AuthrInfo()
 
-## 第一部份: 使用者輸入以及確認
+## Part1: Get user input and verify inputs
 # 提示使用者輸入預備份的資料夾路徑
 DataBasDir = DirToBeBackup()
 # 提示使用者輸入預備份的副檔名類型
@@ -37,12 +37,16 @@ BkupPath = BackupLoc()
 # 顯示使用者剛才輸入的內容，並讓使用者選擇是否繼續還是重新輸入。
 VeryifyInput(DataBasDir,FilExtList,BkupPath)
 
-## 第二部份：利用find指令搜尋使用者指定的副檔名檔案的位置
+## 第二部份：搜尋使用者指定的副檔名檔案的位置
 sys.exit("exit from main!")
 #find_multi_type_in_multi_dir(path_input,exten_input)
 
 
-#============== 正在開發中 Under development 2014/06/29 ================
+#============== 正在開發中 Under development 2014-07-02 ================
+
+## 第三部份：讀取資料庫，複製樹狀圖....(planning)
+
+
 
 
 #------------------------
