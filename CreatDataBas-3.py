@@ -10,15 +10,13 @@ from os import *
 使用python BIF(build-in function)尋找檔案
 最後輸出這些檔案的絕對路徑
 """
-
-<Example: how to traverse directories>
+# <Example: how to traverse directories>
 
 def FindFile(DirToBeBackup,FilExtList):
-	FilExt = FilExtList
 	for dirName, SubDir, fileList in walk("/home/hsushipei/Software"):
 		print "Dir %s found" %(dirName)
-		for fname in fileList:
-			print "\t%s" %(fname)
+		#for fname in fileList:
+		#	print "\t%s" %(fname)
 
 """	
 	for file in glob("*.c"):
