@@ -12,29 +12,42 @@ o Update Record:
 
 """
 
+
+## Import modules
 from os import system
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 
 from choose_mode import immediate_or_scheduled_backup,\
-                        path_to_backup
+                        path_to_backup,\
+                        entire_or_extension_backup
+from selected_backup import extens_input,\
+                            find_multi_type_in_multi_dir
 
 
-
-## Clear the terminal screen at startup
+## Part 0: Welcome message, project and author info
+# Clear the terminal screen at startup
 system("clear")
-
-## Show the project and author info 
+# Show the project and author info 
 ProjInfo()
 AuthrInfo()
+# Brief intro to BackMeUp?
 
-## Brief intro to BackMeUp?
 
-## Immediate or Schduled backup
+## Part 1: Backup configuration
+# Immediate or Schduled backup(value returned)
 immediate_or_scheduled_backup()
+# User enter the dirs that will backup
+path_input = path_to_backup()
+# backup entire dir or select extension(value returned)
+backup_style = entire_or_extension_backup()
+if backup_style == "1": # 1 go to full backup
+	# (full_backup_function)
+	pass
+elif backup_style == "2": # 2 go to selected backup
+	exten_input = extens_input()
+	find_multi_type_in_multi_dir(path_input,exten_input)
 
-## # User enters paths they want to make backup
-path_to_backup()
 
 
 

@@ -5,7 +5,7 @@ import os
 from print_color import print_color
 from sys import exit
 
-# colors
+## colors
 default =  "\033[0m"
 red = "\33[31;1m"
 blue = "\33[34;1m"
@@ -17,7 +17,8 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-# choose for immediate or scheduled backup
+
+## choose for immediate or scheduled backup
 def immediate_or_scheduled_backup():
 	prompt1 = """\
 ------------------------------------------------------------
@@ -34,10 +35,12 @@ def immediate_or_scheduled_backup():
 
 	while True:
 		time_2_backup = raw_input(">")
-		if time_2_backup == "1":
+		# 1 => immediate
+		if time_2_backup == "1": 
 			print "choose 1"
 			return time_2_backup
 			break 
+		# 2 => scheduled
 		elif time_2_backup == "2":
 			print "choose 2"
 			return time_2_backup
@@ -49,8 +52,8 @@ def immediate_or_scheduled_backup():
 	# time_2_backup = 1 => immediate, 2 => scheduled
 
 
-# User enters paths that they want to make backup
-# (borrow from AutoBackup-0.1)
+## User enters paths that they want to make backup
+#  (borrow from AutoBackup-0.1)
 def path_to_backup():
     prompt2 = """\
 ------------------------------------------------------------
@@ -87,17 +90,34 @@ def path_to_backup():
             pass
 
 
-
-# backup entire dir or select file with desired extension
+## backup entire dir or select file with desired extension
 def entire_or_extension_backup():
 	prompt3 = """\
 ------------------------------------------------------------
-# Please choose the way to backup files:
-  (1) Full backup => Backup the entire
-  (2) Selected backup
-  
+# Two way to backup files:
+  (1) Full backup => Backup(copy) the entire directories
+  (2) Selected backup => Enter the kinds of extension of file
+      you want to make backup, and separate them by SPACE
+      For example => *.c *.f *.ncl *.gs *.ctl
+
+# Please choose one (1/2) or press CTRL-C to quit.
 ------------------------------------------------------------"""
 	print_color(red, prompt3)
 
+	while True:
+		way_2_backup = raw_input(">")
+		# full backup
+		if way_2_backup == "1":
+			print "choose 1"
+			return way_2_backup
+		# selected backup
+		elif way_2_backup == "2":
+			print "choose 2"
+			return way_2_backup
+		else:
+			way2backup_try_again = "# Please try again"
+			print_color(gray,way2backup_try_again)
+	# return 1 => full backup, 2 => selected backup
+	# 
 
 
