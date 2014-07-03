@@ -59,7 +59,7 @@ def extens_input():
 
 # Find multiple extension in multiple path
 def find_multi_type_in_multi_dir\
-		(path_input,exten_input,data_base_name=".DataBase.txt"):
+		(path_input,exten_input,data_base_name=".sele_data_base.txt"):
 	"""
 	* Find multiple extension in multiple path
 

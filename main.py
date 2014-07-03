@@ -21,8 +21,9 @@ from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
 					    backup_location,\
                         entire_or_extension_backup
+from full_backup import locate_all_file_multi_dir
 from selected_backup import extens_input,\
-                            find_multi_type_in_multi_dir
+							find_multi_type_in_multi_dir 
 
 
 ### Part 0: Welcome message, project and author info
@@ -44,8 +45,7 @@ backup_loc = backup_location()
 # backup entire dir or select extension(value returned)
 backup_style = entire_or_extension_backup()
 if backup_style == "1": # 1 go to full backup
-	# (full_backup_function)
-	pass
+	locate_all_file_multi_dir(path_input)
 elif backup_style == "2": # 2 go to selected backup
 	exten_input = extens_input()
 	find_multi_type_in_multi_dir(path_input,exten_input)

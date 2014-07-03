@@ -3,7 +3,7 @@
 
 from sys import exit
 from shutil import *
-from os import *
+from os import walk
 from print_color import print_color
 
 ## colors
@@ -18,18 +18,9 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-
-path_dir = ["/work/hsushipei/Programming/python/Project",\
-            "/work/hsushipei/Programming/python/HardWay",\
-		   ]
-"""
-path_dir = ["/work/hsushipei/Programming/python/Project"]
-"""
-
-dest_dir = "/home/hsushipei/Backup/testing"
-
-def copy_entire_dir\
-         (sources_dir,dest_dir,data_base_name=".full_data_base.txt"):
+# 
+def locate_all_file_multi_dir\
+         (sources_dir,data_base_name=".full_data_base.txt"):
 	"""
 	Copy entire dirctory
 	
@@ -44,16 +35,18 @@ def copy_entire_dir\
 	print_color(blue,searching_prompt)
 	# create data base
 	data_base = open(data_base_name,"w")	
-
+	# core of full backup
 	for each_input_path in sources_dir:
 		for dir_path, sub_dir_name, file_list in walk(each_input_path):
 			for each_file in file_list:
-				print str(dir_path)+"/"+str(each_file)
-	
+				path_to_save = str(dir_path)+"/"+str(each_file)
+				data_base.write(path_to_save)
+				data_base.write("\n")
+	# data base is created
+	done_search = "# Data base is created!"
+	print_color(blue,done_search)
 	
 
-
-copy_entire_dir(path_dir,dest_dir)
 
 
 
