@@ -89,6 +89,42 @@ def path_to_backup():
             # 重新輸入吧！
             pass
 
+## Place to put backup
+def backup_location():
+    prompt4 = """\
+------------------------------------------------------------
+# Please enter the absolute path where you want to save the
+  backup files.
+------------------------------------------------------------"""
+    print_color(red, prompt4)
+
+    while True:
+        BkupPath = raw_input(">")
+        if os.path.exists(BkupPath):
+            return BkupPath
+        else:
+            backup_path_not_exi = "# Path %r doesn't exist!" %(BkupPath)
+            print_color(gray,backup_path_not_exi)
+            while True:
+                DirNotExistPrm = "# What will you do?\
+ 1)Create it! 2)Try another 3)Leave (1/2/3)"
+                print_color(red,DirNotExistPrm)
+                opt = raw_input(">")
+                if opt == "1":
+                    os.makedirs(BkupPath)
+                    dir_created = "# %r is created!" %(BkupPath)
+                    print_color(red,dir_created)
+                    return BkupPath
+                elif opt == "2":
+                    enter_again = "# Please enter the absolute path for backup location again!"
+                    print_color(red,enter_again)
+                    break
+                elif opt == "3":
+                    exit("# QUIT.")
+                else:
+                    bkup_loc_try_again = "# Please try again."
+                    print_color(red,bkup_loc_try_again)
+                    pass
 
 ## backup entire dir or select file with desired extension
 def entire_or_extension_backup():

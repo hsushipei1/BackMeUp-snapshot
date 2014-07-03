@@ -12,20 +12,20 @@ o Update Record:
 
 """
 
-
-## Import modules
+### Import modules 
 from os import system
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 
 from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
+					    backup_location,\
                         entire_or_extension_backup
 from selected_backup import extens_input,\
                             find_multi_type_in_multi_dir
 
 
-## Part 0: Welcome message, project and author info
+### Part 0: Welcome message, project and author info
 # Clear the terminal screen at startup
 system("clear")
 # Show the project and author info 
@@ -34,11 +34,13 @@ AuthrInfo()
 # Brief intro to BackMeUp?
 
 
-## Part 1: Backup configuration
+### Part 1: Backup configuration
 # Immediate or Schduled backup(value returned)
 immediate_or_scheduled_backup()
 # User enter the dirs that will backup
 path_input = path_to_backup()
+# where to save backup
+backup_loc = backup_location()
 # backup entire dir or select extension(value returned)
 backup_style = entire_or_extension_backup()
 if backup_style == "1": # 1 go to full backup
