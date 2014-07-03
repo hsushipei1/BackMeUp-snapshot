@@ -71,6 +71,9 @@ def find_multi_type_in_multi_dir\
                           will search  
 	exten_input => a LIST. File extensions you want this program to look for 
 	"""
+	# searching reminder
+	searching_prompt = "# Searching files and creating data base..."
+	print_color(blue,searching_prompt)	
 	# create data base
 	DataBase = open(data_base_name,"w")
 	# function core
@@ -91,5 +94,8 @@ def find_multi_type_in_multi_dir\
 						# for each loop
 						DataBase.write(ToBeSave_path)
 						DataBase.write("\n")
+	# data base is created
+	done_search = "# Data base is created!"
+	print_color(blue,done_search)
 
 
