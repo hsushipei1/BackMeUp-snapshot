@@ -18,16 +18,6 @@ white = "\033[1;37m"
 crimson = "\033[1;38m"
 
 def color_print(color,string):
-	return default =  "\033[0m"
-	return red =  "\33[31;1m"
-	return blue = "\33[34;1m"
-	return gray = "\033[1;30m"
-	return green = "\033[1;32m"
-	return yellow = "\033[1;33m"
-	return magenta = "\033[1;35m"
-	return cyan = "\033[1;36m"
-	return white = "\033[1;37m"
-	return crimson = "\033[1;38m"
 	return color+string+default
 
 print color_print(red,"HELLO")
