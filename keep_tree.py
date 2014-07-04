@@ -30,7 +30,7 @@ def keep_tree_ornot(backup_loc):
 	"""
 	tree_prompt = """\
 -----------------------------------------------------------
-# Do you want to keep the directory tree(relative path of 
+# Do you want to preserve the directory tree(relative path of 
   each file)
   (1) Keep it => Will copy the directory tree into the backup
   place => %r

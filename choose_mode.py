@@ -113,7 +113,7 @@ def backup_location():
                 if opt == "1":
                     os.makedirs(BkupPath)
                     dir_created = "# %r is created!" %(BkupPath)
-                    print_color(red,dir_created)
+                    print_color(blue,dir_created)
                     return BkupPath
                 elif opt == "2":
                     enter_again = "# Please enter the absolute path for backup location again!"
@@ -130,7 +130,7 @@ def backup_location():
 def entire_or_extension_backup():
 	prompt3 = """\
 ------------------------------------------------------------
-# Two way to backup files:
+# Two ways to backup files:
   (1) Full backup => Backup(copy) the entire directories
   (2) Selected backup => Enter the kinds of extension of file
       you want to make backup, and separate them by SPACE

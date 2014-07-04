@@ -76,8 +76,8 @@ def verify_user_inputs\
 @ Preserve directory tree or not 
 => %s
 
-# Please check them carefully. BackMeUp won't backup(copy)
-  anything before continue.
+# Please check them carefully. BackMeUp won't start copying
+  anything before you continue.
 # Insert "go" to continue or CTRL-C to quit.
 -----------------------------------------------------------"""\
  %(blue+str(immed_or_schedu_out)+default,\
