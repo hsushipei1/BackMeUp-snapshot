@@ -44,9 +44,11 @@ def extens_input():
 
 	while True:
 		FilExtIn = raw_input(">")
+		"""
 		# "FilExtIn" must not end with space, or additonal element(space) 
-		#  will be appended in the list because he string was separate
-		#  by space
+		   will be appended in the list because he string was separate
+		   by space
+		"""
 		if FilExtIn.endswith(" "): 
 			end_wi_space_msg = \
 			"""# Last character cannot be \"space\", please try again."""

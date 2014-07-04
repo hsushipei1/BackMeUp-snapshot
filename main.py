@@ -50,7 +50,10 @@ if backup_style == "1": # 1 go to full backup
 elif backup_style == "2": # 2 go to selected backup
 	exten_input = extens_input()
 	find_multi_type_in_multi_dir(path_input,exten_input)
-# keep dir tree(relative path)?
-keep_tree_ornot(backup_loc)
+# keep dir tree(relative path)?(value returned)
+keep_tree_value = keep_tree_ornot(backup_loc)
+
+
+##### Part 2: Verify user inputs
 
 

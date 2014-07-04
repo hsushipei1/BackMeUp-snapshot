@@ -19,6 +19,15 @@ white = "\033[1;37m"
 crimson = "\033[1;38m"
 
 def keep_tree_ornot(backup_loc):
+	"""
+	User will choose whether he/she will keep the dir tree or not
+
+	* Input
+	backup_loc => the path to store backup files.
+	
+	* Ouput
+	
+	"""
 	tree_prompt = """\
 -----------------------------------------------------------
 # Do you want to keep the directory tree(relative path of 
@@ -27,7 +36,28 @@ def keep_tree_ornot(backup_loc):
   place => %r
   (2) Dont keep it => All the backup directories and file will
   put in => %r
+
+# Please choose one. (1/2)
 -----------------------------------------------------------"""\
 	%(backup_loc,backup_loc)
 	print_color(red,tree_prompt)
+
+	while True:
+		tree_input = raw_input(">")
+		if tree_input == "1":
+			tree_opt_chose1 = "# 1 is chosen, keep tree."
+			print tree_opt_chose1
+			return tree_input
+		elif tree_input == "2":
+			tree_opt_chose2 = "2 is chosen, do not keep tree."
+			print tree_opt_chose2
+			return tree_input
+		else:
+			tree_opt_try_again = "# Please try again."
+			print_color(gray,tree_opt_try_again)
+
+
+
+
+
 
