@@ -1,11 +1,3 @@
-/work/hsushipei/Programming/python/Project/BackMeUp/AuthrInfo.py
-/work/hsushipei/Programming/python/Project/BackMeUp/keep_tree.py
-/work/hsushipei/Programming/python/Project/BackMeUp/Project_info.py
-/work/hsushipei/Programming/python/Project/BackMeUp/choose_mode.py
-/work/hsushipei/Programming/python/Project/BackMeUp/full_backup.py
-/work/hsushipei/Programming/python/Project/BackMeUp/print_color.py
-/work/hsushipei/Programming/python/Project/BackMeUp/main.py
-/work/hsushipei/Programming/python/Project/BackMeUp/selected_backup.py
 /work/hsushipei/Programming/python/Project/BackMeUp/testing/testing-BIF_glob_one_path_one_ext.py
 /work/hsushipei/Programming/python/Project/BackMeUp/testing/testing-BIF_walk.py
 /work/hsushipei/Programming/python/Project/BackMeUp/testing/testing-global_var.py

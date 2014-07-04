@@ -4,7 +4,6 @@
 from os import walk, chdir
 from glob import glob
 from sys import exit
-
 from print_color import print_color
 
 """
