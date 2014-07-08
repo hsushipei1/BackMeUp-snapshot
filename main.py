@@ -26,7 +26,7 @@ from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
 from keep_tree import keep_tree_ornot
 from verify_inputs import verify_user_inputs
-from copy_via_database import start_copying
+from start_copy_via_database import copying_keep_tree
 
 ##### Part 0: Welcome message, project and author info
 # Clear the terminal screen at startup
