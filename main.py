@@ -4,7 +4,7 @@
 """
 BackMeUp Project
 
-o Version：1.0dev-2014-07-02
+o Version：1.0dev
 o Author: HsuShiPei(徐世裴) (hsushipei1@gmail.com)
 o Features: 
 o Program Flow Chart:
@@ -36,7 +36,6 @@ ProjInfo()
 AuthrInfo()
 # Brief intro to BackMeUp?
 
-
 ##### Part 1: Backup configuration
 # Immediate or Schduled backup(value returned)
 immed_or_schedu = immediate_or_scheduled_backup()
@@ -54,7 +53,6 @@ elif backup_style == "2": # 2 go to selected backup
 	find_multi_type_in_multi_dir(path_input,exten_input)
 # keep dir tree(relative path)?(value returned)
 keep_tree_value = keep_tree_ornot(backup_loc)
-
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\
