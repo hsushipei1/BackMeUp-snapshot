@@ -65,7 +65,6 @@ if backup_style == "1": # full backup
 elif backup_style == "2": # selected backup
 	data_base_in_file = ".sele_data_base.txt"
 # start copying. read data base and backup path
-print path.isfile(data_base_in_file)
 copying_keep_tree(data_base_in_file,backup_loc)
 
 

@@ -1,7 +1,7 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
 
-from os import walk, chdir
+from os import walk, chdir, getcwd
 from glob import glob
 from sys import exit
 from print_color import print_color
@@ -76,7 +76,13 @@ def find_multi_type_in_multi_dir\
 	searching_prompt = "# Searching files and creating data base..."
 	print_color(blue,searching_prompt)	
 	# create data base
-	DataBase = open(data_base_name,"w")
+	DataBase = open(data_base_name,"w+")
+	
+	# Get path of "./" Because I use "chdir" in loop below for traversing
+	# into sub-directories, I need to go back to "./" after finish searching
+	# files.
+	pwd_path = getcwd()
+
 	# function core
 	for path in path_input:
 		# print path
@@ -99,6 +105,9 @@ def find_multi_type_in_multi_dir\
 	done_search = "# Data base is created!"
 	print_color(blue,done_search)
 	
+	# Go back to "./"
+	chdir(pwd_path)
+
 	# close the opened file
 	DataBase.close()
 

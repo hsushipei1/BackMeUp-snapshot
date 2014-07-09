@@ -50,7 +50,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 	print "Done copying files!"
 
 ## testing the "copy_keep_tree"
-copying_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
+#copying_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
 
 def copying_dont_keep_tree(data_base_in,backup_loc):
     """
