@@ -9,6 +9,11 @@ from sys import exit
 def copying_keep_tree(data_base_in,backup_loc):
 	"""
 	Start copying, with directory tree preserved.
+
+	*Inputs
+	data_base_in => File name of the data base of either full or 
+					selected backup
+	backup_loc => path to store the backup files
 	"""
 	# read data base
 	data_base = open(data_base_in)
@@ -22,12 +27,15 @@ def copying_keep_tree(data_base_in,backup_loc):
 
 		# Copy the directory tree. "makedirs" is same as "mkdir -p"
 		if isdir(backup_loc_dirs):
-			print "exist"
+			print "%r\n exist" %(backup_loc_dirs)
 		else:
-			print "Not exist"
-			print backup_loc_dirs
+			print "%r\n Not exist, but is created!" %(backup_loc_dirs)
 			makedirs(backup_loc_dirs)
-			
+		
+		# copy files into dir tree "backup_loc_dirs"
+		print "copying %r" %(per_path_input)	
+		copy2(per_path_input,backup_loc_dirs)
+
 
 
 copying_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
