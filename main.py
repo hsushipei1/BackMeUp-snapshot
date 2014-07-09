@@ -26,7 +26,8 @@ from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
 from keep_tree import keep_tree_ornot
 from verify_inputs import verify_user_inputs
-from start_copy_via_database import copying_keep_tree
+from start_copy_via_database import copying_keep_tree,\
+									copying_dont_keep_tree
 
 ##### Part 0: Welcome message, project and author info
 # Clear the terminal screen at startup
@@ -64,8 +65,12 @@ if backup_style == "1": # full backup
 	data_base_in_file = ".full_data_base.txt"
 elif backup_style == "2": # selected backup
 	data_base_in_file = ".sele_data_base.txt"
-# start copying. read data base and backup path
-copying_keep_tree(data_base_in_file,backup_loc)
+# Start copying. read data base and backup path
+# decide to preserve directory tree or not
+if keep_tree_value == "1": # keep dir tree
+	copying_keep_tree(data_base_in_file,backup_loc)
+elif keep_tree_value == "2": # do not keep dir tree
+    copying_dont_keep_tree(data_base_in_file,backup_loc)
 
 
 #==================== Under development 2014-07-09 ==================
