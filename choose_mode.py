@@ -37,14 +37,14 @@ def immediate_or_scheduled_backup():
 		time_2_backup = raw_input(">")
 		# 1 => immediate
 		if time_2_backup == "1": 
-			print "choose immediate backup, continue"
+			chose_immed_backup_msg = "# You chose immediate backup."
+			print_color(blue,chose_immed_backup_msg)
 			return time_2_backup
-			break 
 		# 2 => scheduled
 		elif time_2_backup == "2":
-			print "choose schduled backup,<jump to configure.py>"
+			chose_sched_backup_msg = "# You chose scheduled backup."
+			print_color(blue,chose_sched_backup_msg)
 			return time_2_backup
-			break
 		else:
 			time2backup_try_again = "# Please try again"
 			print_color(gray,time2backup_try_again)

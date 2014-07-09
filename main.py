@@ -21,6 +21,7 @@ from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
 					    backup_location,\
                         entire_or_extension_backup
+from configure import configure_scheduled
 from full_backup import locate_all_file_multi_dir
 from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
@@ -40,6 +41,10 @@ AuthrInfo()
 ##### Part 1: Backup configuration
 # Immediate or Schduled backup(value returned)
 immed_or_schedu = immediate_or_scheduled_backup()
+if immed_or_schedu == "1": # immediate backup, continue
+	pass
+elif immed_or_schedu == "2": # schedule backup, jump to configure
+	configure_scheduled()
 # User enter the dirs that will backup
 path_input = path_to_backup()
 # where to save backup
