@@ -98,5 +98,7 @@ def find_multi_type_in_multi_dir\
 	# data base is created
 	done_search = "# Data base is created!"
 	print_color(blue,done_search)
-
+	
+	# close the opened file
+	DataBase.close()
 

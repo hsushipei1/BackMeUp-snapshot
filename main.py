@@ -13,7 +13,7 @@ o Update Record:
 """
 
 ##### Import modules 
-from os import system
+from os import system, path
 from Project_info import ProjInfo
 from AuthrInfo import AuthrInfo
 
@@ -58,10 +58,18 @@ keep_tree_value = keep_tree_ornot(backup_loc)
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\
 	backup_style,exten_input,keep_tree_value)
 
-##### Part 3: Start backup(copying)
-start_copying()
+##### Part 3: Start backup(copying): full or sele / keep tree or not
+# Decide which data base to read from "backup_style"
+if backup_style == "1": # full backup
+	data_base_in_file = ".full_data_base.txt"
+elif backup_style == "2": # selected backup
+	data_base_in_file = ".sele_data_base.txt"
+# start copying. read data base and backup path
+print path.isfile(data_base_in_file)
+copying_keep_tree(data_base_in_file,backup_loc)
 
-#==================== Under development 2014-07-04 ==================
+
+#==================== Under development 2014-07-09 ==================
 
 
 
