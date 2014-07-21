@@ -32,7 +32,7 @@ def configure_scheduled():
 
 	# Quit after configuration. Do not go back to main.py again
 	end_of_configure = """\
-# You finished setting configure script. Backup will start automatically by the time you've set."""
+# You finished setting configure script. Backup will start automatically at the time you've set."""
 	print_color(blue,end_of_configure)
 	exit()
 

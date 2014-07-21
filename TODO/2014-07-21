@@ -1,0 +1,33 @@
+
+TODO 2014-07-21
+
+o Two new features are added, i.e. "backup tagging" and "checking pre-exist back  up file"
+  
+  * Backup tagging: add additional tags to the name of the copyed directory to 
+    distinguish with oringinal directory. 
+	(e.g. research => research_backup)
+
+  * Checking pre-exist backup file: If there are pre-exist files in the backup
+	location and have identical name to the to-be-backup files, BackMeUp will 
+	show the name, size, and the last modified time of these files. Then will 
+	ask the user whether he/she want to continue(start copying) or not(quit).
+  
+o Update(add the two features mentioned above) the structure flow of BackMeUp 
+  to Ver5 2014-07-
+
+o For the flow structure of scheduled backup, 
+  1) user chose scheduled backup
+  2) move to configure.py (from main.py)
+  3) user sets up directories and backup styles in configure.py just the same
+	 as main.py does.
+  4) configure.py will store all the variables (using pickle) in ascii files.
+  5) Using python-crontab to set the schedule. (Crontab will start copying
+     at the time which user set.)
+
+o The file name of the database must be different between immediate backup
+  and scheduled backup, like, ".sele_data_base_imme.txt" and 
+  ".sele_data_base_sched.txt" ....(because, for example, one sets up a scheduled
+  backup of selected backup, BackMeUp will generate a database named
+   ".sele_data_base.txt". What if he now wants to make a immediate backup of
+  selected backup of different directories. The ".sele_data_base.txt" will
+  be refreshed by immediate backuo and lead to incorrect scheduled backup.)
