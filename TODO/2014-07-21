@@ -1,6 +1,19 @@
 
 TODO 2014-07-21
 
+=== Concise version ===
+
+o Create two module: "backup tagging" and "checking pre-exist backup file"
+
+o Update the flow strcture of BackMeUp(to ver 5)
+
+o The flow strcuture of scheduled backup is established.(See below for details)
+
+o The file name of the database must be different between immediate backup
+  and scheduled backup.
+
+=== Detailed version ===
+
 o Two new features are added, i.e. "backup tagging" and "checking pre-exist back  up file"
   
   * Backup tagging: add additional tags to the name of the copyed directory to 
