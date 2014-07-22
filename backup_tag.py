@@ -41,18 +41,70 @@ def backup_tagging():
 
 # The default backup tag is "%s"
   You can customize the tag later on if you'd like to! 
-  Will you want to add a backup tag? (1)Yes. (2)No
+  Do you want to add a backup tag? (1)Yes. (2)No
 -----------------------------------------------------------"""\
   %(blue+str(default_tag)+red)
 	print_color(red, backup_tag_prompt)
 
 	while True:
-		backup_tag_opt = raw_input(">")
-		# Chose default tag, return it right away
-		if backup_tag_opt == "1":
-			return default_tag 
-		# Customize the tag
-		elif backup_tag_opt == "2":
+		backup_tag_ornot = raw_input(">")
+		# Dont want tag
+		if backup_tag_ornot == "2":
+			no_tag_msg = "# You don't want to use a backup tag."
+			print_color(blue,no_tag_msg)
+			break
+		# Want a tag
+		if backup_tag_ornot == "1":
+			need_tag_msg = "# You want to use a backup tag."
+			print_color(blue,need_tag_msg)
+			
+			default_or_custom_msg = """\
+-----------------------------------------------------------
+# What do you want to do?
+(1) Use the default tag "%s"
+(2) I want to customize it
+-----------------------------------------------------------"""\
+			%(blue+str(default_tag)+red)
+			print_color(red, default_or_custom_msg)
+
+			while True:
+				backup_tag_opt = raw_input(">")
+				# Chose default tag, return it right away
+				if backup_tag_opt == "1":
+					chose_default_tag = "# You chose to use the default tag \"%s\"."\
+										%(default_tag)
+					print_color(blue,chose_default_tag)
+					return default_tag 
+				# Want to customize the tag
+				elif backup_tag_opt == "2":
+					chose_customize_tag = "# You want to customize the backup tag."
+					print_color(blue,chose_customize_tag)
+
+					# Tips for showing date in customization
+					tip_date_in_custom = \
+					"If you want the date to be shown in your customization\n\
+  , you can enter \"$DATE\" at any place you want."
+					# keyword for date in customization
+					date_keyword = "$DATE"
+
+					# Prompt for customizing the tag
+					customize_tag_prompt = """\
+-----------------------------------------------------------
+# Please enter the tag you desired
+* %s
+-----------------------------------------------------------"""\
+					%(blue+tip_date_in_custom+red)
+					print_color(red,customize_tag_prompt)
+					
+					while True:
+						customized_tag = raw_input(">")		
+						if date_keyword in customized_tag:
+							print "2"
+							return default_tag
+				else:
+					backup_tag_opt_try_again = "# Please try again!"
+					print_color(gray,backup_tag_opt_try_again)
+
 
 
 ### Testing the function

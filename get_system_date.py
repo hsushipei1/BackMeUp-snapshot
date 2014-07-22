@@ -14,4 +14,3 @@ def get_system_date():
 	return sys_date
 
 
-print get_system_date()
