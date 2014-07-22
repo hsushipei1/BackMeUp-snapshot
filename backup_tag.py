@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 from print_color import print_color
+from get_system_date import get_system_date
 
 ## colors
 default =  "\033[0m"
@@ -24,28 +25,36 @@ def backup_tagging():
 
 	"""
 
-### "get_system_time" function
+	# Get system date. Return a list, contains year, month, and day
+	sys_time = get_system_date()
 
-	default_tag = "_backup_"+ #time returned from "get_system_time"
+	# Default tag
+	default_tag = "_backup_"+sys_time[0]+sys_time[1]+sys_time[2]
 
-	bakup_tag_prompt = """\
+	backup_tag_prompt = """\
 -----------------------------------------------------------
-# Would you like to add a backup tag following the name?
-  The default tag is: "_backup_<date>" 
-  (For example, the original name of the directory is 
+# To distinguish the original and the backup directories,
+  BackMeUp offers a backup tag.
+  For example, the original name of the directory is 
   "research", and a default tag "_backup_<date>" is added, 
-  so becomes , like, "research_backup_20140722".)
+  so becomes , like, "research_backup_20140722".
 
-# You can customize the tag later on! 
-  Will you want to add it? (1)Yes. (2)No
------------------------------------------------------------"""
-	print_color(red, bakup_tag_prompt)
+# The default backup tag is "%s"
+  You can customize the tag later on if you'd like to! 
+  Will you want to add a backup tag? (1)Yes. (2)No
+-----------------------------------------------------------"""\
+  %(blue+str(default_tag)+red)
+	print_color(red, backup_tag_prompt)
 
 	while True:
 		backup_tag_opt = raw_input(">")
-
+		# Chose default tag, return it right away
+		if backup_tag_opt == "1":
+			return default_tag 
+		# Customize the tag
+		elif backup_tag_opt == "2":
 
 
 ### Testing the function
-#backup_tagging()
+backup_tagging()
 
