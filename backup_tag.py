@@ -83,9 +83,9 @@ def backup_tagging():
 					# Tips for showing date in customization
 					tip_date_in_custom = \
 					"If you want the date to be shown in your customization\n\
-  , you can enter \"$DATE\" at any place you want."
+  , you can enter \"DATE\" at any place you want."
 					# keyword for date in customization
-					date_keyword = "$DATE"
+					date_keyword = "DATE"
 
 					# Prompt for customizing the tag
 					customize_tag_prompt = """\
@@ -97,8 +97,15 @@ def backup_tagging():
 					print_color(red,customize_tag_prompt)
 					
 					while True:
-						customized_tag = raw_input(">")		
+						# customized backup tag
+						customized_tag = raw_input(">")
+						# user want date to be shown in their customization
 						if date_keyword in customized_tag:
+						
+
+######### Trying to replace DATE with real date
+	
+							#customized_tag
 							print "2"
 							return default_tag
 				else:
