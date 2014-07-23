@@ -74,6 +74,8 @@ def backup_tagging():
 					chose_default_tag = "# You chose to use the default tag \"%s\"."\
 										%(default_tag)
 					print_color(blue,chose_default_tag)
+###################  Test print, remember to delete it
+					print default_tag 
 					return default_tag 
 				# Want to customize the tag
 				elif backup_tag_opt == "2":
@@ -99,15 +101,31 @@ def backup_tagging():
 					while True:
 						# customized backup tag
 						customized_tag = raw_input(">")
-						# user want date to be shown in their customization
+						# Customize with keyword, DATE
 						if date_keyword in customized_tag:
 						
-
-######### Trying to replace DATE with real date
+							
+			################ test print
+							print "with DATE in customization"
+							print "Tag= "+customized_tag
 	
-							#customized_tag
-							print "2"
+							# The value of keyword, DATE
+							date_keyword = sys_time[0]+sys_time[1]+sys_time[2]
+			################# test print 
+							print "Today => "+str(date_keyword)
+							# Replace string, "DATE" with real date value
+							customized_tag_with_date = customized_tag.replace("DATE",date_keyword)
+			################ test print
+							print "customized tag w/ date =>"+customized_tag_with_date
+							
 							return default_tag
+						# Customization without keyword, "DATE"
+						else:
+							print "customization without DATE"
+							print "customized tag w/o date =>"+customized_tag
+							return customized_tag
+						
+
 				else:
 					backup_tag_opt_try_again = "# Please try again!"
 					print_color(gray,backup_tag_opt_try_again)

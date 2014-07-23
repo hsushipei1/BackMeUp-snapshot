@@ -1,11 +1,17 @@
+#!~/Software/python-stack/bin/python
 
+from sys import exit
 
-customize = "backup_DATE_ok"
+"""
+Use the string method "replace" to replace words in string with 
+things you like
+"""
 
-print customize
+original = "backup_DATE_ok"
+print original
 
 new_DATE = "20140723"
 
-customize2 = customize.replace(DATE,new_DATE)
+modified = original.replace("DATE",new_DATE)
 
-print customize2
+print modified
