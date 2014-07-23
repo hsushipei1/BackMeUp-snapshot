@@ -74,8 +74,7 @@ def backup_tagging():
 					chose_default_tag = "# You chose to use the default tag \"%s\"."\
 										%(default_tag)
 					print_color(blue,chose_default_tag)
-###################  Test print, remember to delete it
-					print default_tag 
+					# Return it
 					return default_tag 
 				# Want to customize the tag
 				elif backup_tag_opt == "2":
@@ -84,8 +83,8 @@ def backup_tagging():
 
 					# Tips for showing date in customization
 					tip_date_in_custom = \
-					"If you want the date to be shown in your customization\n\
-  , you can enter \"DATE\" at any place you want."
+					"* If you want the date to be shown in your customization\n\
+  , you can enter the keyword \"DATE\" at any place you want."
 					# keyword for date in customization
 					date_keyword = "DATE"
 
@@ -93,7 +92,7 @@ def backup_tagging():
 					customize_tag_prompt = """\
 -----------------------------------------------------------
 # Please enter the tag you desired
-* %s
+%s
 -----------------------------------------------------------"""\
 					%(blue+tip_date_in_custom+red)
 					print_color(red,customize_tag_prompt)
@@ -101,31 +100,26 @@ def backup_tagging():
 					while True:
 						# customized backup tag
 						customized_tag = raw_input(">")
-						# Customize with keyword, DATE
+						# Customize with "DATE"
 						if date_keyword in customized_tag:
-						
-							
-			################ test print
-							print "with DATE in customization"
-							print "Tag= "+customized_tag
-	
 							# The value of keyword, DATE
 							date_keyword = sys_time[0]+sys_time[1]+sys_time[2]
-			################# test print 
-							print "Today => "+str(date_keyword)
 							# Replace string, "DATE" with real date value
 							customized_tag_with_date = customized_tag.replace("DATE",date_keyword)
-			################ test print
-							print "customized tag w/ date =>"+customized_tag_with_date
-							
+							# Show the user's final result of tag customization	
+							show_customize_with_DATE = \
+								"# Your customization=> \"%s\"" %(customized_tag_with_date)
+							print_color(blue,show_customize_with_DATE)
+							# Return it
 							return default_tag
 						# Customization without keyword, "DATE"
 						else:
-							print "customization without DATE"
-							print "customized tag w/o date =>"+customized_tag
+							show_customize_without_DATE = \
+                                "# Your customization=> \"%s\"" %(customized_tag)
+							print_color(blue,show_customize_without_DATE)
+							# Return it
 							return customized_tag
-						
-
+				# For the option of using default tag or customizing it
 				else:
 					backup_tag_opt_try_again = "# Please try again!"
 					print_color(gray,backup_tag_opt_try_again)
