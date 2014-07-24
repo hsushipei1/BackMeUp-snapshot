@@ -11,3 +11,4 @@ o Develope the configure script for scheduled backup.
 o Update the BackMeUp website(ver0.1). Add a menu wich contains current 
   development process, documentation, screenshots, author_info, and roadmap.
 
+o Add "backup tag" and "checking pre-exist backup file" into main.py
