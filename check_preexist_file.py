@@ -14,3 +14,13 @@ def check_preexist_file():
 #######     and convert the time with time.strftime()
 #########     os.path.getsize(file) to get the file size
 #########
+
+#########                        NOTICE                 
+########## Will move this part into "start_copy_via_database.py"
+###         The way to check for the pre-exist file:
+###         By the time BackMeUp reads each path from the database,
+###         check whether the file is already exist, and then start
+###         copying.
+
+
+
