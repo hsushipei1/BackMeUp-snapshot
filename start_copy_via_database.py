@@ -25,6 +25,11 @@ def copying_keep_tree(data_base_in,backup_loc):
 		# backup_loc_dirs: paths of the already-backup directories
 		backup_loc_dirs = dirname(backup_loc+per_path_input)
 
+		##### Checking pre-existing file part
+		print backup_loc_dirs     # bak_loc+src_loc: dir need to be searched
+		print per_path_input      # file that will copy
+		exit("quit for testing")
+
 		""" <REMINDER>
 		What if the directory is already exist? Should I show msg?
 		"""
@@ -50,7 +55,9 @@ def copying_keep_tree(data_base_in,backup_loc):
 	print "Done copying files!"
 
 ## testing the "copy_keep_tree"
-#copying_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
+copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
+
+############ Section above is under development ######################
 
 def copying_dont_keep_tree(data_base_in,backup_loc):
     """
@@ -75,4 +82,4 @@ def copying_dont_keep_tree(data_base_in,backup_loc):
     print "Done copying files!"
 	
 ## testing the "copy_keep_tree"
-#copying_dont_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
+#copying_dont_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
