@@ -26,34 +26,28 @@ def copying_keep_tree(data_base_in,backup_loc):
 		backup_loc_dirs = dirname(backup_loc+per_path_input)
 		# backup_loc_files: paths of the already-backup "files"
 		backup_loc_files = backup_loc+per_path_input
+		# File name of each file in the database
+		backup_file_name = basename(per_path_input)
 
-		#######################################
-		##### Checking pre-existing file part
-		#print backup_loc_dirs     # bak_loc+src_loc: dir need to be searched
-		#print per_path_input      # file that will copy
-		
+		### Checking Pre-existing file section
 		# Copy the directory tree. "makedirs" is same as "mkdir -p"
 		# If the "backup_loc_dirs" is already exist
 		if isdir(backup_loc_dirs):
-			print "%r\n exist" %(backup_loc_dirs)
+			##print "%r\n exist" %(backup_loc_dirs)
 			if isfile(backup_loc_files):
-				print "File %r is already exist! What to do?" %(basename(per_path_input))
+				print "File %r is already exist!" %(backup_file_name)
 				pass
 			else:
 				print "File %r isnt exist!" %(basename(per_path_input)) 
+				pass
 		else:
-			print "%r\n Not exist, but is created!" %(backup_loc_dirs)
+			##print "%r\n Not exist, but is created!" %(backup_loc_dirs)
 			makedirs(backup_loc_dirs)
 
-		""" <REMINDER>
-		Is it neccessary to check before copying that the previous
-		backup file is exist, newer, older or...?? and should i also 
-		check for the "backup_loc_dirs" ??
-		"""
 		
 		# copy files into dir tree "backup_loc_dirs"
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
-		#copy2(per_path_input,backup_loc_dirs)
+		copy2(per_path_input,backup_loc_dirs)
 
 	print "Done copying files!"
 
