@@ -3,7 +3,7 @@
 
 from shutil import copy2
 from posixpath import *
-from os import path, makedirs
+from os import path, makedirs, chdir
 from sys import exit
 
 def copying_keep_tree(data_base_in,backup_loc):
@@ -18,39 +18,54 @@ def copying_keep_tree(data_base_in,backup_loc):
 	# read data base
 	data_base = open(data_base_in)
 
+	# Lists to store paths of files that are exist/not exist
+	preexist_paths = []
+	not_preexist_paths = []
+
 	# read and handle each path(file)	
 	for per_line in data_base:
 		per_path_input = per_line.rstrip()  # drop the "\n"
 
-		# backup_loc_dirs: paths of the already-backup directories
+		# backup_loc_dirs: paths of the already-backup "directories"
 		backup_loc_dirs = dirname(backup_loc+per_path_input)
+		# backup_loc_files: paths of the already-backup "files"
+		backup_loc_files = backup_loc+per_path_input
+		# File name of each file in the database
+		backup_file_name = basename(per_path_input)
 
-		""" <REMINDER>
-		What if the directory is already exist? Should I show msg?
-		"""
-
+		### Checking Pre-existing file section
 		# Copy the directory tree. "makedirs" is same as "mkdir -p"
+		# If the "backup_loc_dirs" is already exist
 		if isdir(backup_loc_dirs):
-			#print "%r\n exist" %(backup_loc_dirs)
-			pass
+			if isfile(backup_loc_files):
+				# File is already exist in backup location
+				print "File %r is already exist!" %(backup_file_name)
+				# Append path to the list
+				preexist_paths.append(per_path_input)
+			elif not isfile(backup_loc_files):
+				# File isnt there.
+				print "File %r isnt exist!" %(backup_file_name) 
+				# Append path to the list
+				not_preexist_paths.append(per_path_input)
 		else:
-			#print "%r\n Not exist, but is created!" %(backup_loc_dirs)
 			makedirs(backup_loc_dirs)
 
-		""" <REMINDER>
-		Is it neccessary to check before copying that the previous
-		backup file is exist, newer, older or...?? and should i also 
-		check for the "backup_loc_dirs" ??
-		"""
 		
 		# copy files into dir tree "backup_loc_dirs"
-		print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
-		copy2(per_path_input,backup_loc_dirs)
+		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
+		#copy2(per_path_input,backup_loc_dirs)
 
 	print "Done copying files!"
+	
+	#### testing 
+	print "Pre-exist path %r" %(preexist_paths)
+	print " "
+	print "not pre-exist path %r" %(not_preexist_paths)
 
 ## testing the "copy_keep_tree"
-#copying_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
+copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
+
+############ Section above is under development ######################
 
 def copying_dont_keep_tree(data_base_in,backup_loc):
     """
@@ -75,4 +90,4 @@ def copying_dont_keep_tree(data_base_in,backup_loc):
     print "Done copying files!"
 	
 ## testing the "copy_keep_tree"
-#copying_dont_keep_tree(".sele_data_base.txt","/home/hsushipei/TESFDVDF")
+#copying_dont_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
