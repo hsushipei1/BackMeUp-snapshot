@@ -50,6 +50,11 @@ def copying_keep_tree(data_base_in,backup_loc):
 		else:
 			makedirs(backup_loc_dirs)
 
+
+##############    NOTE    #############
+#### For the paths that are in preexist_paths will be assign into function
+#### 	"handle_preex_file" to let user to make a decision (overwrite, or not)
+#### For the files that are not pre-exist, start copying after the list is est.
 		
 		# copy files into dir tree "backup_loc_dirs"
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
