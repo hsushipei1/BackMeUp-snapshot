@@ -41,6 +41,13 @@ def copying_keep_tree(data_base_in,backup_loc):
 		backup_file_name = basename(per_path_input)
 
 		### Checking Pre-existing file section
+
+############          NOTE ON 2014-07-27
+##################### NO LONGER NEED TAG FOR PRE-EXISTING FILE
+############## JUST CHECK WHETHER THE FILE IS PRE-EXIST OR NOT AND THEN
+#############  SEPARATE THEM INTO TWO LISTS LIKE /testing/loop_store_list.py
+##############  does.
+
 		# Copy the directory tree. "makedirs" is same as "mkdir -p"
 		# If the "backup_loc_dirs" is already exist
 		if isdir(backup_loc_dirs):
