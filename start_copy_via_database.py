@@ -20,7 +20,18 @@ def copying_keep_tree(data_base_in,backup_loc):
 
 	# read and handle each path(file)	
 	for per_line in data_base:
-		per_path_input = per_line.rstrip()  # drop the "\n"
+		per_path = per_line.rstrip()  # drop the "\n"
+
+		# Data format in data_base: "T,"+abs_path, (that's the var per_path)
+		#	e.g. T,/home/jack/backup.c
+		#	"T" is a tag designed for checking pre-exist file.
+
+		# * "per_path_preex_tag" is the tag mentioned above.
+		#	The meaning of the tag will be explained later.
+		# * "per_path_input" is abs path for the file user wants to copy
+		per_path_separ = per_path.split(",")
+		per_path_input = per_path_separ[1]
+		per_path_preex_tag = per_path_separ[0]
 
 		# backup_loc_dirs: paths of the already-backup "directories"
 		backup_loc_dirs = dirname(backup_loc+per_path_input)
@@ -35,10 +46,10 @@ def copying_keep_tree(data_base_in,backup_loc):
 		if isdir(backup_loc_dirs):
 			##print "%r\n exist" %(backup_loc_dirs)
 			if isfile(backup_loc_files):
-				print "File %r is already exist!" %(backup_file_name)
+				#print "File %r is already exist!" %(backup_file_name)
 				pass
 			else:
-				print "File %r isnt exist!" %(basename(per_path_input)) 
+				#print "File %r isnt exist!" %(backup_file_name) 
 				pass
 		else:
 			##print "%r\n Not exist, but is created!" %(backup_loc_dirs)
@@ -47,7 +58,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 		
 		# copy files into dir tree "backup_loc_dirs"
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
-		copy2(per_path_input,backup_loc_dirs)
+		#copy2(per_path_input,backup_loc_dirs)
 
 	print "Done copying files!"
 
