@@ -98,11 +98,8 @@ def find_multi_type_in_multi_dir\
 						# print DirPath+"/"+EachFileSamDir
 						ToBeSave_path = DirPath+"/"+EachFileSamDir
 						# Store the output(abs path) into DataBase
-						#	output format: "T,"+abs_path, "T" is a tag
-						#	designed for checking pre-exist file.
-						#	e.g. T,/home/jack/backup.c
 						# for each loop
-						DataBase.write("T,"+ToBeSave_path)
+						DataBase.write(ToBeSave_path)
 						DataBase.write("\n")
 	# data base is created
 	done_search = "# Data base is created!"

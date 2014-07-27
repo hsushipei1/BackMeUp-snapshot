@@ -18,7 +18,8 @@ for each_path in data:
 	if each_path_split[0] == "T":
 		true_one.append(each_path_split[1])
 		print "Detect a True one."
-	elif each_path_split[0] == "F":
+	else:
+	#elif each_path_split[0] == "F":
 		false_one.append(each_path_split[1])
 		print "Detect a False one."
 
