@@ -1,11 +1,14 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
 
-from os import path
+from os import path,stat
 from posixpath import *
+from sys import exit
+
 from print_color import print_color
 from readable_size_convt import readable_format
-from sys import exit
+from get_last_modified_time import get_last_modified_time
+
 
 ## colors
 default =  "\033[0m"
@@ -48,10 +51,11 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
 	# Printing all the file at once.
-	print_all_preex_prmp = """\
-------------------------------------------------------------
-# The following files are already exist in the backup location.\n"""
-	print_color(red,print_all_preex_prmp)
+	print_all_preex_prmp_begin = """\
+==============================================================
+# The following files are already exist in the backup location.
+=============================================================="""
+	print_color(red,print_all_preex_prmp_begin)
 
 	# Give serial number to the files
 	n = 0
@@ -71,6 +75,56 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 				 # Get the backup loc of preexist file from index
 		print output_file_info_atOnce
 		n = n + 1
+
+	print_all_preex_prmp_end = """\
+
+# Total= %s
+
+# Press ENTER to Continue.""" %(str(n))
+	print_color(red,print_all_preex_prmp_end)
+
+	cont1 = raw_input(" ")
+
+	### Ask what to do file by file.
+	print_one_by_one_prmp_begin = """\
+==============================================================
+# Now, BackMeUp will ask what will user do file by file.
+=============================================================="""
+	print_color(red,print_one_by_one_prmp_begin)
+
+	# Give serial number to the files
+	m = 0
+	for each_preex_path in preexist_lists:
+		# Get the "file name" in path
+		file_name_from_preex_path = basename(each_preex_path)
+		# Get the path of the original directory of the file
+		original_dir_path = dirname(each_preex_path)
+		# Get the file size and convert into human readable format
+		file_size_not_readable = getsize(each_preex_path)
+		file_size = readable_format(file_size_not_readable)
+		# Get the last modified time
+		last_modif_time = get_last_modified_time(each_preex_path)
+		while True:
+			each_file_prmp = """\
+# The %sth pre-exist file found,
+* Name= "%s"
+* Size= "%s"
+* Last modified= "%s"
+* Original place= "%s"
+# This file is already exist in its backup location,
+  "%s"
+
+# Will you overwrite? (1)Yes (2)No (3)Yes to all (4)No to all (5)Rename
+
+""" %(blue + str(m) + red,\
+		blue + file_name_from_preex_path,file_size + red,\
+		blue + last_modif_time + red,\
+		blue + original_dir_path + red,\
+		blue + preexist_backup_loc_lists[m]+red)
+			print_color(red,each_file_prmp)
+			opt = raw_input(">")
+
+		m = m + 1
 
 
 

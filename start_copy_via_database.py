@@ -74,7 +74,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 	print "Done copying files!"
 	
 	#### testing 
-	print "Pre-exist path %r" %(preexist_lists)
+	#print "Pre-exist path %r" %(preexist_lists)
 	#print " "
 	#print "not pre-exist path %r" %(not_preexist_lists)
 	#print " "
