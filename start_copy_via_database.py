@@ -5,6 +5,7 @@ from shutil import copy2
 from posixpath import *
 from os import path, makedirs, chdir
 from sys import exit
+from handle_preexist import handle_preex_file
 
 def copying_keep_tree(data_base_in,backup_loc):
 	"""
@@ -19,8 +20,8 @@ def copying_keep_tree(data_base_in,backup_loc):
 	data_base = open(data_base_in)
 
 	# Lists to store paths of files that are exist/not exist
-	preexist_paths = []
-	not_preexist_paths = []
+	preexist_lists = []
+	not_preexist_lists = []
 
 	# read and handle each path(file)	
 	for per_line in data_base:
@@ -41,21 +42,26 @@ def copying_keep_tree(data_base_in,backup_loc):
 				# File is already exist in backup location
 				print "File %r is already exist!" %(backup_file_name)
 				# Append path to the list
-				preexist_paths.append(per_path_input)
+				preexist_lists.append(per_path_input)
 			elif not isfile(backup_loc_files):
 				# File isnt there.
 				print "File %r isnt exist!" %(backup_file_name) 
 				# Append path to the list
-				not_preexist_paths.append(per_path_input)
+				not_preexist_lists.append(per_path_input)
 		else:
 			makedirs(backup_loc_dirs)
 
 
 ##############    NOTE    #############
-#### For the paths that are in preexist_paths will be assign into function
+#### For the paths that are in "preexist_lists" will be assign into function
 #### 	"handle_preex_file" to let user to make a decision (overwrite, or not)
 #### For the files that are not pre-exist, start copying after the list is est.
+	
+	### Decide what to do for pre-exist/non-pre-exist files
+	# Pre-exist files, assign into "handle_preex_file"
+	handle_preex_file(preexist_lists)
 		
+	
 		# copy files into dir tree "backup_loc_dirs"
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
 		#copy2(per_path_input,backup_loc_dirs)
@@ -63,9 +69,9 @@ def copying_keep_tree(data_base_in,backup_loc):
 	print "Done copying files!"
 	
 	#### testing 
-	print "Pre-exist path %r" %(preexist_paths)
+	print "Pre-exist path %r" %(preexist_lists)
 	print " "
-	print "not pre-exist path %r" %(not_preexist_paths)
+	print "not pre-exist path %r" %(not_preexist_lists)
 
 ## testing the "copy_keep_tree"
 copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
