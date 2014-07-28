@@ -2,8 +2,11 @@
 #-*- coding: utf-8 -*-
 
 from os import path
+from posixpath import *
 from print_color import print_color
+from readable_size_convt import readable_format
 from sys import exit
+from itertools import product
 
 ## colors
 default =  "\033[0m"
@@ -17,7 +20,7 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def handle_preex_file(preexist_lists):
+def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 	"""
 	The program flow will move here if the file is already exist.
 	First will show these files in lists for user to overview all of them,
@@ -40,19 +43,38 @@ def handle_preex_file(preexist_lists):
 	* preexist_lists
 
 	"""
-	
-	# First, show all the files that are already exist at once.
+	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
+
+	# Creat a new list and merge two lists from module input
+	merge_input = []
+	merge_input.append(preexist_lists)
+	merge_input.append(preexist_backup_loc_lists)
+
+	# Printing all the file at once.
+	print_all_preex_prmp = """\
+------------------------------------------------------------
+# The following files are already exist in the backup location."""
+	print (red+print_all_preex_prmp+red)
 
 	# Give serial number to the files
 	n = 0
+	for (each_preex_path,each_preex_backup_loc) in merge_input:
+		# Get the "file name" in path
+		file_name_from_preex_path = basename(each_preex_path)
+		# Get the file size and convert into human readable format
+		file_size_not_readable = getsize(each_preex_path)		
+		file_size = readable_format(file_size_not_readable)
 
-	# Printing all the file at once.
-	
-	for each_preex_path in preexist_lists:
-		
-		
+		print each_preex_backup_loc
 
+		# Print 
+		#output = "("+str(n)+") "+\
+		#		 file_name_from_preex_path+" "+\
+		#		 str(file_size)+" in "+\
+		#		 each_preex_backup_loc
+		#print output
+		n = n + 1
 
 
 

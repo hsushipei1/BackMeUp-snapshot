@@ -14,8 +14,8 @@ o Update Record:
 
 ##### Import modules 
 from os import system, path
-from Project_info import ProjInfo
-from AuthrInfo import AuthrInfo
+from project_info import ProjInfo
+from author_info import AuthrInfo
 
 from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
