@@ -42,7 +42,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 		if isdir(backup_loc_dirs):
 			if isfile(backup_loc_files):
 				# File is already exist in backup location
-				print "File %r is already exist!" %(backup_file_name)
+				#print "File %r is already exist!" %(backup_file_name)
 				# Append path to the list
 				preexist_lists.append(per_path_input)
 				# Append path of backup_loc of each pre-exist file
@@ -50,7 +50,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 				preexist_backup_loc_lists.append(preexist_backup_loc)
 			elif not isfile(backup_loc_files):
 				# File isnt there.
-				print "File %r isnt exist!" %(backup_file_name) 
+				#print "File %r isnt exist!" %(backup_file_name) 
 				# Append path to the list
 				not_preexist_lists.append(per_path_input)
 		else:
@@ -74,11 +74,11 @@ def copying_keep_tree(data_base_in,backup_loc):
 	print "Done copying files!"
 	
 	#### testing 
-	#print "Pre-exist path %r" %(preexist_lists)
+	print "Pre-exist path %r" %(preexist_lists)
 	#print " "
 	#print "not pre-exist path %r" %(not_preexist_lists)
-	print " "
-	print preexist_backup_loc_lists
+	#print " "
+	#print preexist_backup_loc_lists
 
 ## testing the "copy_keep_tree"
 copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")

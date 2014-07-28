@@ -6,7 +6,6 @@ from posixpath import *
 from print_color import print_color
 from readable_size_convt import readable_format
 from sys import exit
-from itertools import product
 
 ## colors
 default =  "\033[0m"
@@ -40,7 +39,10 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 	* and the next file.....
 
 	The inputs of this module
-	* preexist_lists
+	* preexist_lists: A list that contains abs paths of the files that are
+						already exist.
+	* preexist_backup_loc_lists: A list that stores abs path of the backup
+								location which contains the pre-exist file.
 
 	"""
 	### First, show all the files that are already exist at once.
@@ -48,8 +50,8 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 	# Printing all the file at once.
 	print_all_preex_prmp = """\
 ------------------------------------------------------------
-# The following files are already exist in the backup location."""
-	print (red+print_all_preex_prmp+red)
+# The following files are already exist in the backup location.\n"""
+	print_color(red,print_all_preex_prmp)
 
 	# Give serial number to the files
 	n = 0
@@ -59,13 +61,15 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)		
 		file_size = readable_format(file_size_not_readable)
-
-		output = "("+str(n)+") "+\
-				 file_name_from_preex_path+" "+\
-				 str(file_size)+" in "+\
-				 preexist_backup_loc_lists[n]
-				# Get the backup loc of preexist file from index
-		print output
+		# Print the file info at once. Just to give user overiew.
+		output_file_info_atOnce = \
+				 "(%d) File= \"%s\", Size= \"%s\" in \"%s\" " \
+				 %(n,\
+					blue + str(file_name_from_preex_path) + default,\
+					blue + str(file_size) + default,\
+					blue + preexist_backup_loc_lists[n] + default)  
+				 # Get the backup loc of preexist file from index
+		print output_file_info_atOnce
 		n = n + 1
 
 
