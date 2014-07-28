@@ -45,12 +45,6 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 	"""
 	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
-
-	# Creat a new list and merge two lists from module input
-	merge_input = []
-	merge_input.append(preexist_lists)
-	merge_input.append(preexist_backup_loc_lists)
-
 	# Printing all the file at once.
 	print_all_preex_prmp = """\
 ------------------------------------------------------------
@@ -59,21 +53,19 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 
 	# Give serial number to the files
 	n = 0
-	for (each_preex_path,each_preex_backup_loc) in merge_input:
+	for each_preex_path in preexist_lists:
 		# Get the "file name" in path
 		file_name_from_preex_path = basename(each_preex_path)
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)		
 		file_size = readable_format(file_size_not_readable)
 
-		print each_preex_backup_loc
-
-		# Print 
-		#output = "("+str(n)+") "+\
-		#		 file_name_from_preex_path+" "+\
-		#		 str(file_size)+" in "+\
-		#		 each_preex_backup_loc
-		#print output
+		output = "("+str(n)+") "+\
+				 file_name_from_preex_path+" "+\
+				 str(file_size)+" in "+\
+				 preexist_backup_loc_lists[n]
+				# Get the backup loc of preexist file from index
+		print output
 		n = n + 1
 
 
