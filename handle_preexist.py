@@ -9,7 +9,7 @@ from shutil import copy2
 from print_color import print_color
 from readable_size_convt import readable_format
 from get_last_modified_time import get_last_modified_time
-
+from renaming import rename
 
 ## colors
 default =  "\033[0m"
@@ -141,21 +141,23 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 			#		"temp" in the same directory, and then rename it to
 			#		the name user entered, and move it to backup location.
 				while True:
-					## Read the new name first
+					## Read the new name
 					# Prompt for renaming
 					rename_prmp = \
-					"# Please enter a new name for \"%s\"." \
-									%(blue + file_name_from_preex_path + red)
+						"# Please enter a new name for \"%s\"." \
+								%(blue + file_name_from_preex_path + red)
 					print_color(red,rename_prmp)
+
 					new_name = raw_input(">")
-					# Show the new name
+					# Show the new name to user
 					show_new_name = \
-					"# \"%s\" is renamed to \"%s\"." \
-					%(blue + file_name_from_preex_path + red,
-						blue + new_name + red)
+						"# \"%s\" is renamed to \"%s\"." \
+							%(blue + file_name_from_preex_path + red,
+								blue + new_name + red)
 					print_color(red,show_new_name)
-					## Create "temp" in original dir
-					#copy2(each_preex_path,
+					## Copy the ori as "temp", and move it to backup loc
+					#	, and then rename to new name (use module)
+					rename(each_preex_path,preexist_backup_loc_lists[m])
 
 					# Return the opt
 					return opt
