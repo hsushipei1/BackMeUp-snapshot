@@ -74,16 +74,17 @@ def copying_keep_tree(data_base_in,backup_loc):
 		else:
 			makedirs(backup_loc_dirs)
 
-	exit("exit!!")
 
 ##############    NOTE    #############
 #### For the paths that are in "preexist_lists" will be assign into function
 #### 	"handle_preex_file" to let user to make a decision (overwrite, or not)
 #### For the files that are not pre-exist, start copying after the list is est.
 	
+	###  USING DICT INSTEAD OF LISTS
+
 	### Decide what to do for pre-exist/non-pre-exist files
 	# Pre-exist files and , assign into "handle_preex_file"
-	handle_preex_file(preexist_lists,preexist_backup_loc_lists)
+	handle_preex_file(preex_file_info_dict)
 		
 	
 		# copy files into dir tree "backup_loc_dirs"

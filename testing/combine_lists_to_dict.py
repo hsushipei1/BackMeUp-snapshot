@@ -20,7 +20,7 @@ for each_path in data:
 # Access dict
 for each_file in file_dict:
 	full_lists = file_dict[each_file]
-	print full_lists[1]
+	print full_lists[0], full_lists[1]
 	
 
 

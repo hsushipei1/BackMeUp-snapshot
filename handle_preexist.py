@@ -23,7 +23,7 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
+def handle_preex_file(preex_file_info_dict):
 	"""
 	The program flow will move here if the file is already exist.
 	First will show these files in lists for user to overview all of them,
@@ -49,6 +49,19 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 								location which contains the pre-exist file.
 
 	"""
+	
+	### Dict -- TESTING
+	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
+	for each_preex_file in preex_file_info_dict:
+		each_info =  preex_file_info_dict[each_preex_file]
+		each_preex_path = each_info[0]
+		each_preexist_backup_loc = each_info[1]
+	
+		print each_preex_path, each_preexist_backup_loc
+		
+	exit("Exit!!!")
+
+
 	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
 	# Printing all the file at once.
