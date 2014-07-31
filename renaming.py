@@ -6,11 +6,26 @@ from posixpath import *
 from os import *
 from sys import exit
 
-def rename(file_abs_path,file_backup_loc):
+from print_color import print_color
+
+## colors
+default =  "\033[0m"
+red = "\33[31;1m"
+blue = "\33[34;1m"
+gray = "\033[1;30m"
+green = "\033[1;32m"
+yellow = "\033[1;33m"
+magenta = "\033[1;35m"
+cyan = "\033[1;36m"
+white = "\033[1;37m"
+crimson = "\033[1;38m"
+
+def rename(file_abs_path,new_name,file_backup_loc):
 	"""
 	
 	Input parameters
 	* file_abs_path=> 
+	* new_name=> 
 	* file_bacjup_loc=> 
 	"""
 	### Get necessary variables
@@ -21,53 +36,15 @@ def rename(file_abs_path,file_backup_loc):
 	# Path of the file in original directory
 	file_path = dirname(file_abs_path)
 
-	### Temp file settings
-	# Copy the file as a temp file
-	temp_file = "/tmp"
-	# Temp file tag for the file
-	temp_name = file_name+".temp"
+	### New name
+	new_name_input = "/"+new_name
 
 	### Copy the ori file to a "temp" file in the same dir
-	copy2(file_abs_path,file_path+temp_file)
+	copy2(file_abs_path,file_backup_loc+new_name_input)
+	success_rename_msg = "# \"%s\" is copied to \"%s\"" \
+		%(blue + str(new_name) + red, blue + str(file_backup_loc) + red)
+	print_color(red,success_rename_msg)
 
-	### Chdir to the dir of ori file and add temp file tag
-	print "chdir"
-	print "file_path= "+file_path
-	chdir(file_path)
-	print getcwd()
-	print "temp_name= "+temp_name
-	#rename("dec.c",temp_name)
-	exit("exit before chdir")
-
-	### Move it to backup location
-	#print "file_backup_loc= "+file_backup_loc
-	#move(temp_name,file_backup_loc)
-
-	exit("exit!!")
-
-"""
-pwd = getcwd()
-file = "/home/hsushipei/PREEXIST_TEST/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch1-var_declare/dec.c"
-backup_loc = "/home/hsushipei"
-
-file_name = basename(file)
-file_path = dirname(file)
-temp_file = "/temp"
-temp_name = file_name+".temp"
-copy2(file,file_path+temp_file)
-
-chdir(file_path)
-rename("temp",temp_name)
-
-move(temp_name,backup_loc)
-
-chdir(backup_loc)
-new_name = file_name+".new"
-rename(temp_name,new_name)
-
-chdir(pwd)
-
-"""
 
 
 

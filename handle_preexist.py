@@ -107,6 +107,7 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 		last_modif_time = get_last_modified_time(each_preex_path)
 		while True:
 			each_file_prmp = """\
+..............................................................
 # The %sth pre-exist file found,
 * Name= "%s"
 * Size= "%s"
@@ -114,10 +115,12 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 * Original place= "%s"
 # This file is already exist in its backup location,
   "%s"
+..............................................................
 
 # Will you overwrite? (1)Yes (2)No (3)Yes to all (4)No to all (5)Rename"""\
       %(blue + str(m) + red,\
-		blue + file_name_from_preex_path,file_size + red,\
+		blue + file_name_from_preex_path + red,\
+		blue + file_size + red,\
 		blue + last_modif_time + red,\
 		blue + original_dir_path + red,\
 		blue + preexist_backup_loc_lists[m]+red)
@@ -133,13 +136,11 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 			elif opt == "2": 
 			### Do not overwrite this file
 				print "# \"%s\" will not be overwritten! " \
-												%(file_name_from_preex_path)
+					%(file_name_from_preex_path)
 				return opt
 
 			elif opt == "5":
-			### For the renaming option, copy the pre-existing file as
-			#		"temp" in the same directory, and then rename it to
-			#		the name user entered, and move it to backup location.
+			### Renaming
 				while True:
 					## Read the new name
 					# Prompt for renaming
@@ -149,18 +150,16 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 					print_color(red,rename_prmp)
 
 					new_name = raw_input(">")
-					# Show the new name to user
-					show_new_name = \
-						"# \"%s\" is renamed to \"%s\"." \
-							%(blue + file_name_from_preex_path + red,
-								blue + new_name + red)
-					print_color(red,show_new_name)
-					## Copy the ori as "temp", and move it to backup loc
-					#	, and then rename to new name (use module)
-					rename(each_preex_path,preexist_backup_loc_lists[m])
+					## Copy and rename the file and save it to backup loc
+					#	using copy2 BIF.
+					rename(each_preex_path,new_name,\
+						preexist_backup_loc_lists[m])
 
 					# Return the opt
 					return opt
+			else:
+				over_write_try_again = "# Please try again."
+				print_color(gray,over_write_try_again)
 
 #################### Opt5: Create temp file and move it to backup loc		
 					
