@@ -25,6 +25,12 @@ def copying_keep_tree(data_base_in,backup_loc):
 	# Lists to store paths of the already-backup "directories"
 	preexist_backup_loc_lists = []
 
+	## Combine lists to dict(TESTING)
+	# Create new dict
+	preex_file_info_dict = {}
+	not_preex_file_info_dict = {}
+	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
+
 	# read and handle each path(file)	
 	for per_line in data_base:
 		per_path_input = per_line.rstrip()  # drop the "\n"
@@ -48,14 +54,27 @@ def copying_keep_tree(data_base_in,backup_loc):
 				# Append path of backup_loc of each pre-exist file
 				preexist_backup_loc = dirname(backup_loc_files)
 				preexist_backup_loc_lists.append(preexist_backup_loc)
+
+				###### Store file info to dict (TESTING)
+				preex_file_info_dict[backup_file_name] =\
+					 per_path_input, preexist_backup_loc
+
 			elif not isfile(backup_loc_files):
-				# File isnt there.
+				# File isnt pre-exist
 				#print "File %r isnt exist!" %(backup_file_name) 
+				# Backup location of non pre-exist files
+				not_preex_backup_loc = dirname(backup_loc_files)
 				# Append path to the list
 				not_preexist_lists.append(per_path_input)
+
+				###### Store file info to dict (TESTING)
+				not_preex_file_info_dict[backup_file_name] = \
+					per_path_input, not_preex_backup_loc
+
 		else:
 			makedirs(backup_loc_dirs)
 
+	exit("exit!!")
 
 ##############    NOTE    #############
 #### For the paths that are in "preexist_lists" will be assign into function
