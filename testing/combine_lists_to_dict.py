@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 from posixpath import *
+from sys import exit
 
 data = open("../.sele_data_base.txt")
 

@@ -153,9 +153,9 @@ def handle_preex_file(preex_file_info_dict):
 			opt = raw_input(">")
 			if opt == "1":  
 			### 1 ==> Overwrite
-				copy(each_preex_path,file_path_backup_dir)
+				copy(each_preex_path,each_preexist_backup_loc)
 				print "file= "+each_preex_path
-				print "Will overw=> "+file_path_backup_dir
+				print "Will overw=> "+each_preexist_backup_loc
 				print "# \"%s\" is overwritten! " %(file_name_from_preex_path)
 				return opt
  
