@@ -141,10 +141,12 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 				return opt
 
 			elif opt == "3":
+			### 3 ==> Overwrite the rest
 				print			
 				return opt
 
 			elif opt == "4":
+			### 4 ==> Do not overwrite the rest
 				print 
 				return opt
 	
