@@ -4,7 +4,7 @@
 from os import path,stat,rename
 from posixpath import *
 from sys import exit
-from shutil import copy2
+from shutil import copy, copy2
 
 from print_color import print_color
 from readable_size_convt import readable_format
@@ -75,9 +75,11 @@ def handle_preex_file(preex_file_info_dict):
 		file_name_from_preex_path = each_preex_file
 		# Original path of the file
 		each_preex_path = each_info[0]
-		# Backup path of the file
-		each_preexist_backup_loc = each_info[1]
-		
+		# Backup path of the file(not dir)
+		file_path_backup_dir = each_info[1]
+		# Path to backup dir of the file
+		each_preexist_backup_loc = dirname(file_path_backup_dir)
+
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)		
 		file_size = readable_format(file_size_not_readable)
@@ -106,7 +108,7 @@ def handle_preex_file(preex_file_info_dict):
 =============================================================="""
 	print_color(red,print_one_by_one_prmp_begin)
 
-	# Count tje number of the file
+	# Count the number of the file
 	m = 0
 
 	for each_preex_file in preex_file_info_dict:
@@ -134,7 +136,7 @@ def handle_preex_file(preex_file_info_dict):
 * Size= "%s"
 * Last modified= "%s"
 * Original place= "%s"
-# This file is already exist in its backup location,
+# The same file is already exist in its backup location,
   "%s"
 ..............................................................
 
@@ -151,7 +153,9 @@ def handle_preex_file(preex_file_info_dict):
 			opt = raw_input(">")
 			if opt == "1":  
 			### 1 ==> Overwrite
-				copy2(each_preex_path,preexist_backup_loc_lists[m])
+				copy(each_preex_path,file_path_backup_dir)
+				print "file= "+each_preex_path
+				print "Will overw=> "+file_path_backup_dir
 				print "# \"%s\" is overwritten! " %(file_name_from_preex_path)
 				return opt
  
