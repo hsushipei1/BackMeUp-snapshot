@@ -29,17 +29,17 @@ def copying_keep_tree(data_base_in,backup_loc):
 	# Create new dict
 	preex_file_info_dict = {}
 	not_preex_file_info_dict = {}
-	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
+	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_path_of_file
 
 	# read and handle each path(file)	
 	for per_line in data_base:
 		per_path_input = per_line.rstrip()  # drop the "\n"
 
-		# backup_loc_dirs: paths of the already-backup "directories"
-		backup_loc_dirs = dirname(backup_loc+per_path_input)
 		# backup_loc_files: paths of the already-backup "files"
 		backup_loc_files = backup_loc+per_path_input
-		# File name of each file in the database
+		# backup_loc_dirs: paths of the already-backup "directories"
+		backup_loc_dirs = dirname(backup_loc_files)
+		# File name of each file in the database(ori place)
 		backup_file_name = basename(per_path_input)
 
 		### Checking Pre-existing file section
@@ -57,19 +57,17 @@ def copying_keep_tree(data_base_in,backup_loc):
 
 				###### Store file info to dict (TESTING)
 				preex_file_info_dict[backup_file_name] =\
-					 per_path_input, preexist_backup_loc
+					 per_path_input, backup_loc_files
 
 			elif not isfile(backup_loc_files):
 				# File isnt pre-exist
 				#print "File %r isnt exist!" %(backup_file_name) 
-				# Backup location of non pre-exist files
-				not_preex_backup_loc = dirname(backup_loc_files)
 				# Append path to the list
 				not_preexist_lists.append(per_path_input)
 
 				###### Store file info to dict (TESTING)
 				not_preex_file_info_dict[backup_file_name] = \
-					per_path_input, not_preex_backup_loc
+					per_path_input, backup_loc_files
 
 		else:
 			makedirs(backup_loc_dirs)

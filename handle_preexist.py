@@ -96,8 +96,6 @@ def handle_preex_file(preex_file_info_dict):
 
 	cont1 = raw_input(" ")
 
-	exit("QUIT~~~")
-
 	### Ask what to do file by file.
 	print_one_by_one_prmp_begin = """\
 ==============================================================
@@ -105,13 +103,21 @@ def handle_preex_file(preex_file_info_dict):
 =============================================================="""
 	print_color(red,print_one_by_one_prmp_begin)
 
-	# Give serial number to the files
+	# Count tje number of the file
 	m = 0
-	for each_preex_path in preexist_lists:
-		# Get the "file name" in path
-		file_name_from_preex_path = basename(each_preex_path)
+
+	for each_preex_file in preex_file_info_dict:
+		# Info: ori_path_of_file + backup_loc_of_file
+		each_info =  preex_file_info_dict[each_preex_file]
+		# File name
+		file_name_from_preex_path = each_preex_file
+		# Original path of the file
+		each_preex_path = each_info[0]
+		# Backup path of the file
+		each_preexist_backup_loc = each_info[1]
 		# Get the path of the original directory of the file
 		original_dir_path = dirname(each_preex_path)
+
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)
 		file_size = readable_format(file_size_not_readable)
@@ -129,13 +135,13 @@ def handle_preex_file(preex_file_info_dict):
   "%s"
 ..............................................................
 
-# Will you overwrite? (1)Yes (2)No (3)Yes to all (4)No to all (5)Rename"""\
+# Will you overwrite it? (1)Yes (2)No (3)Yes to all (4)No to all (5)Rename"""\
       %(blue + str(m) + red,\
 		blue + file_name_from_preex_path + red,\
 		blue + file_size + red,\
 		blue + last_modif_time + red,\
 		blue + original_dir_path + red,\
-		blue + preexist_backup_loc_lists[m]+red)
+		blue + each_preexist_backup_loc+red)
 			print_color(red,each_file_prmp)
 			
 			# Handling the option
