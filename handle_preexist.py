@@ -9,7 +9,7 @@ from shutil import copy2
 from print_color import print_color
 from readable_size_convt import readable_format
 from get_last_modified_time import get_last_modified_time
-from renaming import rename
+from preexist_renaming import rename
 
 ## colors
 default =  "\033[0m"
@@ -129,18 +129,27 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 			# Handling the option
 			opt = raw_input(">")
 			if opt == "1":  
-			### Overwrite
+			### 1 ==> Overwrite
 				copy2(each_preex_path,preexist_backup_loc_lists[m])
 				print "# \"%s\" is overwritten! " %(file_name_from_preex_path)
-				return opt 
+				return opt
+ 
 			elif opt == "2": 
-			### Do not overwrite this file
+			### 2 ==> Do not overwrite this file
 				print "# \"%s\" will not be overwritten! " \
 					%(file_name_from_preex_path)
 				return opt
 
+			elif opt == "3":
+				print			
+				return opt
+
+			elif opt == "4":
+				print 
+				return opt
+	
 			elif opt == "5":
-			### Renaming
+			### 5 ==> Renaming
 				while True:
 					## Read the new name
 					# Prompt for renaming
@@ -160,6 +169,8 @@ def handle_preex_file(preexist_lists,preexist_backup_loc_lists):
 			else:
 				over_write_try_again = "# Please try again."
 				print_color(gray,over_write_try_again)
+
+			
 
 #################### Opt5: Create temp file and move it to backup loc		
 					
