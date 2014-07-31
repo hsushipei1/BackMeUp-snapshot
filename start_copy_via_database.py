@@ -5,6 +5,7 @@ from shutil import copy2
 from posixpath import *
 from os import path, makedirs, chdir
 from sys import exit
+
 from handle_preexist import handle_preex_file
 
 def copying_keep_tree(data_base_in,backup_loc):
@@ -19,17 +20,13 @@ def copying_keep_tree(data_base_in,backup_loc):
 	# read data base
 	data_base = open(data_base_in)
 
-	# Lists to store paths of files that are exist/not exist
-	preexist_lists = []
-	not_preexist_lists = []
-	# Lists to store paths of the already-backup "directories"
-	preexist_backup_loc_lists = []
-
-	## Combine lists to dict(TESTING)
-	# Create new dict
+	# Create new dict to store file info 
 	preex_file_info_dict = {}
 	not_preex_file_info_dict = {}
-	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_path_of_file
+	# Format: xxxx_dict[file_name] = ori_path_of_file, file_path_backup_dir
+	#   (1)ori_path_of_file: The absolute path to the file in its original dir.
+    #   (2)file_path_backup_dir: If the file is pre-exist, this will the 
+    #       absolute path to that file in its backup dir.
 
 	# read and handle each path(file)	
 	for per_line in data_base:
@@ -42,49 +39,42 @@ def copying_keep_tree(data_base_in,backup_loc):
 		# File name of each file in the database(ori place)
 		backup_file_name = basename(per_path_input)
 
-		### Checking Pre-existing file section
+		### Section that checks Pre-Existing File :
+		#		will establish two dicts, one is .....
 		# Copy the directory tree. "makedirs" is same as "mkdir -p"
 		# If the "backup_loc_dirs" is already exist
 		if isdir(backup_loc_dirs):
 			if isfile(backup_loc_files):
 				# File is already exist in backup location
 				#print "File %r is already exist!" %(backup_file_name)
-				# Append path to the list
-				preexist_lists.append(per_path_input)
-				# Append path of backup_loc of each pre-exist file
-				preexist_backup_loc = dirname(backup_loc_files)
-				preexist_backup_loc_lists.append(preexist_backup_loc)
 
-				###### Store file info to dict (TESTING)
+				# Store file info (name, ori path, path in backup loc)to dict
 				preex_file_info_dict[backup_file_name] =\
 					 per_path_input, backup_loc_files
 
 			elif not isfile(backup_loc_files):
 				# File isnt pre-exist
 				#print "File %r isnt exist!" %(backup_file_name) 
-				# Append path to the list
-				not_preexist_lists.append(per_path_input)
 
-				###### Store file info to dict (TESTING)
+				# Store file info to dict
 				not_preex_file_info_dict[backup_file_name] = \
 					per_path_input, backup_loc_files
 
 		else:
 			makedirs(backup_loc_dirs)
 
+	### What to do after separate files into pre-exist and non pre-exist one.
+	#	o For the pre-existing files in "preex_file_info_dict", they will 
+	#		be assign into function	"handle_preex_file" to let user to make 
+	#		a decision. (overwrite, or not)
+	handle_preex_file(preex_file_info_dict)	
 
-##############    NOTE    #############
-#### For the paths that are in "preexist_lists" will be assign into function
-#### 	"handle_preex_file" to let user to make a decision (overwrite, or not)
-#### For the files that are not pre-exist, start copying after the list is est.
-	
-	###  USING DICT INSTEAD OF LISTS
-
-	### Decide what to do for pre-exist/non-pre-exist files
-	# Pre-exist files and , assign into "handle_preex_file"
-	handle_preex_file(preex_file_info_dict)
+	#	o For the files that are not pre-exist, start copying after the 
+	#		list is est.
 		
 	
+############ Section below is under development ######################
+
 		# copy files into dir tree "backup_loc_dirs"
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
 		#copy2(per_path_input,backup_loc_dirs)
@@ -101,7 +91,6 @@ def copying_keep_tree(data_base_in,backup_loc):
 ## testing the "copy_keep_tree"
 copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
 
-############ Section above is under development ######################
 
 def copying_dont_keep_tree(data_base_in,backup_loc):
     """

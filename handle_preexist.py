@@ -58,9 +58,12 @@ def handle_preex_file(preex_file_info_dict):
 =============================================================="""
 	print_color(red,print_all_preex_prmp_begin)
 
-	### dict stores: file name, ori path of file, and backup location 
-	#		of that file
-	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
+	### dict stores: file name, ori path of file, and the path to the file
+	#		in backup directory.
+	# Format: xxx_dict[file_name] = (1)ori_path_of_file,(2)file_path_backup_dir
+	#	(1)ori_path_of_file: The absolute path to the file in its original dir.
+	#	(2)file_path_backup_dir: If the file is pre-exist, this will the 
+	#		absolute path to that file in its backup dir.
 	
 	# "n" for counting the number of file
 	n = 0
