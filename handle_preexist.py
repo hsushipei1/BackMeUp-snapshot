@@ -49,19 +49,6 @@ def handle_preex_file(preex_file_info_dict):
 								location which contains the pre-exist file.
 
 	"""
-	
-	### Dict -- TESTING
-	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
-	for each_preex_file in preex_file_info_dict:
-		each_info =  preex_file_info_dict[each_preex_file]
-		each_preex_path = each_info[0]
-		each_preexist_backup_loc = each_info[1]
-	
-		print each_preex_path, each_preexist_backup_loc
-		
-	exit("Exit!!!")
-
-
 	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
 	# Printing all the file at once.
@@ -71,11 +58,23 @@ def handle_preex_file(preex_file_info_dict):
 =============================================================="""
 	print_color(red,print_all_preex_prmp_begin)
 
-	# Give serial number to the files
+	### dict stores: file name, ori path of file, and backup location 
+	#		of that file
+	# Format: xxxx_dict[file_name] = ori_path_of_file, backup_loc_of_file
+	
+	# "n" for counting the number of file
 	n = 0
-	for each_preex_path in preexist_lists:
-		# Get the "file name" in path
-		file_name_from_preex_path = basename(each_preex_path)
+
+	for each_preex_file in preex_file_info_dict:
+		# Info: ori_path_of_file + backup_loc_of_file
+		each_info =  preex_file_info_dict[each_preex_file]
+		# File name
+		file_name_from_preex_path = each_preex_file
+		# Original path of the file
+		each_preex_path = each_info[0]
+		# Backup path of the file
+		each_preexist_backup_loc = each_info[1]
+		
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)		
 		file_size = readable_format(file_size_not_readable)
@@ -85,19 +84,19 @@ def handle_preex_file(preex_file_info_dict):
 				 %(n,\
 					blue + str(file_name_from_preex_path) + default,\
 					blue + str(file_size) + default,\
-					blue + preexist_backup_loc_lists[n] + default)  
+					blue + each_preexist_backup_loc + default)  
 				 # Get the backup loc of preexist file from index
 		print output_file_info_atOnce
 		n = n + 1
 
 	print_all_preex_prmp_end = """\
-
 # Total= %s
-
 # Press ENTER to Continue.""" %(str(n))
 	print_color(red,print_all_preex_prmp_end)
 
 	cont1 = raw_input(" ")
+
+	exit("QUIT~~~")
 
 	### Ask what to do file by file.
 	print_one_by_one_prmp_begin = """\
