@@ -9,7 +9,7 @@ from shutil import copy, copy2
 from print_color import print_color
 from readable_size_convt import readable_format
 from get_last_modified_time import get_last_modified_time
-from preexist_renaming import rename
+from preexist_renaming import renaming
 
 ## colors
 default =  "\033[0m"
@@ -68,7 +68,7 @@ def handle_preex_file(preex_file_info_dict):
 	# "n" for counting the number of file
 	n = 0
 
-	for each_preex_file in preex_file_info_dict:
+	for each_preex_file in preex_file_info_dict.keys():
 		# Info: ori_path_of_file + backup_loc_of_file
 		each_info =  preex_file_info_dict[each_preex_file]
 		# File name
@@ -111,7 +111,7 @@ def handle_preex_file(preex_file_info_dict):
 	# Count the number of the file
 	m = 0
 
-	for each_preex_file in preex_file_info_dict:
+	for each_preex_file in preex_file_info_dict.keys():
 		# Info: ori_path_of_file + backup_loc_of_file
 		each_info =  preex_file_info_dict[each_preex_file]
 		# File name
@@ -122,6 +122,8 @@ def handle_preex_file(preex_file_info_dict):
 		each_preexist_backup_loc = each_info[1]
 		# Get the path of the original directory of the file
 		original_dir_path = dirname(each_preex_path)
+		# Get the path of the backup dir
+		path_to_backup_dir = dirname(each_preexist_backup_loc)
 
 		# Get the file size and convert into human readable format
 		file_size_not_readable = getsize(each_preex_path)
@@ -153,22 +155,40 @@ def handle_preex_file(preex_file_info_dict):
 			opt = raw_input(">")
 			if opt == "1":  
 			### 1 ==> Overwrite
+				# Overwrite the file in backup loc
 				copy(each_preex_path,each_preexist_backup_loc)
-				print "file= "+each_preex_path
-				print "Will overw=> "+each_preexist_backup_loc
-				print "# \"%s\" is overwritten! " %(file_name_from_preex_path)
-				return opt
+				opt1_overwrite_msg = \
+					"# \"%s\" is overwritten in \"%s\" " \
+						%(blue + file_name_from_preex_path + red,\
+							blue + each_preexist_backup_loc + red)
+				print_color(red, opt1_overwrite_msg)
+			
+				# Delete the file in dict if it has been handled
+				del preex_file_info_dict[each_preex_file]
+
+				# Leave the while loop to continue the next file in dict
+				break
  
 			elif opt == "2": 
 			### 2 ==> Do not overwrite this file
-				print "# \"%s\" will not be overwritten! " \
-					%(file_name_from_preex_path)
-				return opt
+				# Print that the file wont be overwrite
+				opt2_dont_overwrite_msg = \
+					"# \"%s\" will not be overwritten! " \
+						%(blue + file_name_from_preex_path + red)
+				print_color(red, opt2_dont_overwrite_msg)
+			
+				# Delete the file in dict if it has been handled
+				del preex_file_info_dict[each_preex_file]
+				# Leave the while loop to continue the next file in dict
+				break
 
 			elif opt == "3":
 			### 3 ==> Overwrite the rest
-				print			
-				return opt
+				del preex_file_info_dict[each_preex_file]
+				print preex_file_info_dict
+				# Leave this while loop
+				break	
+				#return opt
 
 			elif opt == "4":
 			### 4 ==> Do not overwrite the rest
@@ -177,32 +197,29 @@ def handle_preex_file(preex_file_info_dict):
 	
 			elif opt == "5":
 			### 5 ==> Renaming
-				while True:
-					## Read the new name
-					# Prompt for renaming
-					rename_prmp = \
-						"# Please enter a new name for \"%s\"." \
-								%(blue + file_name_from_preex_path + red)
-					print_color(red,rename_prmp)
+				## Read the new name
+				# Prompt for renaming
+				rename_prmp = \
+					"# Please enter a new name for \"%s\"." \
+							%(blue + file_name_from_preex_path + red)
+				print_color(red,rename_prmp)
 
-					new_name = raw_input(">")
-					## Copy and rename the file and save it to backup loc
-					#	using copy2 BIF.
-					rename(each_preex_path,new_name,\
-						preexist_backup_loc_lists[m])
+				new_name = raw_input(">")
+				## Copy and rename the file and save it to backup loc
+				#	using copy2 BIF.
+				renaming(each_preex_path,new_name,\
+					path_to_backup_dir)
 
-					# Return the opt
-					return opt
+				# Delete the file in dict if it has been handled
+				del preex_file_info_dict[each_preex_file]
+				# Leave the while loop to continue the next file in dict
+				break
+
 			else:
 				over_write_try_again = "# Please try again."
 				print_color(gray,over_write_try_again)
 
-			
-
-#################### Opt5: Create temp file and move it to backup loc		
-					
-
-
+		# Count for the nth file
 		m = m + 1
 
 

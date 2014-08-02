@@ -20,7 +20,7 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def rename(file_abs_path,new_name,file_backup_loc):
+def renaming(file_abs_path,new_name,file_backup_loc):
 	"""
 	
 	Input parameters
