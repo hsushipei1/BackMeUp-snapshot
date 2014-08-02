@@ -112,26 +112,29 @@ def handle_preex_file(preex_file_info_dict):
 	m = 0
 
 	for each_preex_file in preex_file_info_dict.keys():
-		# Info: ori_path_of_file + backup_loc_of_file
-		each_info =  preex_file_info_dict[each_preex_file]
-		# File name
-		file_name_from_preex_path = each_preex_file
-		# Original path of the file
-		each_preex_path = each_info[0]
-		# Backup path of the file
-		each_preexist_backup_loc = each_info[1]
-		# Get the path of the original directory of the file
-		original_dir_path = dirname(each_preex_path)
-		# Get the path of the backup dir
-		path_to_backup_dir = dirname(each_preexist_backup_loc)
+	# Check whether the dict is empty. not empty=> 5 opts, Empty=> leave this
+	#	module.
+		if any(preex_file_info_dict):
+			# Info: ori_path_of_file + backup_loc_of_file
+			each_info =  preex_file_info_dict[each_preex_file]
+			# File name
+			file_name_from_preex_path = each_preex_file
+			# Original path of the file
+			each_preex_path = each_info[0]
+			# Backup path of the file
+			each_preexist_backup_loc = each_info[1]
+			# Get the path of the original directory of the file
+			original_dir_path = dirname(each_preex_path)
+			# Get the path of the backup dir
+			path_to_backup_dir = dirname(each_preexist_backup_loc)
 
-		# Get the file size and convert into human readable format
-		file_size_not_readable = getsize(each_preex_path)
-		file_size = readable_format(file_size_not_readable)
-		# Get the last modified time
-		last_modif_time = get_last_modified_time(each_preex_path)
-		while True:
-			each_file_prmp = """\
+			# Get the file size and convert into human readable format
+			file_size_not_readable = getsize(each_preex_path)
+			file_size = readable_format(file_size_not_readable)
+			# Get the last modified time
+			last_modif_time = get_last_modified_time(each_preex_path)
+			while True:
+				each_file_prmp = """\
 ..............................................................
 # The %sth pre-exist file found,
 * Name= "%s"
@@ -143,110 +146,114 @@ def handle_preex_file(preex_file_info_dict):
 ..............................................................
 
 # Will you overwrite it? (1)Yes (2)No (3)Yes to all (4)No to all (5)Rename"""\
-      %(blue + str(m) + red,\
-		blue + file_name_from_preex_path + red,\
-		blue + file_size + red,\
-		blue + last_modif_time + red,\
-		blue + original_dir_path + red,\
-		blue + each_preexist_backup_loc+red)
-			print_color(red,each_file_prmp)
-			
-			# Handling the option
-			opt = raw_input(">")
-			if opt == "1":  
-			### 1 ==> Overwrite
-				# Overwrite the file in backup loc
-				copy(each_preex_path,each_preexist_backup_loc)
-				opt1_overwrite_msg = \
-					"# \"%s\" is overwritten in \"%s\" " \
-						%(blue + file_name_from_preex_path + red,\
-							blue + each_preexist_backup_loc + red)
-				print_color(red, opt1_overwrite_msg)
-			
-				# Delete the file in dict if it has been handled
-				del preex_file_info_dict[each_preex_file]
-
-				# Leave the while loop to continue the next file in dict
-				break
- 
-			elif opt == "2": 
-			### 2 ==> Do not overwrite this file
-				# Print that the file wont be overwrite
-				opt2_dont_overwrite_msg = \
-					"# \"%s\" will not be overwritten! " \
-						%(blue + file_name_from_preex_path + red)
-				print_color(red, opt2_dont_overwrite_msg)
-			
-				# Delete the file in dict if it has been handled
-				del preex_file_info_dict[each_preex_file]
-				# Leave the while loop to continue the next file in dict
-				break
-
-			elif opt == "3":
-			### 3 ==> Overwrite the rest
-				# Copy the rest of files in dict
-				# 	"_sub" indicates the dict here is the same as the one
-				# 	used in outer loop. 
-				for each_preex_file_sub in preex_file_info_dict.keys():
-					# Info: ori_path_of_file + backup_loc_of_file
-					each_info_sub =  preex_file_info_dict[each_preex_file_sub]
-					# Original path of the file
-					each_preex_path_sub = each_info_sub[0]
-					# File name
-					file_name_from_preex_path_sub = each_preex_file_sub
-					# Backup path of the file
-					each_preexist_backup_loc_sub = each_info_sub[1]
-					# Copy
-					copy(each_preex_path_sub,each_preexist_backup_loc_sub)
-					opt3_overwrite_msg = \
+		%(blue + str(m) + red,\
+			blue + file_name_from_preex_path + red,\
+			blue + file_size + red,\
+			blue + last_modif_time + red,\
+			blue + original_dir_path + red,\
+			blue + each_preexist_backup_loc+red)
+				print_color(red,each_file_prmp)
+				
+				# Handling the option
+				opt = raw_input(">")
+				if opt == "1":  
+				### 1 ==> Overwrite
+					# Overwrite the file in backup loc
+					copy(each_preex_path,each_preexist_backup_loc)
+					opt1_overwrite_msg = \
 						"# \"%s\" is overwritten in \"%s\" " \
-							%(blue + file_name_from_preex_path_sub + red,\
-								blue + each_preexist_backup_loc_sub + red)
-					print_color(red, opt3_overwrite_msg)				
+							%(blue + file_name_from_preex_path + gray,\
+								blue + each_preexist_backup_loc + gray)
+					print_color(gray, opt1_overwrite_msg)
+				
+					# Delete the file in dict if it has been handled
+					del preex_file_info_dict[each_preex_file]
+
+					# Leave the while loop to continue the next file in dict
+					break
+	 
+				elif opt == "2": 
+				### 2 ==> Do not overwrite this file
+					# Print that the file wont be overwrite
+					opt2_dont_overwrite_msg = \
+						"# \"%s\" will not be overwritten! " \
+							%(blue + file_name_from_preex_path + gray)
+					print_color(gray, opt2_dont_overwrite_msg)
+				
+					# Delete the file in dict if it has been handled
+					del preex_file_info_dict[each_preex_file]
+					# Leave the while loop to continue the next file in dict
+					break
+
+				elif opt == "3":
+				### 3 ==> Overwrite the rest
+					# Copy the rest of files in dict
+					# 	"_sub" indicates the dict here is the same as the one
+					# 	used in outer loop. 
+					for each_preex_file_sub in preex_file_info_dict.keys():
+						# Info: ori_path_of_file + backup_loc_of_file
+						each_info_sub =  preex_file_info_dict[each_preex_file_sub]
+						# Original path of the file
+						each_preex_path_sub = each_info_sub[0]
+						# File name
+						file_name_from_preex_path_sub = each_preex_file_sub
+						# Backup path of the file
+						each_preexist_backup_loc_sub = each_info_sub[1]
+						# Copy
+						copy(each_preex_path_sub,each_preexist_backup_loc_sub)
+						opt3_overwrite_msg = \
+							"# \"%s\" is overwritten in \"%s\" " \
+								%(blue + file_name_from_preex_path_sub + gray,\
+									blue + each_preexist_backup_loc_sub + gray)
+						print_color(gray, opt3_overwrite_msg)				
+
+						# Delete the file in dict if it has been handled
+						del preex_file_info_dict[each_preex_file_sub]
+						#print "dict "+str(preex_file_info_dict)
+
+					print "opt3 is done"
+
+					# Leave this while loop
+					break	
+
+				elif opt == "4":
+				### 4 ==> Do not overwrite the rest
+					# Delete the file in dict if it has been handled
+					del preex_file_info_dict[each_preex_file]
+
+					# Leave this while loop
+					break	
+
+				elif opt == "5":
+				### 5 ==> Renaming
+					## Read the new name
+					# Prompt for renaming
+					rename_prmp = \
+						"# Please enter a new name for \"%s\"." \
+								%(blue + file_name_from_preex_path + gray)
+					print_color(gray,rename_prmp)
+
+					new_name = raw_input(">")
+					## Copy and rename the file and save it to backup loc
+					#	using copy2 BIF.
+					renaming(each_preex_path,new_name,\
+						path_to_backup_dir)
 
 					# Delete the file in dict if it has been handled
-					del preex_file_info_dict[each_preex_file_sub]
-					#print "dict "+str(preex_file_info_dict)
+					del preex_file_info_dict[each_preex_file]
+					# Leave the while loop to continue the next file in dict
+					break
 
-				print "opt3 is done"
+				else:
+					over_write_try_again = "# Please try again."
+					print_color(gray,over_write_try_again)
 
-				# Leave this while loop
-				break	
+			# Count for the nth file
+			m = m + 1
 
-			elif opt == "4":
-			### 4 ==> Do not overwrite the rest
-				# Delete the file in dict if it has been handled
-				del preex_file_info_dict[each_preex_file]
-
-				# Leave this while loop
-				break	
-
-			elif opt == "5":
-			### 5 ==> Renaming
-				## Read the new name
-				# Prompt for renaming
-				rename_prmp = \
-					"# Please enter a new name for \"%s\"." \
-							%(blue + file_name_from_preex_path + red)
-				print_color(red,rename_prmp)
-
-				new_name = raw_input(">")
-				## Copy and rename the file and save it to backup loc
-				#	using copy2 BIF.
-				renaming(each_preex_path,new_name,\
-					path_to_backup_dir)
-
-				# Delete the file in dict if it has been handled
-				del preex_file_info_dict[each_preex_file]
-				# Leave the while loop to continue the next file in dict
-				break
-
-			else:
-				over_write_try_again = "# Please try again."
-				print_color(gray,over_write_try_again)
-
-		# Count for the nth file
-		m = m + 1
-
+		elif not(any(preex_file_info_dict)):
+		# The dict is empty. Leave module!
+			print "The dict is empty."
+			return "Done"
 
 
