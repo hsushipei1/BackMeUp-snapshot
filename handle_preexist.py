@@ -115,7 +115,7 @@ def handle_preex_file(preex_file_info_dict):
 	# Check whether the dict is empty. not empty=> 5 opts, Empty=> leave this
 	#	module.
 		if any(preex_file_info_dict):
-			# Info: ori_path_of_file + backup_loc_of_file
+			# Info: ori_path_of_file and backup_loc_of_file
 			each_info =  preex_file_info_dict[each_preex_file]
 			# File name
 			file_name_from_preex_path = each_preex_file

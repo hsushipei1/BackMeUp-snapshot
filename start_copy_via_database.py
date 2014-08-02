@@ -7,6 +7,7 @@ from os import path, makedirs, chdir
 from sys import exit
 
 from handle_preexist import handle_preex_file
+from handle_non_preexist import handle_non_preex_file
 
 def copying_keep_tree(data_base_in,backup_loc):
 	"""
@@ -71,7 +72,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 
 	#	o For the files that are not pre-exist, start copying after the 
 	#		list is established.
-		
+	handle_non_preex_file(not_preex_file_info_dict)	
 	
 ############ Section below is under development ######################
 
@@ -79,7 +80,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
 		#copy2(per_path_input,backup_loc_dirs)
 
-	print "Done copying files!"
+	print "# Done copying files!"
 	
 	#### testing 
 	#print "Pre-exist path %r" %(preexist_lists)
