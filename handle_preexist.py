@@ -218,8 +218,14 @@ def handle_preex_file(preex_file_info_dict):
 
 				elif opt == "4":
 				### 4 ==> Do not overwrite the rest
-					# Delete the file in dict if it has been handled
-					del preex_file_info_dict[each_preex_file]
+					for each_preex_file_sub in preex_file_info_dict.keys():
+						# Delete the file in dict if it has been handled
+						del preex_file_info_dict[each_preex_file_sub]
+
+					# Print a msg
+					opt4_overwrite_msg =\
+						 "# The rest of the file will not be copied."
+					print_color(gray,opt4_overwrite_msg)
 
 					# Leave this while loop
 					break	
@@ -230,8 +236,8 @@ def handle_preex_file(preex_file_info_dict):
 					# Prompt for renaming
 					rename_prmp = \
 						"# Please enter a new name for \"%s\"." \
-								%(blue + file_name_from_preex_path + gray)
-					print_color(gray,rename_prmp)
+								%(blue + file_name_from_preex_path + red)
+					print_color(red,rename_prmp)
 
 					new_name = raw_input(">")
 					## Copy and rename the file and save it to backup loc
@@ -253,7 +259,7 @@ def handle_preex_file(preex_file_info_dict):
 
 		elif not(any(preex_file_info_dict)):
 		# The dict is empty. Leave module!
-			print "The dict is empty."
-			return "Done"
+			#print "The dict is empty."
+			return "Ask file by file section is done!"
 
 
