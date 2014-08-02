@@ -184,17 +184,43 @@ def handle_preex_file(preex_file_info_dict):
 
 			elif opt == "3":
 			### 3 ==> Overwrite the rest
-				del preex_file_info_dict[each_preex_file]
-				print preex_file_info_dict
+				# Copy the rest of files in dict
+				# 	"_sub" indicates the dict here is the same as the one
+				# 	used in outer loop. 
+				for each_preex_file_sub in preex_file_info_dict.keys():
+					# Info: ori_path_of_file + backup_loc_of_file
+					each_info_sub =  preex_file_info_dict[each_preex_file_sub]
+					# Original path of the file
+					each_preex_path_sub = each_info_sub[0]
+					# File name
+					file_name_from_preex_path_sub = each_preex_file_sub
+					# Backup path of the file
+					each_preexist_backup_loc_sub = each_info_sub[1]
+					# Copy
+					copy(each_preex_path_sub,each_preexist_backup_loc_sub)
+					opt3_overwrite_msg = \
+						"# \"%s\" is overwritten in \"%s\" " \
+							%(blue + file_name_from_preex_path_sub + red,\
+								blue + each_preexist_backup_loc_sub + red)
+					print_color(red, opt3_overwrite_msg)				
+
+					# Delete the file in dict if it has been handled
+					del preex_file_info_dict[each_preex_file_sub]
+					#print "dict "+str(preex_file_info_dict)
+
+				print "opt3 is done"
+
 				# Leave this while loop
 				break	
-				#return opt
 
 			elif opt == "4":
 			### 4 ==> Do not overwrite the rest
-				print 
-				return opt
-	
+				# Delete the file in dict if it has been handled
+				del preex_file_info_dict[each_preex_file]
+
+				# Leave this while loop
+				break	
+
 			elif opt == "5":
 			### 5 ==> Renaming
 				## Read the new name
