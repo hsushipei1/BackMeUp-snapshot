@@ -74,20 +74,8 @@ def copying_keep_tree(data_base_in,backup_loc):
 	#		list is established.
 	handle_non_preex_file(not_preex_file_info_dict)	
 	
-############ Section below is under development ######################
-
-		# copy files into dir tree "backup_loc_dirs"
-		#print "@ Copying: %r \n into %r.\n" %(per_path_input,backup_loc_dirs)	
-		#copy2(per_path_input,backup_loc_dirs)
-
 	print "# Done copying files!"
 	
-	#### testing 
-	#print "Pre-exist path %r" %(preexist_lists)
-	#print " "
-	#print "not pre-exist path %r" %(not_preexist_lists)
-	#print " "
-	#print preexist_backup_loc_lists
 
 ## testing the "copy_keep_tree"
 copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
