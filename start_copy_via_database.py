@@ -70,7 +70,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 	handle_preex_file(preex_file_info_dict)	
 
 	#	o For the files that are not pre-exist, start copying after the 
-	#		list is est.
+	#		list is established.
 		
 	
 ############ Section below is under development ######################
