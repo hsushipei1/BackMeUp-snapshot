@@ -4,18 +4,22 @@
 """
 BackMeUp Project
 
-o Version：1.0dev
+o Version：
 o Author: HsuShiPei(徐世裴) (hsushipei1@gmail.com)
 o Features: 
 o Program Flow Chart:
 o Update Record:
-
 """
 
 ##### Import modules 
-from os import system, path
+from os import system, path, getcwd
+# Part 0
 from project_info import ProjInfo
 from author_info import AuthrInfo
+
+# Part 1
+from backup_plan_viewer import existn_database_finder, \
+								user_input_plan_name
 
 from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
@@ -39,6 +43,20 @@ AuthrInfo()
 # Brief intro to BackMeUp?
 
 ##### Part 1: Backup configuration
+## Backup Plan Viewer
+pwd = getcwd()
+search_path_list = [pwd]
+extension_list = ["*.BakDataBase"]
+# Obtain the existing name of database
+preex_database_name_list = \
+	existn_database_finder(search_path_list, extension_list)
+
+user_input_plan_name(preex_database_name_list)
+
+print "?"
+
+exit("=========================================================")
+
 # Immediate or Schduled backup(value returned)
 immed_or_schedu = immediate_or_scheduled_backup()
 if immed_or_schedu == "1": # immediate backup, continue

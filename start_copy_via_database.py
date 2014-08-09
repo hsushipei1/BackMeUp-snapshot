@@ -78,7 +78,7 @@ def copying_keep_tree(data_base_in,backup_loc):
 	
 
 ## testing the "copy_keep_tree"
-copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
+#copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
 
 
 def copying_dont_keep_tree(data_base_in,backup_loc):

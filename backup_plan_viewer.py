@@ -92,10 +92,11 @@ def user_input_plan_name(preex_database_name_list):
 	"""
 	new_plan_name_prompt = """\
 -----------------------------------------------------------
-# Now you will need to give a name to the following backup
-  configuration.
+# First, you will need a name for the following backup
+  configuration to avoid overwriting your previous plans.
 
-# Type "l" to check for the existing backup plan.
+# Please give a name to the following backup configuration.
+# Type "l" to check the existing backup plan.
 -----------------------------------------------------------"""
 	print_color(red, new_plan_name_prompt)
 
@@ -129,10 +130,10 @@ def user_input_plan_name(preex_database_name_list):
 
 
 ### testing the function
-a = existn_database_finder\
-(["/work/hsushipei/Programming/python/Project/BackMeUp"],["*.BakDataBase"])
+#a = existn_database_finder\
+#(["/work/hsushipei/Programming/python/Project/BackMeUp"],["*.BakDataBase"])
 
-user_input_plan_name(a)
+#user_input_plan_name(a)
 
 
 
