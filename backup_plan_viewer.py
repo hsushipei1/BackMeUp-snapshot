@@ -8,7 +8,7 @@ Module: Backup Plan Viewer
   backup plan "manager" after ver-1.0.
 """
 
-from os import walk, chdir, getcwd
+from os import walk, chdir, getcwd, listdir
 from glob import glob
 from sys import exit
 
@@ -26,7 +26,7 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def existn_database_finder(search_path_list,extension_list):
+def existn_database_finder(database_extension):
 	"""
 	$ The function
 	* Search previous backup plans(database) before any configuration
@@ -35,47 +35,38 @@ def existn_database_finder(search_path_list,extension_list):
 	  function will return that list.
 
 	$ Function parameters(Inputs)
-	* "search_path_list"=> A LIST that stores the path to be searched. In 
-	  this function, the search path will be current directory.
-	* "extension_list"=> A LIST that stores the extensions to be looking
-	  for. In this function, the extension is given "*.BakDataBase" which is
-	  the extension of database.
+	* "database_extension"=> A STRING that is ".BakDataBase" which is the 
+	  extension of database in this case.
 
 	$ Returns
 	* "preex_database_name_list"=> A LIST that stores the name of existing
 	  database.
 	"""
 
-    # Get path of "./" Because I use "chdir" in loop below for traversing
-    # into sub-directories, I need to go back to "./" after finish searching
-    # files.
+    # Get path of "./"
 	pwd_path = getcwd()
 
 	# Create a list that stores the name of pre-existing databases.
 	preex_database_name_list = []
 
 	# Search file that has user desired extension.
-	for each_path in search_path_list:
-		#print path
-		for DirPath, SubDirNam, FileList in walk(each_path):
-			chdir(DirPath)
-			for each_extension in extension_list:
-				glob_find_ext = glob(each_extension)
-				if not glob_find_ext:  # if glob_find_ext is empty
-					#print "nothing is found"
-					pass
-				else:
-					for EachFileName_SameDir in glob_find_ext:
-						#print DirPath+"/"+EachFileName_SameDir
-						# Store the name of pre-existing database into list
-						preex_database_name_list.append(EachFileName_SameDir)
+	for EachFileName_CurrnDir in listdir(pwd_path):
+		if EachFileName_CurrnDir.endswith(database_extension):
+			#print EachFileName_CurrnDir
+			# Store the name of pre-existing database into list
+			preex_database_name_list.append(EachFileName_CurrnDir)
+		elif not EachFileName_CurrnDir.endswith(database_extension):
+			#print "nothing found"
+			pass
+			#return
 
 	# Go back to "./"
 	chdir(pwd_path)
 	
 	# Return the result
 	return preex_database_name_list
-	
+
+
 def user_input_plan_name(preex_database_name_list):
 	"""
 	$ The function
@@ -130,8 +121,7 @@ def user_input_plan_name(preex_database_name_list):
 
 
 ### testing the function
-#a = existn_database_finder\
-#(["/work/hsushipei/Programming/python/Project/BackMeUp"],["*.BakDataBase"])
+print existn_database_finder(".BakDataBase")
 
 #user_input_plan_name(a)
 
