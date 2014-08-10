@@ -44,17 +44,15 @@ AuthrInfo()
 
 ##### Part 1: Backup configuration
 ## Backup Plan Viewer
-database_extension = ".BakDataBase"
+database_extension = ".BakDataBase"    # will use this var below
+
 # Obtain the existing name of database
 (preex_database_name_list, existn_DatabaseCheck) = \
 	existn_database_finder(database_extension)
+
 # Obtain new name for current backup plan
 new_name_backup_plan = \
 user_input_plan_name(preex_database_name_list, existn_DatabaseCheck)
-
-print new_name_backup_plan
-
-exit("=========================================================")
 
 # Immediate or Schduled backup(value returned)
 immed_or_schedu = immediate_or_scheduled_backup()
@@ -62,11 +60,14 @@ if immed_or_schedu == "1": # immediate backup, continue
 	pass
 elif immed_or_schedu == "2": # schedule backup, jump to configure
 	configure_scheduled()
-# User enter the dirs that will backup
+
+# Path to directories that user wants to backup
 path_input = path_to_backup()
-# where to save backup
+
+# Backup location
 backup_loc = backup_location()
-# backup entire dir or select extension(value returned)
+
+# backup entire dir or select extension(number is returned)
 backup_style = entire_or_extension_backup()
 if backup_style == "1": # 1 go to full backup
 	locate_all_file_multi_dir(path_input)
@@ -74,8 +75,11 @@ if backup_style == "1": # 1 go to full backup
 elif backup_style == "2": # 2 go to selected backup
 	exten_input = extens_input()
 	find_multi_type_in_multi_dir(path_input,exten_input)
+
 # keep dir tree(relative path)?(value returned)
 keep_tree_value = keep_tree_ornot(backup_loc)
+
+exit("============= KEEP TREE ================")
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\
@@ -84,9 +88,11 @@ verify_user_inputs(immed_or_schedu,path_input,backup_loc,\
 ##### Part 3: Start backup(copying): full or sele / keep tree or not
 # Decide which data base to read from "backup_style"
 if backup_style == "1": # full backup
-	data_base_in_file = ".full_data_base.txt"
+	data_base_in_file = \
+	new_name_backup_plan+"fullBackup_database"+database_extension
 elif backup_style == "2": # selected backup
-	data_base_in_file = ".sele_data_base.txt"
+	data_base_in_file = \
+	new_name_backup_plan+"seleBackup_database"+database_extension
 # Start copying. read data base and backup path
 # decide to preserve directory tree or not
 if keep_tree_value == "1": # keep dir tree
@@ -95,7 +101,6 @@ elif keep_tree_value == "2": # do not keep dir tree
     copying_dont_keep_tree(data_base_in_file,backup_loc)
 
 
-#==================== Under development 2014-07-09 ==================
 
 
 
