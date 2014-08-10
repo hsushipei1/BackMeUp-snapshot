@@ -39,8 +39,14 @@ def existn_database_finder(database_extension):
 	  extension of database in this case.
 
 	$ Returns
-	* "preex_database_name_list"=> A LIST that stores the name of existing
+	* The function will return "(A, B)"
+	* A: "preex_database_name_list"=> A LIST that stores the name of existing
 	  database.
+	* B: "existn_DatabaseCheck"=> A BOOLEAN VALUE. True means at least one 
+	  existing database is found and False means no database is found. The
+	  main goal of this variable is to let "user_input_plan_name" function 
+	  detect the result of searching existing databse and print "No existing 
+	  backup plan is found".
 	"""
 
     # Get path of "./"
@@ -49,25 +55,40 @@ def existn_database_finder(database_extension):
 	# Create a list that stores the name of pre-existing databases.
 	preex_database_name_list = []
 
+	# A list for "no database can be found". Store the boolean value each time
+	# when checking each file in current dir in if expression below.
+	# If database is found, store True, and vice versa. If all boolean is F
+	# that means no database can be found and will print the message.
+	database_NotFoundCheck = []
+
 	# Search file that has user desired extension.
 	for EachFileName_CurrnDir in listdir(pwd_path):
 		if EachFileName_CurrnDir.endswith(database_extension):
+			# Database found!
 			#print EachFileName_CurrnDir
 			# Store the name of pre-existing database into list
 			preex_database_name_list.append(EachFileName_CurrnDir)
-		elif not EachFileName_CurrnDir.endswith(database_extension):
+			# Store True in "database_NotFoundCheck" list
+			database_NotFoundCheck.append(True)
+		elif not EachFileName_CurrnDir.endswith(database_extension): 
+			# NOT FOUND!
 			#print "nothing found"
+			# Store True in "database_NotFoundCheck" list
+			database_NotFoundCheck.append(False)
 			pass
 			#return
+
+	# Print no existing backup plan if "database_NotFoundCheck" are all False
+	existn_DatabaseCheck = any(database_NotFoundCheck)
 
 	# Go back to "./"
 	chdir(pwd_path)
 	
 	# Return the result
-	return preex_database_name_list
+	return preex_database_name_list, existn_DatabaseCheck
 
 
-def user_input_plan_name(preex_database_name_list):
+def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 	"""
 	$ The function
 	* Ask user to enter the name of curret backup configuration. User can
@@ -77,6 +98,8 @@ def user_input_plan_name(preex_database_name_list):
 	$ Function parameters(Inputs)
 	* "preex_database_name_list"=> A LIST that stores the name of existing
       database.
+	* "existn_DatabaseCheck"=> A BOOLEAN VALUE. If it is False, print 
+	  "# No existing backup plan is found!" 
 
     $ Returns
 
@@ -94,12 +117,16 @@ def user_input_plan_name(preex_database_name_list):
 	while True:
 		new_plan_name = raw_input(">")
 		if new_plan_name == "l":  # check for existing plan
-			show_preex_DBaseName = \
-			"# The name of existing backup plans are:"
-			print_color(gray, show_preex_DBaseName)
-			for each_preex_DBaseName in preex_database_name_list:
-				# "each_preex_DBaseName" is the name of existing database
-				print "\"%s\"" %(blue + each_preex_DBaseName + default)
+			if existn_DatabaseCheck == True:  # At least one DBase is found
+				show_preex_DBaseName = \
+				"# The name of existing backup plans are:"
+				print_color(gray, show_preex_DBaseName)
+				for each_preex_DBaseName in preex_database_name_list:
+					# "each_preex_DBaseName" is the name of existing database
+					print "\"%s\"" %(blue + each_preex_DBaseName + default)
+			elif existn_DatabaseCheck == False:  # No database found!
+				NoDatabaseFound = "# No existing backup plan is found!"
+				print_color(gray, NoDatabaseFound)
 		else:  # new name for backup plan.
 			# Double check
 			while True:
@@ -115,13 +142,14 @@ def user_input_plan_name(preex_database_name_list):
 				elif NewPlanName_Sure_OrNot == "n":
 					# Retry the other new name
 					reenter_NewName_msg = \
-					"# Please try other name for backup plan again!"
+					"# Please try other name for backup plan again or"+\
+					" \"l\" to check \n  existing one."
 					print_color(gray, reenter_NewName_msg)
 					break
 
 
 ### testing the function
-print existn_database_finder(".BakDataBase")
+#print existn_database_finder(".BakDataBase")
 
 #user_input_plan_name(a)
 

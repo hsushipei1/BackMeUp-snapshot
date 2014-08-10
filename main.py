@@ -44,14 +44,12 @@ AuthrInfo()
 
 ##### Part 1: Backup configuration
 ## Backup Plan Viewer
-pwd = getcwd()
-search_path_list = [pwd]
-extension_list = ["*.BakDataBase"]
+database_extension = ".BakDataBase"
 # Obtain the existing name of database
-preex_database_name_list = \
-	existn_database_finder(search_path_list, extension_list)
+(preex_database_name_list, existn_DatabaseCheck) = \
+	existn_database_finder(database_extension)
 
-user_input_plan_name(preex_database_name_list)
+user_input_plan_name(preex_database_name_list, existn_DatabaseCheck)
 
 print "?"
 
