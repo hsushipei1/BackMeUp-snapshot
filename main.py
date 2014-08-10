@@ -81,10 +81,13 @@ elif backup_style == "2": # 2 go to selected backup
 	find_multi_type_in_multi_dir(path_input,exten_input, database_name)
 
 # keep dir tree(relative path)?(value returned)
-keep_tree_value = keep_tree_ornot(backup_loc)
+keep_tree_value = keep_tree_ornot
 
 # Add backup tag? 
 backup_tagging()
+
+# Backup location
+backup_loc = backup_location()
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\

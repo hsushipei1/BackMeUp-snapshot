@@ -22,9 +22,6 @@ def keep_tree_ornot(backup_loc):
 	"""
 	User will choose whether he/she will keep the dir tree or not
 
-	* Input
-	backup_loc => the path to store backup files.
-	
 	* Ouput
 	
 	"""
@@ -33,13 +30,12 @@ def keep_tree_ornot(backup_loc):
 # Do you want to preserve the directory tree(relative path of 
   each file)
   (1) Keep it => Will copy the directory tree into the backup
-  place => %r
-  (2) Dont keep it => All the backup directories and file will
-  put in => %r
+  place.
+  (2) Dont keep it => All the backup file will put into the
+  backup place.
 
-# Please choose one. (1/2)
------------------------------------------------------------"""\
-	%(backup_loc,backup_loc)
+# Please choose one. (1: Keep tree/2: Dont keep tree)
+-----------------------------------------------------------"""
 	print_color(red,tree_prompt)
 
 	while True:
