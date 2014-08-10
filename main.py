@@ -67,23 +67,26 @@ path_input = path_to_backup()
 # Backup location
 backup_loc = backup_location()
 
-# backup entire dir or select extension(number is returned)
+# Choose backup entire dir or select extension(number is returned)
+# The name of database is given here.
 backup_style = entire_or_extension_backup()
 if backup_style == "1": # 1 go to full backup
-	locate_all_file_multi_dir(path_input)
-	exten_input = 0
+	database_name = new_name_backup_plan+database_extension
+	locate_all_file_multi_dir(path_input, database_name)
+	exten_input = 0  # "0" is to tell "verify_user_inputs" user chose full
 elif backup_style == "2": # 2 go to selected backup
+	database_name = new_name_backup_plan+database_extension
 	exten_input = extens_input()
-	find_multi_type_in_multi_dir(path_input,exten_input)
+	find_multi_type_in_multi_dir(path_input,exten_input, database_name)
 
 # keep dir tree(relative path)?(value returned)
 keep_tree_value = keep_tree_ornot(backup_loc)
 
-exit("============= KEEP TREE ================")
-
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\
 	backup_style,exten_input,keep_tree_value)
+
+exit("============= KEEP TREE ================")
 
 ##### Part 3: Start backup(copying): full or sele / keep tree or not
 # Decide which data base to read from "backup_style"

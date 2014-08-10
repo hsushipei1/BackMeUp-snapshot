@@ -1,5 +1,0 @@
-/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch1-var_declare/dec.c
-/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch1-mi2km/mi2km.c
-/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch2-ProgStruct/prac.c
-/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch2-calculate/calc.c
-/home/hsushipei/Working/Programming/c/practice/ProbSolvingAndProgDesignC/ch0-HelloWorld/hello.c
