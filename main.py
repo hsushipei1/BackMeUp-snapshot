@@ -20,7 +20,6 @@ from author_info import AuthrInfo
 # Part 1
 from backup_plan_viewer import existn_database_finder, \
 								user_input_plan_name
-
 from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
 					    backup_location,\
@@ -30,6 +29,8 @@ from full_backup import locate_all_file_multi_dir
 from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
 from keep_tree import keep_tree_ornot
+from backup_tag import backup_tagging
+
 from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
@@ -81,6 +82,9 @@ elif backup_style == "2": # 2 go to selected backup
 
 # keep dir tree(relative path)?(value returned)
 keep_tree_value = keep_tree_ornot(backup_loc)
+
+# Add backup tag? 
+backup_tagging()
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\

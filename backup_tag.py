@@ -127,6 +127,6 @@ def backup_tagging():
 
 
 ### Testing the function
-backup_tagging()
+#print backup_tagging()
 
 
