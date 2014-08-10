@@ -13,6 +13,7 @@ from glob import glob
 from sys import exit
 
 from print_color import print_color
+from get_DatabaseName_woExten import get_DatabaseName_woExten
 
 ## colors
 default =  "\033[0m"
@@ -123,7 +124,10 @@ def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 				print_color(gray, show_preex_DBaseName)
 				for each_preex_DBaseName in preex_database_name_list:
 					# "each_preex_DBaseName" is the name of existing database
-					print "\"%s\"" %(blue + each_preex_DBaseName + default)
+					# Split name into pure name and extension, print only name
+					each_DBaseNamewoExtens= \
+					get_DatabaseName_woExten(each_preex_DBaseName, ".", 1)
+					print "\"%s\"" %(blue + each_DBaseNamewoExtens + default)
 			elif existn_DatabaseCheck == False:  # No database found!
 				NoDatabaseFound = "# No existing backup plan is found!"
 				print_color(gray, NoDatabaseFound)
@@ -134,12 +138,14 @@ def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 				# Create a new list to store the name(w/o extens)
 				existn_DatebaseName_woExens = []  # wo=without
 				for each_exsitn_databaseName in preex_database_name_list:
-					(each_NamewoExtens, cut_extension) = \
-						each_exsitn_databaseName.rsplit(".",1)
-						# "rsplit" is to split word from end
+					each_NamewoExtens = \
+					get_DatabaseName_woExten(each_exsitn_databaseName, ".", 1)
 					existn_DatebaseName_woExens.append(each_NamewoExtens)
 
-				#if new_plan_name 
+				#If new name is already exist
+				for 
+
+ 
 				print preex_database_name_list
 				print existn_DatebaseName_woExens
 				exit("=================")

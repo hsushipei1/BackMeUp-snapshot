@@ -17,10 +17,10 @@ def get_DatabaseName_woExten(Name_wExtens, split_with, maxElem_inResult):
 
 	$ Return
 	* "Name_woExtens"=> File name without extension.
-	* "cut_extension"=> The extension
 	"""
 	(Name_woExtens, cut_extension) = \
 	Name_wExtens.rsplit(split_with, maxElem_inResult)
+	# "rsplit" is to split word from end
 	return Name_woExtens
 
 ### testing the function
