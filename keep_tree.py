@@ -18,7 +18,7 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def keep_tree_ornot(backup_loc):
+def keep_tree_ornot():
 	"""
 	User will choose whether he/she will keep the dir tree or not
 

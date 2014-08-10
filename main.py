@@ -65,9 +65,6 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 # Path to directories that user wants to backup
 path_input = path_to_backup()
 
-# Backup location
-backup_loc = backup_location()
-
 # Choose backup entire dir or select extension(number is returned)
 # The name of database is given here.
 backup_style = entire_or_extension_backup()
@@ -84,7 +81,7 @@ elif backup_style == "2": # 2 go to selected backup
 keep_tree_value = keep_tree_ornot
 
 # Add backup tag? 
-backup_tagging()
+backup_tag = backup_tagging()
 
 # Backup location
 backup_loc = backup_location()
