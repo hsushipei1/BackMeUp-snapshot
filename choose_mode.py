@@ -90,7 +90,14 @@ def path_to_backup():
             pass
 
 ## Place to put backup
-def backup_location():
+def backup_location(backup_tag):
+    """
+	$ The function
+
+	$ Function inputs
+
+	$ Return
+    """
     prompt4 = """\
 ------------------------------------------------------------
 # Please enter the absolute path where you want to save the
@@ -98,8 +105,18 @@ def backup_location():
 ------------------------------------------------------------"""
     print_color(red, prompt4)
 
+	# Check whether there is a backup tag from "backup_tag"
+    if backup_tag == " ":     # "space" means no backup tag
+       print "User dont need a backup tag!"
+    else:
+       print "Have a backup tag!"
+
+#########  developing
+
+	# Check whether backup location is exist
     while True:
         BkupPath = raw_input(">")
+        # Backup location is exist. Return the path
         if os.path.exists(BkupPath):
             return BkupPath
         else:

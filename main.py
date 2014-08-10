@@ -84,7 +84,7 @@ keep_tree_value = keep_tree_ornot
 backup_tag = backup_tagging()
 
 # Backup location
-backup_loc = backup_location()
+backup_loc = backup_location(backup_tag)
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(immed_or_schedu,path_input,backup_loc,\

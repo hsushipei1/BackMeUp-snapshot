@@ -24,9 +24,9 @@ def backup_tagging():
 	The default tag: [original_name]_backup_yyyymmdd
 
 	$ Return
-	"default_tag", "customized_tag", or ""=> STRINGs. "default_tag" and
+	"default_tag", "customized_tag", or " "=> STRINGs. "default_tag" and
 	 "customized_tag" are strings that store default or customized tag,
-	respectively. "" means user dont need a tag.
+	respectively. " "(space) means user dont need a tag.
 	"""
 
 	# Get system date. Return a list, contains year, month, and day
@@ -56,7 +56,7 @@ def backup_tagging():
 		if backup_tag_ornot == "2":
 			no_tag_msg = "# You don't want to use a backup tag."
 			print_color(blue,no_tag_msg)
-			return ""
+			return " "     # return nothing
 			break
 		# Want a tag
 		if backup_tag_ornot == "1":
@@ -133,5 +133,4 @@ def backup_tagging():
 
 ### Testing the function
 #print backup_tagging()
-
 
