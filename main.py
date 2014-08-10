@@ -48,10 +48,11 @@ database_extension = ".BakDataBase"
 # Obtain the existing name of database
 (preex_database_name_list, existn_DatabaseCheck) = \
 	existn_database_finder(database_extension)
-
+# Obtain new name for current backup plan
+new_name_backup_plan = \
 user_input_plan_name(preex_database_name_list, existn_DatabaseCheck)
 
-print "?"
+print new_name_backup_plan
 
 exit("=========================================================")
 

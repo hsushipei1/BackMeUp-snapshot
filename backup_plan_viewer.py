@@ -14,6 +14,7 @@ from sys import exit
 
 from print_color import print_color
 from get_DatabaseName_woExten import get_DatabaseName_woExten
+from check_elem_inList import check_elem_inList
 
 ## colors
 default =  "\033[0m"
@@ -92,17 +93,18 @@ def existn_database_finder(database_extension):
 def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 	"""
 	$ The function
-	* Ask user to enter the name of curret backup configuration. User can
-	  tell BackMeUp to list existing backup plans(database). The name of 
-	  current backup can't be identical to any of the existing one.
+	Ask user to enter the name of curret backup configuration. User can
+	tell BackMeUp to list existing backup plans(database). The name of 
+	current backup can't be identical to any of the existing one.
 
 	$ Function parameters(Inputs)
-	* "preex_database_name_list"=> A LIST that stores the name of existing
-      database.
-	* "existn_DatabaseCheck"=> A BOOLEAN VALUE. If it is False, print 
-	  "# No existing backup plan is found!" 
+	"preex_database_name_list"=> A LIST that stores the name of existing
+     database.
+	"existn_DatabaseCheck"=> A BOOLEAN VALUE. If it is False, print 
+	 "# No existing backup plan is found!" 
 
     $ Returns
+	"new_plan_name"=> The new name of current backup plan.
 
 	"""
 	new_plan_name_prompt = """\
@@ -142,31 +144,34 @@ def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 					get_DatabaseName_woExten(each_exsitn_databaseName, ".", 1)
 					existn_DatebaseName_woExens.append(each_NamewoExtens)
 
-				#If new name is already exist
-				for 
-
- 
-				print preex_database_name_list
-				print existn_DatebaseName_woExens
-				exit("=================")
-
-				# Double check which the new name
-				NewPlanName_DoubleCheck_Msg = \
-				"# Are you sure for \"%s\"? (\"y\" to accept/\"n\" to retry)" \
-				%(blue+new_plan_name+gray)
-				print_color(gray, NewPlanName_DoubleCheck_Msg)
-				NewPlanName_Sure_OrNot = raw_input(">")
-				if NewPlanName_Sure_OrNot == "y":
-					# Sure. Return the new name
-					print new_plan_name
-					return new_plan_name
-				elif NewPlanName_Sure_OrNot == "n":
-					# Retry the other new name
-					reenter_NewName_msg = \
-					"# Please try other name for backup plan again or"+\
-					" \"l\" to check \n  existing one."
-					print_color(gray, reenter_NewName_msg)
+				#If new name is already exist in list
+				Is_NewName_exist = \
+				check_elem_inList(new_plan_name, existn_DatebaseName_woExens)
+				if Is_NewName_exist:  # New name is already exist
+					NewName_alreadyExist_msg = \
+					"# The name \"%s\" is already exist. Try another one." \
+					%(blue + new_plan_name + gray)
+					print_color(gray, NewName_alreadyExist_msg)
 					break
+				# The new name is vaild
+				if not Is_NewName_exist:  
+					# Double check with the new name
+					NewPlanName_DoubleCheck_Msg = \
+					"# Are you sure for \"%s\"? (\"y\" to accept/\"n\" to retry)" \
+					%(blue+new_plan_name+gray)
+					print_color(gray, NewPlanName_DoubleCheck_Msg)
+					NewPlanName_Sure_OrNot = raw_input(">")
+					if NewPlanName_Sure_OrNot == "y":
+						# Sure. Return the new name
+						#print new_plan_name
+						return new_plan_name
+					elif NewPlanName_Sure_OrNot == "n":
+						# Retry the other new name
+						reenter_NewName_msg = \
+						"# Please try other name for backup plan again or"+\
+						" \"l\" to check \n  existing one."
+						print_color(gray, reenter_NewName_msg)
+						break
 
 
 ### testing the function
