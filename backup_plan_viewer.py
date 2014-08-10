@@ -128,8 +128,23 @@ def user_input_plan_name(preex_database_name_list, existn_DatabaseCheck):
 				NoDatabaseFound = "# No existing backup plan is found!"
 				print_color(gray, NoDatabaseFound)
 		else:  # new name for backup plan.
-			# Double check
+			# Check if the new name is already exist?
 			while True:
+				## Obtain the name(w/o extension) of existing database			
+				# Create a new list to store the name(w/o extens)
+				existn_DatebaseName_woExens = []  # wo=without
+				for each_exsitn_databaseName in preex_database_name_list:
+					(each_NamewoExtens, cut_extension) = \
+						each_exsitn_databaseName.rsplit(".",1)
+						# "rsplit" is to split word from end
+					existn_DatebaseName_woExens.append(each_NamewoExtens)
+
+				#if new_plan_name 
+				print preex_database_name_list
+				print existn_DatebaseName_woExens
+				exit("=================")
+
+				# Double check which the new name
 				NewPlanName_DoubleCheck_Msg = \
 				"# Are you sure for \"%s\"? (\"y\" to accept/\"n\" to retry)" \
 				%(blue+new_plan_name+gray)
