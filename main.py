@@ -29,7 +29,8 @@ from full_backup import locate_all_file_multi_dir
 from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
 from keep_tree import keep_tree_ornot
-from backup_tag import backup_tagging
+from backup_tag import backup_tagging,\
+					   add_tag_2_backupLocation
 
 from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
@@ -80,11 +81,12 @@ elif backup_style == "2": # 2 go to selected backup
 # keep dir tree(relative path)?(value returned)
 keep_tree_value = keep_tree_ornot()
 
-# Add backup tag? 
-backup_tag = backup_tagging()
-
 # Backup location
 backup_loc = backup_location()
+
+# Ask user if he/she needs a backup tag. 
+backup_tag = backup_tagging()
+add_tag_2_backupLocation(backup_tag, backup_loc)
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(new_name_backup_plan, immed_or_schedu,\

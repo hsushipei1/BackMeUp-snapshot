@@ -1,6 +1,8 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
 
+from os import rename, chdir, getcwd
+
 from print_color import print_color
 from get_system_date import get_system_date
 
@@ -129,8 +131,37 @@ def backup_tagging():
 					backup_tag_opt_try_again = "# Please try again!"
 					print_color(gray,backup_tag_opt_try_again)
 
-
+def add_tag_2_backupLocation(backup_tag, backup_loc):
+	"""
+	$ The function
+	Add a backup tag following the directory name of backup location.
+	If backup_tag = " ", that means user dont need a backup tag, otherwise
+	the backup tag will be added right following the directory name.
+ 
+	$ Function input parameter
+	"backup_tag"=> A STRING that contains backup tag. If "backup_tag" = " ",
+	that means user dont need a backup tag.
+	"backup_loc"=> A STRING. The path to the directory where user wants to 
+	store backup files.
+	"""
+	# Get pwd
+	pwd = getcwd()
+	# Check if user wants a backup tag?
+	if backup_tag == " ":    # Dont need a backup tag
+		pass	# Dont rename the backup location
+	else:	# A backup tag is assigned to "backup_tag"
+		# Split dir name of backup loc and its parent dir
+		(BackupLoc_parentDirPath, dirName_backupLoc) = \
+		backup_loc.rsplit("/", 1)  
+		#print (BackupLoc_parentDirPath, dirName_backupLoc)
+		# cd into its parent dir
+		chdir(BackupLoc_parentDirPath)
+		# Rename the dir of backup location
+		rename(dirName_backupLoc, dirName_backupLoc+backup_tag)
+		# Go back to where BackMeUp located.
+		chdir(pwd)
 
 ### Testing the function
 #print backup_tagging()
+#add_tag_2_backupLocation("_backupTag", "/home/hsushipei/BACKUPLOC")
 

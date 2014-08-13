@@ -9,14 +9,15 @@ from sys import exit
 from handle_preexist import handle_preex_file
 from handle_non_preexist import handle_non_preex_file
 
-def copying_keep_tree(data_base_in,backup_loc):
+def copying_keep_tree(data_base_in, backup_loc):
 	"""
+	$ The function
 	Start copying, with directory tree preserved.
 
-	*Inputs
-	data_base_in => File name of the data base of either full or 
+	$ Inputs
+	"data_base_in" => File name of the data base of either full or 
 					selected backup
-	backup_loc => path to store the backup files
+	"backup_loc" => path to store the backup files
 	"""
 	# read data base
 	data_base = open(data_base_in)
