@@ -90,7 +90,7 @@ def path_to_backup():
             pass
 
 ## Place to put backup
-def backup_location(backup_tag):
+def backup_location():
     """
 	$ The function
 
@@ -104,14 +104,6 @@ def backup_location(backup_tag):
   backup files.
 ------------------------------------------------------------"""
     print_color(red, prompt4)
-
-	# Check whether there is a backup tag from "backup_tag"
-    if backup_tag == " ":     # "space" means no backup tag
-       print "User dont need a backup tag!"
-    else:
-       print "Have a backup tag!"
-
-#########  developing
 
 	# Check whether backup location is exist
     while True:

@@ -19,13 +19,14 @@ white = "\033[1;37m"
 crimson = "\033[1;38m"
 
 def verify_user_inputs\
-	(immed_or_schedu,backup_dir_input,backup_loc,\
-	 full_or_sel,sele_extens,keep_tree_ornot):
+	(backup_plan_name, immed_or_schedu, backup_dir_input,backup_loc,\
+	 full_or_sel, sele_extens, keep_tree_ornot, backup_tag):
 
 	"""
 	Show user what he/she had entered and then CNOTINUE or QUIT.
 
 	* Inputs
+	"backup_plan_name"=> Name of current backup plan
 	"immed_or_schedu" => (1)immediate or (2)scheduled backup
 	"backup_dir_input" => directories that user will backup
 	"backup_loc" => backup location
@@ -34,6 +35,7 @@ def verify_user_inputs\
                      entered will show here. if full is chosen,
                      "Copy whole dir" will show.
 	"keep_tree_ornot" => (1)keep or (2)do not keep dir tree 
+	"backup_tag"=> Backup tag
 	"""
 
 	# Showing more detailed info
@@ -57,12 +59,20 @@ def verify_user_inputs\
 	else:
 		pass
 		# pass means show extension user entered
+
+	# Result of backup tag
+	if backup_tag == " ":
+		backup_tag_result = "# You don't need a backup tag."
+	else:
+		backup_tag_result = backup_tag
 	
 	# Showing prompt
 	verify_prompt = """\
 -----------------------------------------------------------
 # The followings are your previous inputs
 -----------------------------------------------------------
+@ Name for current backup plan
+=> %s
 @ Immediate or Scheduled backup
 => %s
 @ Directories you want to backup
@@ -75,26 +85,28 @@ def verify_user_inputs\
 => %s
 @ Preserve directory tree or not 
 => %s
+@ Backup tag
+=> %s
 
 # Please check them carefully. BackMeUp won't start copying
   anything before you continue.
 # Insert "go" to continue or CTRL-C to quit.
 -----------------------------------------------------------"""\
- %(blue+str(immed_or_schedu_out)+default,\
+ %(blue+str(backup_plan_name)+default,\
+   blue+str(immed_or_schedu_out)+default,\
    blue+str(backup_dir_input)+default,\
    blue+str(backup_loc)+default,\
    blue+str(full_or_sel_out)+default,\
    blue+str(sele_extens)+default,\
    blue+str(keep_tree_ornot_out)+default,\
+   blue+str(backup_tag_result)+default
    )
 	print verify_prompt
 
 ### MUST MAKE A DOUBLE CHECK BEFORE COPYING
 
 # testing the function
-"""
-verify_user_inputs(immed_or_schedu,backup_dir_input,backup_loc,\
-     full_or_sel,sele_extens,keep_tree_ornot)
-"""
+#verify_user_inputs(immed_or_schedu,backup_dir_input,backup_loc,\
+#     full_or_sel,sele_extens,keep_tree_ornot)
 
 
