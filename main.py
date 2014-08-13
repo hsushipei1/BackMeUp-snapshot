@@ -93,7 +93,7 @@ verify_user_inputs(new_name_backup_plan, immed_or_schedu,\
 path_input, backup_loc,	backup_style,exten_input,\
 keep_tree_value, backup_tag)
 
-exit("============= KEEP TREE ================")
+exit("============= VERIFY INPUTS ================")
 
 ##### Part 3: Start backup(copying): full or sele / keep tree or not
 # Decide which data base to read from "backup_style"
