@@ -14,5 +14,6 @@ def clear_console():
 	elif name == "posix":
 		system("clear")
 
+
 ## testing the function
-clear_console()
+#clear_console()

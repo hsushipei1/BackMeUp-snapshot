@@ -13,6 +13,7 @@ o Update Record:
 
 ##### Import modules 
 from os import system, path, getcwd
+from clear_console import clear_console
 # Part 0
 from project_info import ProjInfo
 from author_info import AuthrInfo
@@ -38,7 +39,7 @@ from start_copy_via_database import copying_keep_tree,\
 
 ##### Part 0: Welcome message, project and author info
 # Clear the terminal screen at startup
-system("clear")
+clear_console()
 # Show the project and author info 
 ProjInfo()
 AuthrInfo()
