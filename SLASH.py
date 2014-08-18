@@ -1,9 +1,23 @@
 #!~/Software/python-stack/bin/python  
 #-*- coding: utf-8 -*-
 
+from os import name
+
 def SLASH():
 	"""
-	Return "/" for posix, "\\" for nt
+	The Function:
+	Use this module to unify development of unix and win version.
 
+	Return:
+	Return "/" for posix, "\" for nt
 	"""
 
+	if name == "nt":
+		return "\\"
+	elif name == "posix":
+		return "/"
+
+
+
+## testing the function
+#print SLASH()
