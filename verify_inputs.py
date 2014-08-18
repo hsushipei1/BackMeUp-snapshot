@@ -90,8 +90,7 @@ def verify_user_inputs\
 
 # Please check them carefully. BackMeUp won't start copying
   anything before you continue.
-# Insert "go" to continue or CTRL-C to quit.
------------------------------------------------------------"""\
+# Insert "go" to continue or CTRL-C to quit."""\
  %(blue+str(backup_plan_name)+default,\
    blue+str(immed_or_schedu_out)+default,\
    blue+str(backup_dir_input)+default,\
@@ -103,7 +102,15 @@ def verify_user_inputs\
    )
 	print verify_prompt
 
-### MUST MAKE A DOUBLE CHECK BEFORE COPYING
+	# MUST MAKE A DOUBLE CHECK BEFORE COPYING
+	while True:
+		double_check = raw_input(">")
+		if double_check == "go":
+			return ""
+		else:
+			try_again_prmpt = "# Please try again!"
+			print_color(gray, try_again_prmpt)
+
 
 # testing the function
 #verify_user_inputs(immed_or_schedu,backup_dir_input,backup_loc,\

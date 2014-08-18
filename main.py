@@ -100,7 +100,7 @@ keep_tree_value, backup_tag)
 if keep_tree_value == "1": # keep dir tree
 	copying_keep_tree(database_name, new_backup_loc)
 elif keep_tree_value == "2": # do not keep dir tree
-    copying_dont_keep_tree(data_base_in_file, new_backup_loc)
+    copying_dont_keep_tree(database_name, new_backup_loc)
 
 
 exit("============= START COPYING ================")
