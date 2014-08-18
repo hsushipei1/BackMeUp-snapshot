@@ -2,9 +2,11 @@
 #-*- coding: utf-8 -*-
 
 from os import rename, chdir, getcwd
+from sys import exit
 
 from print_color import print_color
 from get_system_date import get_system_date
+from SLASH import SLASH
 
 ## colors
 default =  "\033[0m"
@@ -143,25 +145,38 @@ def add_tag_2_backupLocation(backup_tag, backup_loc):
 	that means user dont need a backup tag.
 	"backup_loc"=> A STRING. The path to the directory where user wants to 
 	store backup files.
+	
+	$ Return
+	"new_backup_loc"=> New backup location with or without(if there's no 
+	backup tag, this path is the same as "backup_loc") backup tag.
+	The returned "new_backup_loc" will be call by "copying_keep_tree" or
+	"copying_dont_keep_tree" in main.py
 	"""
 	# Get pwd
 	pwd = getcwd()
 	# Check if user wants a backup tag?
-	if backup_tag == " ":    # Dont need a backup tag
-		pass	# Dont rename the backup location
+	if backup_tag == " ":    # Dont need a backup tag. 
+		new_backup_loc = backup_loc
+		return new_backup_loc   # Return the ori backup location
 	else:	# A backup tag is assigned to "backup_tag"
 		# Split dir name of backup loc and its parent dir
+		slash = SLASH()     # Get slash
 		(BackupLoc_parentDirPath, dirName_backupLoc) = \
-		backup_loc.rsplit("/", 1)  
+		backup_loc.rsplit(slash, 1)  
 		#print (BackupLoc_parentDirPath, dirName_backupLoc)
 		# cd into its parent dir
 		chdir(BackupLoc_parentDirPath)
 		# Rename the dir of backup location
 		rename(dirName_backupLoc, dirName_backupLoc+backup_tag)
+		# Return the path of backup location with(w/o) backup tag
+		new_backup_loc = \
+		BackupLoc_parentDirPath+slash+dirName_backupLoc+backup_tag
+		return new_backup_loc
 		# Go back to where BackMeUp located.
 		chdir(pwd)
 
 ### Testing the function
 #print backup_tagging()
 #add_tag_2_backupLocation("_backupTag", "/home/hsushipei/BACKUPLOC")
+#print add_tag_2_backupLocation(" ", "/home/hsushipei/BACKUPLOC")
 

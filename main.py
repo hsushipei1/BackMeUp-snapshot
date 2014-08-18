@@ -87,31 +87,23 @@ backup_loc = backup_location()
 
 # Ask user if he/she needs a backup tag. 
 backup_tag = backup_tagging()
-add_tag_2_backupLocation(backup_tag, backup_loc)
+new_backup_loc = add_tag_2_backupLocation(backup_tag, backup_loc)
 
 ##### Part 2: Verify user inputs
 verify_user_inputs(new_name_backup_plan, immed_or_schedu,\
 path_input, backup_loc,	backup_style,exten_input,\
 keep_tree_value, backup_tag)
 
-exit("============= VERIFY INPUTS ================")
-
-##### Part 3: Start backup(copying): full or sele / keep tree or not
-# Decide which data base to read from "backup_style"
-if backup_style == "1": # full backup
-	data_base_in_file = \
-	new_name_backup_plan+"fullBackup_database"+database_extension
-elif backup_style == "2": # selected backup
-	data_base_in_file = \
-	new_name_backup_plan+"seleBackup_database"+database_extension
-# Start copying. read data base and backup path
+##### Part 3: Start backup(copying): keep tree or not
+# Start copying. read data base and new backup path
 # decide to preserve directory tree or not
 if keep_tree_value == "1": # keep dir tree
-	copying_keep_tree(data_base_in_file,backup_loc)
+	copying_keep_tree(database_name, new_backup_loc)
 elif keep_tree_value == "2": # do not keep dir tree
-    copying_dont_keep_tree(data_base_in_file,backup_loc)
+    copying_dont_keep_tree(data_base_in_file, new_backup_loc)
 
 
+exit("============= START COPYING ================")
 
 
 
