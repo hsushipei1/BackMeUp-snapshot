@@ -50,6 +50,9 @@ def handle_preex_file(preex_file_info_dict):
 								location which contains the pre-exist file.
 
 	"""
+	# clear console before showing the list of pre-existing files.
+	clear_console()
+
 	### First, show all the files that are already exist at once.
 	#   (and also the info of file)
 	# Printing all the file at once.
