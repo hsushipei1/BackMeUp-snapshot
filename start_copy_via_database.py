@@ -12,7 +12,8 @@ from handle_non_preexist import handle_non_preex_file
 def copying_keep_tree(data_base_in, backup_loc):
 	"""
 	$ The function
-	Start copying, with directory tree preserved.
+	Start copying, with directory tree preserved. Will check if the
+	file is already existing in backup location.
 
 	$ Inputs
 	"data_base_in" => File name of the data base of either full or 
@@ -22,7 +23,8 @@ def copying_keep_tree(data_base_in, backup_loc):
 	# read data base
 	data_base = open(data_base_in)
 
-	# Create new dict to store file info 
+	# Create new dict to store file info of each pre-existing and 
+	# non pre-existing.
 	preex_file_info_dict = {}
 	not_preex_file_info_dict = {}
 	# Format: xxxx_dict[file_name] = ori_path_of_file, file_path_backup_dir
@@ -36,34 +38,37 @@ def copying_keep_tree(data_base_in, backup_loc):
 
 		# backup_loc_files: paths of the already-backup "files"
 		backup_loc_files = backup_loc+per_path_input
-		# backup_loc_dirs: paths of the already-backup "directories"
+		# backup_loc_dirs: Path to dir where the already-backup files reside.
 		backup_loc_dirs = dirname(backup_loc_files)
 		# File name of each file in the database(ori place)
 		backup_file_name = basename(per_path_input)
 
-		### Section that checks Pre-Existing File :
-		#		will establish two dicts, one is .....
-		# Copy the directory tree. "makedirs" is same as "mkdir -p"
-		# If the "backup_loc_dirs" is already exist
-		if isdir(backup_loc_dirs):
+		### Section that checks if each file is PRE-EXISTING or not,
+		### and will store file info of preex/non preex into 
+		### "preex_file_info_dict" and "not_preex_file_info_dict"
+		
+		## Dealing with copying the directory tree.
+		if isdir(backup_loc_dirs): # If the "backup_loc_dirs" is already exist
 			if isfile(backup_loc_files):
 				# File is already exist in backup location
 				#print "File %r is already exist!" %(backup_file_name)
 
-				# Store file info (name, ori path, path in backup loc)to dict
+				# Store file info (name, ori path, path in backup loc) of
+				# these pre-existing files to dict
 				preex_file_info_dict[backup_file_name] =\
 					 per_path_input, backup_loc_files
 
 			elif not isfile(backup_loc_files):
-				# File isnt pre-exist
+				# File isnt pre-existing
 				#print "File %r isnt exist!" %(backup_file_name) 
 
-				# Store file info to dict
+				# Store file info of these non pre-existing files to dict
 				not_preex_file_info_dict[backup_file_name] = \
 					per_path_input, backup_loc_files
 
 		else:
-			makedirs(backup_loc_dirs)
+			makedirs(backup_loc_dirs) # If the "backup_loc_dirs" doesnt exist.
+									  # create it!
 
 	### What to do after separate files into pre-exist and non pre-exist one.
 	#	o For the pre-existing files in "preex_file_info_dict", they will 
