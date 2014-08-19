@@ -45,16 +45,14 @@ print "# OS of this computer: "+OS_version
 
 # Check whether PowerShell is installed.
 try:
-	subprocess.call(["powershell","exit"])
+	call(["powershell","exit"])
 	print "\n# Great! PowerShell is installed! Press enter to continue."
 except:
 	print "\n# PowerShell isnt installed!"
 	print "  Please install it and rerun this script."
-	#exit("\n# QUIT")
+	exit("\n# QUIT")
 
 cont2 = raw_input(" ")    # press enter to continue.
-
-#exit("=============================")
 
 clear_console()
 
