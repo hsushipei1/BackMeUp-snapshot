@@ -10,6 +10,7 @@ from print_color import print_color
 from readable_size_convt import readable_format
 from get_last_modified_time import get_last_modified_time
 from preexist_renaming import renaming
+from clear_console import clear_console
 
 ## colors
 default =  "\033[0m"
@@ -100,6 +101,9 @@ def handle_preex_file(preex_file_info_dict):
 	print_color(red,print_all_preex_prmp_end)
 
 	cont1 = raw_input(" ")
+
+	# clear console before asking user file by file.
+	clear_console()
 
 	### Ask what to do file by file.
 	print_one_by_one_prmp_begin = """\
@@ -256,6 +260,9 @@ def handle_preex_file(preex_file_info_dict):
 
 			# Count for the nth file
 			m = m + 1
+
+			# Clear console as user have made decision
+			clear_console()
 
 		elif not(any(preex_file_info_dict)):
 		# The dict is empty. Leave module!

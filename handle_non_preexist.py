@@ -48,7 +48,7 @@ def handle_non_preex_file(non_preex_file_info_dict):
 
 		# Copy and show msg
 		copy(each_non_preex_path,each_non_preex_backup_loc)
-		file_copied_msg = "# File \"%s\" is copied to \"%s\"."\
+		file_copied_msg = "# Non preexist file \"%s\" is copied to \"%s\"."\
 			%(blue + file_name_non_preex_path + gray,
 				blue + path_to_backup_dir + gray)
 		print_color(gray, file_copied_msg)
