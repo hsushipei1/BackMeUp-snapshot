@@ -166,4 +166,4 @@ def copying_dont_keep_tree(data_base_in,backup_loc):
 	print_color(gray, done_copying_msg)
 	
 ## testing the "copy_keep_tree"
-copying_dont_keep_tree("new.BakDataBase","/home/hsushipei/BACKUPLOC")
+#copying_dont_keep_tree("new.BakDataBase","/home/hsushipei/BACKUPLOC")

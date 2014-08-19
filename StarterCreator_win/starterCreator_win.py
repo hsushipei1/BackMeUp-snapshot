@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+from sys import exit
+from os import name, system
+from subprocess import call
+import platform
+
 """
 Creator for BackMeUp Starter(windows batch file)
 
@@ -11,17 +16,47 @@ path: ansicon, main.py
 
 """
 
+def clear_console():
+	# Clear console
+	if name == "nt":
+		system("cls")
+	elif name == "posix":
+		system("clear")
+
+# clear console at the beinning
+clear_console()
+
 # Welcome to BackMeUp Starter Creator
-print " "
-welcome_msg = """\
+welcome_msg = """
 * Welcome to BackMeUp Starter Creator for Windows
 
-1) Create BackMeUp starter
-2) Checking if PowerShell is installed
+  This program will create BackMeUp starter. 
+  You can launch BackMeUp by double clicking the starter.
 
+  "PowerShell" is neccessary for BackMeUp.
+  This program will check whether PowerShell is installed.
 """
-print " "
 print welcome_msg
+cont1 = raw_input("[Press enter to continue]\n")
+
+# Print OS name of user's 
+OS_version = platform.system()+" "+platform.release()
+print "# OS of this computer: "+OS_version
+
+# Check whether PowerShell is installed.
+try:
+	subprocess.call(["powershell","exit"])
+	print "\n# Great! PowerShell is installed! Press enter to continue."
+except:
+	print "\n# PowerShell isnt installed!"
+	print "  Please install it and rerun this script."
+	#exit("\n# QUIT")
+
+cont2 = raw_input(" ")    # press enter to continue.
+
+#exit("=============================")
+
+clear_console()
 
 # Get ansicon.exe path
 ask_ansiconPath_prmp = """\
@@ -30,8 +65,7 @@ ask_ansiconPath_prmp = """\
   in xxxx\\ansi160\\x86\\ansicon.exe
 e.g. C:\Users\Jack\\ansi160\\x86\\ansicon.exe
 # Notice: Please make sure for your architecture(x86 or x64)
--------------------------------------------------------------
-"""
+-------------------------------------------------------------"""
 print ask_ansiconPath_prmp
 ansicon_path = raw_input(">")
 
@@ -46,24 +80,23 @@ e.g. C:\User\Jack\BackMeUp\main.py
 print ask_mainDOTpy_prmp
 mainDOTpy_path = raw_input(">")
 
-
-# Create starter
+# Content of starter
 starterContent = """\
 @ECHO OFF
 cls
 
 :: Enable ASNI color code and launch BackMeUp
 powershell.exe ^
--noexit "C:\Users\HsuShiPei\python_project\ansi160\x86\ansicon.exe" ^
+-noexit "%s" ^
 -noexit "powershell" ^
--noexit "python -B C:\cygwin\home\HsuShiPei\BackMeUp\main.py"
-"""
+-noexit "python -B %s"
+""" %(ansicon_path, mainDOTpy_path)
 
-#
-# Please use the following module to check user's os version
-# os.name
-# import platform
-# print platform.system(), platform.release()
+# Create starter(windows batch file)
+starter_name = "BackMeUp_starter.bat"
+starter_open = open(starter_name, "w")
+starter_open.write(starterContent)
+starter_open.close()
+print "BackMeUp Starter is created!"
 
-# and please check whether "PowerShell" is installed or not.
 
