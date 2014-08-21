@@ -17,9 +17,11 @@ ntpath = gets.chomp
 path = ntpath.split("\\")
 print path
 
+=begin
 # Output 
 open("OUTPUT_RB_2_PY","w") do |f|
 	f << path
 end
+=end
 
 
