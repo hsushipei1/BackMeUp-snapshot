@@ -10,7 +10,7 @@ asks for path, will read that file.
 
 # Receive ntpath
 puts "Please enter ntpath."
-ntpath = gets.chomp
+ntpath = gets.chomp     # chomp: drop "\n"
 #print ntpath
 
 # Split ntpath into directories
@@ -18,12 +18,10 @@ path = ntpath.split("\\").join("/")
 print path
 print "\n"
 
-
-=begin
 # Output 
-open("OUTPUT_RB_2_PY","w") do |f|
-	f << path
-end
-=end
+#open("RUBY_NTPATH_OUTPUT","w") do |f|
+#	f << path
+#end
+
 
 
