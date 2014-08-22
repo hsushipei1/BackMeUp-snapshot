@@ -14,8 +14,10 @@ ntpath = gets.chomp
 #print ntpath
 
 # Split ntpath into directories
-path = ntpath.split("\\")
+path = ntpath.split("\\").join("/")
 print path
+print "\n"
+
 
 =begin
 # Output 
