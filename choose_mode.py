@@ -58,14 +58,14 @@ def path_to_backup():
     prompt2 = """\
 ------------------------------------------------------------
 # Please insert the absolute paths of the directories you want
-  to backup and separate them with SPACEs
-  e.g. /data1/jackhsu /home/research /usr/share/fonts
+  to backup and separate them with COMMA ","
+  e.g. /data1/jackhsu,/home/research,/usr/share/fonts
 ------------------------------------------------------------"""
     print_color(red, prompt2)
 
     while True:
         InPaths = raw_input(">")
-        BkupPathList = InPaths.split(" ")
+        BkupPathList = InPaths.split(",")
         # 製作陣列BoolChk，後面會依每個輸入的路徑檢查是否存在，把Boolean存入
         BoolChk = []
         # 依次判斷輸入的路徑是否存在
