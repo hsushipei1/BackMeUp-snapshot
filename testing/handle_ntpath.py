@@ -10,7 +10,7 @@ NT Path Handler
 
 1) Input NT path(w/ backslash)
 2) Outout NT path but use foreward slash instead of backslash
-   Windows XX accepts foreward slash in file path.
+   Windows XP/7 accepts foreward slash in file path.
 """
 # Input
 CopyFrom_prmp = "Enter the abs path to file you want to copy."
