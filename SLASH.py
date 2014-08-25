@@ -13,7 +13,8 @@ def SLASH():
 	"""
 
 	if name == "nt":
-		return "\\"
+		#return "\\"
+		return "/"
 	elif name == "posix":
 		return "/"
 
