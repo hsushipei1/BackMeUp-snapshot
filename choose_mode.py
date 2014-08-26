@@ -66,11 +66,11 @@ def path_to_backup():
     print_color(red, prompt2)
 
     while True:
-        #InPaths = raw_input(">")
-        output_handled_NTpath("/home/hsushipei/Working/BackMeUp")
-        InPaths=Handling_NTpath_return("/home/hsushipei/Working/BackMeUp")		
+        # Use "handle_ntpath.py" to receive user input
+        output_handled_NTpath(".")
+        InPaths = Handling_NTpath_return(".") 
+			# "InPaths"=> A LIST containing paths in UNICODE type. 
 
-        #BkupPathList = InPaths.split(",")
         # 製作陣列BoolChk，後面會依每個輸入的路徑檢查是否存在，把Boolean存入
         BoolChk = []
         # 依次判斷輸入的路徑是否存在
@@ -171,5 +171,6 @@ def entire_or_extension_backup():
 			print_color(gray,way2backup_try_again)
 	# return 1 => full backup, 2 => selected backup
 	# 
+
 
 

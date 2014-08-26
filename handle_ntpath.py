@@ -6,15 +6,7 @@ from sys import exit
 import subprocess
 
 from SLASH import SLASH
-
-def UnixNt_Encoding():
-	"""
-	Detemine encoding type of NT of Unix enviroment
-	"""
-	if os.name == "nt":
-		return "big5"
-	elif os.name == "posix":
-		return "utf8"
+from UnixNt_Encoding import UnixNt_Encoding
 
 def output_handled_NTpath(BackMeUp_path):
 	"""
@@ -53,7 +45,7 @@ def Handling_NTpath_return(BackMeUp_path):
 
 	Returns
 	"PostHandl_NtPath_unicd_list"=> A LIST containing post-handled(converted
-	to foreward slash) paths in unicode.
+	to foreward slash) paths in UNICODE type.
 	"""
 	# Load SLASH module
 	slash = SLASH()
@@ -81,11 +73,11 @@ def Handling_NTpath_return(BackMeUp_path):
 	except:
 		pass
 
-	# Retrun post-handled path in unicode
+	# Return post-handled path list "in unicode type"
 	return PostHandl_NtPath_unicd_list
 
 ###testing the function
-output_handled_NTpath("/home/hsushipei/Working/BackMeUp")
-print Handling_NTpath_return("/home/hsushipei/Working/BackMeUp")
+#output_handled_NTpath("/home/hsushipei/Working/BackMeUp")
+#print Handling_NTpath_return("/home/hsushipei/Working/BackMeUp")
 
 

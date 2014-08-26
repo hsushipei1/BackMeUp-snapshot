@@ -4,7 +4,10 @@
 from os import walk, chdir, getcwd
 from glob import glob
 from sys import exit
+
 from print_color import print_color
+from UnixNt_Encoding import UnixNt_Encoding
+from SLASH import SLASH
 
 """
 Modules for selected backup(CopyTree)
@@ -68,10 +71,13 @@ def find_multi_type_in_multi_dir\
       multiple extensions.
 	* Ancestor: CopyTree-0.2dev
 	* Inputs:
-	path_input => a LIST. Absolute path to the directories this program 
-                          will search  
-	exten_input => a LIST. File extensions you want this program to look for 
+	"path_input" => a LIST. Absolute path(in UNICODE type) to the directories 
+	this program will search  
+	"exten_input" => a LIST. File extensions you want this program to look for 
 	"""
+	# Load SLASH() module
+	slash = SLASH()
+
 	# searching reminder
 	searching_prompt = "# Searching files and creating data base..."
 	print_color(blue,searching_prompt)	
@@ -85,21 +91,47 @@ def find_multi_type_in_multi_dir\
 
 	# function core
 	for path in path_input:
-		# print path
+		#print path
+		# "path" is each paths(in UNICODE type) in "path_input" list
 		for DirPath, SubDirNam, FileList in walk(path):
+			"""
+			"DirPath"=> A STRING represents each path of "path" and 
+			all sub-directories under "path".
+			"SubDirNam"=> A LIST showing all directories under "DirPath"
+			"FileList"=> A LIST showing all files under "DirPath"
+			* For a simple demo, 
+				for each_item in walk(path):
+					print each_item
+			"""
 			chdir(DirPath)
-			for Each_Exten in exten_input:
-				glob_find_ext = glob(Each_Exten)
-				if not glob_find_ext:  # if glob_find_ext is empty
+			# "exten_input" is a list that contains several extensions *.X
+			# For each file extension in extension list..
+			for Each_Exten in exten_input:  
+				# glob(Each_Exten): search files with "Each_Exten"
+				# Encoding of "Each_Exten" is the default, UTF8, while 
+				#   "DirPath" is UNICODE because "path" is UNICODE
+				glob_find_ext = glob(Each_Exten) 
+				# "glob_find_ext"=> A LIST containing files with 
+				#   extension "Each_Exten"
+				if not glob_find_ext:  # if "glob_find_ext" is empty
 					# print "nothing is found"
 					pass
 				else:
 					for EachFileSamDir in glob_find_ext:
-						# print DirPath+"/"+EachFileSamDir
-						ToBeSave_path = DirPath+"/"+EachFileSamDir
+						# For each file with extension "Each_Exten" 
+						#   in list "glob_find_ext"
+						# Encoding of "EachFileSamDir" is UTF8, must
+						#   decode to unicode => "EachFileSamDir_Unicd"
+						EachFileSamDir_Unicd = \
+						EachFileSamDir.decode(UnixNt_Encoding())
+						ToBeSave_path = DirPath+slash.decode("utf8")+EachFileSamDir_Unicd		# Also decode slash into UNICODE
+						print ToBeSave_path
+
 						# Store the output(abs path) into DataBase
-						# for each loop
-						DataBase.write(ToBeSave_path)
+						#   for each loop
+						# Will write "ToBeSave_path" to file, so encode
+						#   to UTF8
+						DataBase.write(ToBeSave_path.encode("utf8"))
 						DataBase.write("\n")
 	# data base is created
 	done_search = "# Data base is created!"

@@ -65,9 +65,8 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 	configure_scheduled()
 
 # Path to directories that user wants to backup
+# "path_input"=>  A LIST containing paths in UNICODE type.
 path_input = path_to_backup()
-print path_input
-exit("=======================================")
 
 # Choose backup entire dir or select extension(number is returned)
 # The name of database is given here.
@@ -95,6 +94,8 @@ new_backup_loc = add_tag_2_backupLocation(backup_tag, backup_loc)
 verify_user_inputs(new_name_backup_plan, immed_or_schedu,\
 path_input, backup_loc,	backup_style,exten_input,\
 keep_tree_value, backup_tag)
+
+exit("=============Chinese word test")
 
 ##### Part 3: Start backup(copying): keep tree or not
 # Start copying. read data base and new backup path
