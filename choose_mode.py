@@ -2,8 +2,10 @@
 #-*- coding: utf-8 -*-
 
 import os
-from print_color import print_color
 from sys import exit
+
+from print_color import print_color
+from handle_ntpath import output_handled_NTpath, Handling_NTpath_return
 
 ## colors
 default =  "\033[0m"
@@ -64,12 +66,16 @@ def path_to_backup():
     print_color(red, prompt2)
 
     while True:
-        InPaths = raw_input(">")
-        BkupPathList = InPaths.split(",")
+        #InPaths = raw_input(">")
+        output_handled_NTpath("/home/hsushipei/Working/BackMeUp")
+        InPaths=Handling_NTpath_return("/home/hsushipei/Working/BackMeUp")		
+
+        #BkupPathList = InPaths.split(",")
         # 製作陣列BoolChk，後面會依每個輸入的路徑檢查是否存在，把Boolean存入
         BoolChk = []
         # 依次判斷輸入的路徑是否存在
-        for EachIn in BkupPathList:
+        #for EachIn in BkupPathList:
+        for EachIn in InPaths:
             if os.path.exists(EachIn):
                 # 如果路徑存在，則BoolChk填入True
                 BoolChk.append("True")
@@ -77,14 +83,15 @@ def path_to_backup():
                 # 如果路徑存在，則BoolChk填入False，並提示不存在
                 BoolChk.append("False")
                 path_not_exi_again = \
-				"# %r does not exist! Please try again!" %(EachIn)
+				"# '%s' does not exist! Please try again!" \
+					%(EachIn.encode("utf8"))
                 print_color(gray,path_not_exi_again)
         # ExistNum統計有幾個路徑是存在(True)的
         ExistNum = BoolChk.count("True")
         # 統計boolean，BoolChk中必須全為True才過，否則必須重新輸入路徑。
-        if ExistNum == len(BkupPathList):
+        if ExistNum == len(InPaths):
             # 回傳輸入的路徑
-            return BkupPathList
+            return InPaths
         else:
             # 重新輸入吧！
             pass

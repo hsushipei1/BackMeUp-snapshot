@@ -3,7 +3,7 @@
 =begin
 NT Path Handler
 
-Receive windows path inputs form user and split path into directories, 
+Receive windows path inputs from user and split path into directories, 
 separating with comma, and output them to a file. As BackMeUp in windows
 asks for path, will read that file.
 =end
