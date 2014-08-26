@@ -66,6 +66,8 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 
 # Path to directories that user wants to backup
 path_input = path_to_backup()
+print path_input
+exit("=======================================")
 
 # Choose backup entire dir or select extension(number is returned)
 # The name of database is given here.
