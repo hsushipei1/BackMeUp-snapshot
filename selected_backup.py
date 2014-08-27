@@ -120,18 +120,21 @@ def find_multi_type_in_multi_dir\
 					for EachFileSamDir in glob_find_ext:
 						# For each file with extension "Each_Exten" 
 						#   in list "glob_find_ext"
-						# Encoding of "EachFileSamDir" is UTF8, must
+						# Encoding of "EachFileSamDir" is UTF8/BIG5, must
 						#   decode to unicode => "EachFileSamDir_Unicd"
 						EachFileSamDir_Unicd = \
 						EachFileSamDir.decode(UnixNt_Encoding())
-						ToBeSave_path = DirPath+slash.decode("utf8")+EachFileSamDir_Unicd		# Also decode slash into UNICODE
+						ToBeSave_path = DirPath+\
+							slash.decode(UnixNt_Encoding())+\
+							EachFileSamDir_Unicd		
+							# Also decode slash into UNICODE
 						print ToBeSave_path
 
 						# Store the output(abs path) into DataBase
 						#   for each loop
 						# Will write "ToBeSave_path" to file, so encode
-						#   to UTF8
-						DataBase.write(ToBeSave_path.encode("utf8"))
+						#   to UTF8/BIG5
+						DataBase.write(ToBeSave_path.encode(UnixNt_Encoding()))
 						DataBase.write("\n")
 	# data base is created
 	done_search = "# Data base is created!"

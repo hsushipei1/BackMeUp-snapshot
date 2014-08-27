@@ -4,7 +4,9 @@
 from os import walk, chdir
 from glob import glob
 from sys import exit
+
 from print_color import print_color
+from UnixNt_Encoding import UnixNt_Encoding
 
 ## colors
 default =  "\033[0m"
@@ -28,7 +30,8 @@ def verify_user_inputs\
 	* Inputs
 	"backup_plan_name"=> Name of current backup plan
 	"immed_or_schedu" => (1)immediate or (2)scheduled backup
-	"backup_dir_input" => directories that user will backup
+	"backup_dir_input" => A LIST containing paths(in UNICODE type) user
+	want to backup.
 	"backup_loc" => backup location
 	"full_or_sel" => (1)full or (2)selected(extension) backup
 	"sele_extens" => if selected backup is chosen, the extension user 
@@ -52,8 +55,19 @@ def verify_user_inputs\
 	elif keep_tree_ornot == "2":
 		keep_tree_ornot_out = "Do not keep directory tree."
 
+	# Encode each path(to UTF8) in "backup_dir_input" so that they can
+	#   be shown properly to user in verification section.
+	# Create a empty string which "each_unicd_path" will accumulate to
+	dir_ToBeBackup = ""
+	for each_unicd_path in backup_dir_input:
+		each_path_encoded = each_unicd_path.encode(UnixNt_Encoding())
+		dir_ToBeBackup += each_path_encoded+"," 
+								# "," will appear at last char
+								#   but I dont want "," to print out, so
+								# use [0:-1] following "dir_ToBeBackup"
+
 	# Output extension for selected backup, show "Copy the whole directory"
-	#  if user chose full backup
+	#   if user chose full backup
 	if sele_extens == 0:
 		sele_extens = "Copy the whole directory."
 	else:
@@ -65,7 +79,7 @@ def verify_user_inputs\
 		backup_tag_result = "# You don't need a backup tag."
 	else:
 		backup_tag_result = backup_tag
-	
+
 	# Showing prompt
 	verify_prompt = """\
 -----------------------------------------------------------
@@ -93,7 +107,7 @@ def verify_user_inputs\
 # Insert "go" to continue or CTRL-C to quit."""\
  %(blue+str(backup_plan_name)+default,\
    blue+str(immed_or_schedu_out)+default,\
-   blue+str(backup_dir_input)+default,\
+   blue+str(dir_ToBeBackup[0:-1])+default,\
    blue+str(backup_loc)+default,\
    blue+str(full_or_sel_out)+default,\
    blue+str(sele_extens)+default,\
