@@ -167,6 +167,11 @@ def handle_preex_file(preex_file_info_dict):
 				### 1 ==> Overwrite
 					# Overwrite the file in backup loc
 					copy(each_preex_path,each_preexist_backup_loc)
+				
+					# Clear console as user have made decision
+					clear_console() 
+					# but show "opt1_overwrite_msg" before next file
+
 					opt1_overwrite_msg = \
 						"# \"%s\" is overwritten in \"%s\" " \
 							%(blue + file_name_from_preex_path + gray,\
@@ -182,6 +187,11 @@ def handle_preex_file(preex_file_info_dict):
 				elif opt == "2": 
 				### 2 ==> Do not overwrite this file
 					# Print that the file wont be overwrite
+
+					# Clear console as user have made decision
+					clear_console()
+					# but show "opt2_dont_overwrite_msg" before next file
+
 					opt2_dont_overwrite_msg = \
 						"# \"%s\" will not be overwritten! " \
 							%(blue + file_name_from_preex_path + gray)
@@ -208,6 +218,11 @@ def handle_preex_file(preex_file_info_dict):
 						each_preexist_backup_loc_sub = each_info_sub[1]
 						# Copy
 						copy(each_preex_path_sub,each_preexist_backup_loc_sub)
+
+						# Clear console as user have made decision
+						clear_console()
+						# but show "opt3_overwrite_msg" before next file
+
 						opt3_overwrite_msg = \
 							"# \"%s\" is overwritten in \"%s\" " \
 								%(blue + file_name_from_preex_path_sub + gray,\
@@ -229,6 +244,10 @@ def handle_preex_file(preex_file_info_dict):
 						# Delete the file in dict if it has been handled
 						del preex_file_info_dict[each_preex_file_sub]
 
+					# Clear console as user have made decision
+					clear_console()
+					# but show "opt4_overwrite_msg" before next file
+
 					# Print a msg
 					opt4_overwrite_msg =\
 						 "# The rest of the file will not be copied."
@@ -247,6 +266,11 @@ def handle_preex_file(preex_file_info_dict):
 					print_color(red,rename_prmp)
 
 					new_name = raw_input(">")
+
+					# Clear console as user have made decision
+					clear_console()
+					# but show "renamed" before next file
+
 					## Copy and rename the file and save it to backup loc
 					#	using copy2 BIF.
 					renaming(each_preex_path,new_name,\
@@ -263,9 +287,6 @@ def handle_preex_file(preex_file_info_dict):
 
 			# Count for the nth file
 			m = m + 1
-
-			# Clear console as user have made decision
-			clear_console()
 
 		elif not(any(preex_file_info_dict)):
 		# The dict is empty. Leave module!

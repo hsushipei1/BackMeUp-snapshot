@@ -95,8 +95,6 @@ verify_user_inputs(new_name_backup_plan, immed_or_schedu,\
 path_input, backup_loc,	backup_style,exten_input,\
 keep_tree_value, backup_tag)
 
-exit("=============Chinese word test")
-
 ##### Part 3: Start backup(copying): keep tree or not
 # Start copying. read data base and new backup path
 # decide to preserve directory tree or not
@@ -106,7 +104,7 @@ elif keep_tree_value == "2": # do not keep dir tree
     copying_dont_keep_tree(database_name, new_backup_loc)
 
 
-exit("============= START COPYING ================")
+exit("============= FINISH COPYING ================")
 
 
 
