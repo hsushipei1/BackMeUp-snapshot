@@ -4,7 +4,10 @@
 from sys import exit
 from shutil import *
 from os import walk
+
 from print_color import print_color
+from UnixNt_Encoding import UnixNt_Encoding
+from SLASH import SLASH
 
 ## colors
 default =  "\033[0m"
@@ -25,22 +28,36 @@ def locate_all_file_multi_dir\
 	Copy entire dirctory
 	
 	*Inputs:
-	sources_dir => a LIST. Absolute path to the directories this program 
-                          will search
-	dest_dir => a STRING. Absolute path to the place you want to store
+	"sources_dir" => a LIST. Absolute path(in UNICODE type) to the directories 
+	this program will search
+	"dest_dir" => a STRING. Absolute path to the place you want to store
 				            the backup.
 	"""
+	# Load SLASH() module
+	slash = SLASH()	
+
 	# searching reminder
 	searching_prompt = "# Searching files and creating data base..."
 	print_color(blue,searching_prompt)
 	# create data base
 	data_base = open(data_base_name,"w")	
 	# core of full backup
-	for each_input_path in sources_dir:
+	for each_input_path in sources_dir: # "each_input_path" UNICODE type
 		for dir_path, sub_dir_name, file_list in walk(each_input_path):
-			for each_file in file_list:
-				path_to_save = str(dir_path)+"/"+str(each_file)
-				data_base.write(path_to_save)
+			# "dir_path"=> A STRING represents each of "each_input_path" and 
+			#   all sub-directories under "path".
+			# "sub_dir_name"=> A LIST showing all directories under "dir_path"
+			# "file_list"=> A LIST showing all files under "dir_path"
+			# *For a simple demo, 
+			#   for each_item in walk(path):
+			#       print each_item
+			for each_file in file_list: # for each file under "each_input_path"
+				path_to_save = dir_path+\
+								slash.decode(UnixNt_Encoding())+\
+								each_file
+				print path_to_save
+				# Both "dir_path" and "each_file" are UNICODE type
+				data_base.write(path_to_save.encode(UnixNt_Encoding()))
 				data_base.write("\n")
 	# data base is created
 	done_search = "# Data base is created!"

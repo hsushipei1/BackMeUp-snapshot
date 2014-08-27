@@ -94,15 +94,13 @@ def find_multi_type_in_multi_dir\
 		#print path
 		# "path" is each paths(in UNICODE type) in "path_input" list
 		for DirPath, SubDirNam, FileList in walk(path):
-			"""
-			"DirPath"=> A STRING represents each path of "path" and 
-			all sub-directories under "path".
-			"SubDirNam"=> A LIST showing all directories under "DirPath"
-			"FileList"=> A LIST showing all files under "DirPath"
-			* For a simple demo, 
-				for each_item in walk(path):
-					print each_item
-			"""
+			# "DirPath"=> A STRING represents each of "path" and 
+			#   all sub-directories under "path".
+			# "SubDirNam"=> A LIST showing all directories under "DirPath"
+			# "FileList"=> A LIST showing all files under "DirPath"
+			# *For a simple demo, 
+			#	for each_item in walk(path):
+			#		print each_item
 			chdir(DirPath)
 			# "exten_input" is a list that contains several extensions *.X
 			# For each file extension in extension list..
@@ -110,7 +108,7 @@ def find_multi_type_in_multi_dir\
 				# glob(Each_Exten): search files with "Each_Exten"
 				# Encoding of "Each_Exten" is the default, UTF8, while 
 				#   "DirPath" is UNICODE because "path" is UNICODE
-				glob_find_ext = glob(Each_Exten) 
+				glob_find_ext = glob(Each_Exten)
 				# "glob_find_ext"=> A LIST containing files with 
 				#   extension "Each_Exten"
 				if not glob_find_ext:  # if "glob_find_ext" is empty
