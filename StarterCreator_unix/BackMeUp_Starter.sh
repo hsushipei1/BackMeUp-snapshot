@@ -2,8 +2,8 @@
 
 # check kernel(linux, BSD, or Darwin)
 # check os release
-# check python
-# check ruby
+# check python, if not installed, show command
+# check ruby, if not installed, show command
 
 # Check user's kernel type
 kernel="unknown"
@@ -19,16 +19,20 @@ fi
 # Check OS release
 os_rels=$(lsb_release -d)
 
-echo $os_rels
+# Check if python 2.7.x is installed, or show the command to install python
+py=$(command -V python)
+
+function print_pyVer()
+{
+    $(python --version)
+}
+
+if [ "$py" != "" ]; then
+	 echo -n "Python is installed with=> " ; print_pyVer
+else
+    echo "python is not install!"
+fi 
 
 
-exit 0
-
-# Check and print version of python
-#py_version=$(pythons)
-#echo $py_version
-#if [ "$(hash python5)" = "沒有找到" ]; then
-#	echo "python沒有安裝"
-#fi
 
 ## Path to main.py
