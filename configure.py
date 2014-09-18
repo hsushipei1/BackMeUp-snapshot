@@ -18,10 +18,9 @@ crimson = "\033[1;38m"
 
 def configure_scheduled():
 	"""
-	Configuration script for scheduled backup.
-
+	The Function: Configuration script for scheduled backup.
 	If user chose scheduled backup in main.py, the flow of program will 
-	jump from main.py to here and end(by exit() at the end )the scheduled 
+	jump from main.py to here and end(by exit() at the end) the scheduled 
 	backup process of BackMeUp here. We dont move back to main.py again.
 		
 	* sample file: AutoBackup -> Configure.py

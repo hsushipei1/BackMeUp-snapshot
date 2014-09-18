@@ -136,7 +136,8 @@ def backup_tagging():
 def add_tag_2_backupLocation(backup_tag, backup_loc):
 	"""
 	$ The function
-	Add a backup tag following the directory name of backup location.
+	Add the backup tag "backup_tag" following the directory name of the
+	existing backup location ("backup_loc")directory.  
 	If backup_tag = " ", that means user dont need a backup tag, otherwise
 	the backup tag will be added right following the directory name.
  
@@ -144,7 +145,8 @@ def add_tag_2_backupLocation(backup_tag, backup_loc):
 	"backup_tag"=> A STRING that contains backup tag. If "backup_tag" = " ",
 	that means user dont need a backup tag.
 	"backup_loc"=> A STRING. The path to the directory where user wants to 
-	store backup files.
+	store backup files. "backup_loc" is already exist or will be created by
+	 function "backup_location()" in "choose_mode" module.
 	
 	$ Return
 	"new_backup_loc"=> New backup location with or without(if there's no 
