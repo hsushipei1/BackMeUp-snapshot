@@ -34,6 +34,7 @@ from backup_tag import backup_tagging,\
 from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
+from writeInfo2ConfigFile import writeInfo2ConfigFile
 
 ##### IMMEDIATE BACKUP
 ### Part 0: Welcome message, project and author info
@@ -65,11 +66,12 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 	#   The content of the configuration file will be written in 
 	#   SCHEDULED BACKUP section.
 	Cret_ConfigFil4Sched = open(new_name_backup_plan+".configure","wb")
-	print "# You chose scheduled backup. "
-	print "# After all backup configuration is done, BackMeUp will run  "
-	print "   immediate backup once to deal with the pre-existing file."
-	print "   After that, BackMeUp will overwrite the existing file at each"
-	print "   scheduled backup."
+	print """\
+# You chose scheduled backup. 
+# After all backup configuration is done, BackMeUp will run  
+  immediate backup once to deal with the pre-existing file.
+  After that, BackMeUp will overwrite the existing file at each
+  scheduled backup."""
 	cont = raw_input("press enter to continue.")
 	clear_console()
 	#configure_scheduled()
@@ -114,20 +116,17 @@ elif keep_tree_value == "2": # do not keep dir tree
     copying_dont_keep_tree(database_name, new_backup_loc)
 
 ##### SCHEDULED BACKUP SECTION
-### Store information to backup configuration file, "Cret_ConfigFil4Sched"
+### Store scheduled backup information to backup configuration file,
+###   "Cret_ConfigFil4Sched". Infos to be store...
 ### (0) Name of backup plan
 ### (1) Extension of database
 ### (2) Index of keeping tree(1=keep tree, 2=dont)
 ### (3) Backup location (already handled by backup tag)
-###   Store them in list in output file(using pickle)
-# Establish list to store backup configuration
-config_2save = []
-config_2save.append(new_name_backup_plan)	# Name of backup plan
-config_2save.append(database_extension)     # extension of dataB 
-config_2save.append(keep_tree_value)    # 1: keep tree, 2: Dont
-config_2save.append(backup_loc)     # Backup location(post-backupTag)
-# Store "config_2save" using pickle
-pickle.dump(config_2save, Cret_ConfigFil4Sched)
+# Store info to a list and return it.
+SchedConfig_list = writeInfo2ConfigFile(new_name_backup_plan, \
+					database_extension,	keep_tree_value, new_backup_loc)
+# Write list "SchedConfig_list" using pickle
+pickle.dump(SchedConfig_list, Cret_ConfigFil4Sched)
 # close file
 Cret_ConfigFil4Sched.close()
 
