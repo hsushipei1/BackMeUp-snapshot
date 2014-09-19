@@ -36,7 +36,13 @@ from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
 from writeInfo2ConfigFile import writeInfo2ConfigFile
 
-##### IMMEDIATE BACKUP
+##### Define variables
+database_extension = ".BakDB"    # File extension of database.
+configFile_extension = ".configure"    # File extension of configuration file.
+
+#***************************
+#    IMMEDIATE BACKUP
+#***************************
 ### Part 0: Welcome message, project and author info
 # Clear the terminal screen at startup
 clear_console()
@@ -47,8 +53,6 @@ AuthrInfo()
 
 ### Part 1: Backup configuration
 ## Backup Plan Viewer
-database_extension = ".BakDB"    # will use this var below
-
 # Obtain the existing name of database
 (preex_database_name_list, existn_DatabaseCheck) = \
 	existn_database_finder(database_extension)
@@ -65,7 +69,7 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 	# Just create configuration file for scheduled backup
 	#   The content of the configuration file will be written in 
 	#   SCHEDULED BACKUP section.
-	Cret_ConfigFil4Sched = open(new_name_backup_plan+".configure","wb")
+	Cret_ConfigFil4Sched = open(new_name_backup_plan+configFile_extension,"wb")
 	print """\
 # You chose scheduled backup. 
 # After all backup configuration is done, BackMeUp will run  
@@ -115,7 +119,9 @@ if keep_tree_value == "1": # keep dir tree
 elif keep_tree_value == "2": # do not keep dir tree
     copying_dont_keep_tree(database_name, new_backup_loc)
 
-##### SCHEDULED BACKUP SECTION
+#************************
+#   SCHEDULED BACKUP 
+#************************
 ### Store scheduled backup information to backup configuration file,
 ###   "Cret_ConfigFil4Sched". Infos to be store...
 ### (0) Name of backup plan
@@ -129,4 +135,14 @@ SchedConfig_list = writeInfo2ConfigFile(new_name_backup_plan, \
 pickle.dump(SchedConfig_list, Cret_ConfigFil4Sched)
 # close file
 Cret_ConfigFil4Sched.close()
+
+### Create Launcher for scheduled backup
+### The launcher will read configuration file and be executed by scheduling
+###   software of user's OS.
+
+
+### Run python-crontab
+# (preparing)
+
+
 
