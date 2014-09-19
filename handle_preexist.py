@@ -119,7 +119,10 @@ def handle_preex_file(preex_file_info_dict):
 	m = 0
 
 	for each_preex_file in preex_file_info_dict.keys():
-	# Check whether the dict is empty. not empty=> 5 opts, Empty=> leave this
+	# Use if any(): to check whether the dict is empty, if not empty=>
+	#   let user choose 5 opts(1. Yes, overwrite, 2. No, dont overwrite, 
+	#   3. Overwrite the rest of files, 4. Dont overwrite the rest files, 
+	#   5. Rename the file), If the dict is Empty=> Skip this part.
 	#	module.
 		if any(preex_file_info_dict):
 			# Info: ori_path_of_file and backup_loc_of_file
