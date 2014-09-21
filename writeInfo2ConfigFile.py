@@ -3,11 +3,13 @@
 
 import pickle
 
-def writeInfo2ConfigFile(backupPlan_name, dataB_extension, \
-						keepTree_value, backup_loc):
+def createSchedBkConfigFile(backupPlan_name, dataB_extension, \
+							keepTree_value, backup_loc, immedSchedIndex):
 	"""
 	The function:
-	Store the following information of scheduled backup to a list and return the
+	Write the following information of scheduled backup and copying function 
+	to a file as the scheduled backup launcher (will execute by	
+	xxxx_launcherRun.sh) and return the
 	list to "main.py". After "main.py" received the list, use pickle.dump() to 
 	store the info to configuration file.
 	Info to be stored:
@@ -26,20 +28,46 @@ def writeInfo2ConfigFile(backupPlan_name, dataB_extension, \
 	"backup_loc"=> A STRING. The path to the backup location and it is 
 	  already handled by backup tag(i.e., its value wont changed.). It's
 	  given by function "add_tag_2_backupLocation" in "main.py".
+	"immedSchedIndex"=> A STRING.  This index determines what kind of
+      backup that user wants. If = "1", means immediate backup, and = "2",
+      means scheduled backup.
 
 	Return:
-	"config_2save"=> A LIST that contains scheduled backup info (0) to (3)
 	"""
-	# Establish list to store backup configuration
-	config_2save = []
-	# Storing infos...
-	config_2save.append(backupPlan_name)
-	config_2save.append(dataB_extension)
-	config_2save.append(keepTree_value)
-	config_2save.append(backup_loc)
-	# Return the list "config_2save" to "main.py"
-	return config_2save
+	# Name of configuration file of scheduled backup
+	configFile_name = backupPlan_name+"_configFile.py"
 
+	# Name of database
+	database_name = backupPlan_name+dataB_extension	
+
+	# Generate configuration file to hold the scheduled backup info and 
+	#   the copying functions. The backup is executed simply by
+	#   $ python [this_configure_file].py , but of course, it's executed by
+	#   schedule management software of user's OS.
+	configFile = open(configFile_name ,"w")
+
+	# Content to write
+	ConfigFile_content = \
+"""\
+#!/usr/bin/python
+from start_copy_via_database import copying_keep_tree,copying_dont_keep_tree
+
+if %r == "1":
+	copying_keep_tree(%r, %r, %r)
+	print "Keep tree."
+elif  %r == "2":
+	copying_dont_keep_tree(%r, %r, %r)
+	print "Dont keep tree."
+""" %(keepTree_value, \
+	database_name, backup_loc, immedSchedIndex, \
+    keepTree_value, \
+    database_name, backup_loc, immedSchedIndex)
+
+	# Write content to file
+	configFile.write(ConfigFile_content)
+
+### Testing the function
+#createSchedBkConfigFile("newPlan", ".BakDB", "2", "/home/hsushipei/TESTING_backup_20140918","2")
 
 
 

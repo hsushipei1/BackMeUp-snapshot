@@ -34,11 +34,10 @@ from backup_tag import backup_tagging,\
 from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
-from writeInfo2ConfigFile import writeInfo2ConfigFile
+from writeInfo2ConfigFile import createSchedBkConfigFile 
 
 ##### Define variables
 database_extension = ".BakDB"    # File extension of database.
-configFile_extension = ".configure"    # File extension of configuration file.
 
 #***************************
 #    IMMEDIATE BACKUP
@@ -69,7 +68,6 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 	# Just create configuration file for scheduled backup
 	#   The content of the configuration file will be written in 
 	#   SCHEDULED BACKUP section.
-	Cret_ConfigFil4Sched = open(new_name_backup_plan+configFile_extension,"wb")
 	print """\
 # You chose scheduled backup. 
 # After all backup configuration is done, BackMeUp will run  
@@ -115,34 +113,34 @@ keep_tree_value, backup_tag)
 # Start copying. read data base and new backup path
 # decide to preserve directory tree or not
 if keep_tree_value == "1": # keep dir tree
-	copying_keep_tree(database_name, new_backup_loc)
+	copying_keep_tree(database_name, new_backup_loc, immed_or_schedu)
 elif keep_tree_value == "2": # do not keep dir tree
-    copying_dont_keep_tree(database_name, new_backup_loc)
+    copying_dont_keep_tree(database_name, new_backup_loc, immed_or_schedu)
 
 #************************
 #   SCHEDULED BACKUP 
 #************************
-### Store scheduled backup information to backup configuration file,
-###   "Cret_ConfigFil4Sched". Infos to be store...
-### (0) Name of backup plan
-### (1) Extension of database
-### (2) Index of keeping tree(1=keep tree, 2=dont)
-### (3) Backup location (already handled by backup tag)
-# Store info to a list and return it.
-SchedConfig_list = writeInfo2ConfigFile(new_name_backup_plan, \
-					database_extension,	keep_tree_value, new_backup_loc)
-# Write list "SchedConfig_list" using pickle
-pickle.dump(SchedConfig_list, Cret_ConfigFil4Sched)
-# close file
-Cret_ConfigFil4Sched.close()
+if immed_or_schedu == "2":   
+	# Detailed program flow of scheduled backup:
 
-### Create Launcher for scheduled backup
-### The launcher will read configuration file and be executed by scheduling
-###   software of user's OS.
+	### Write scheduled backup information to backup configuration file,
+	###   "[backupPlanName]_configFile.py"
+	###   Infos to be store...
+	### (0) Name of backup plan
+	### (1) Extension of database
+	### (2) Index of keeping tree(1=keep tree, 2=dont)
+	### (3) Backup location (already handled by backup tag)
+	# Generate configuration file for scheduled backup
+	createSchedBkConfigFile(new_name_backup_plan, database_extension,\
+						keep_tree_value, new_backup_loc, immed_or_schedu)
+	
+	### Create Launcher"[bkPlanName]_launcher.sh"(UNIX) for scheduled backup
+	### The launcher will read configuration file and be executed by scheduling
+	###   software of user's OS.
 
 
-### Run python-crontab
-# (preparing)
+	### Run python-crontab
+	# (preparing)
 
 
 
