@@ -23,16 +23,19 @@ cyan = "\033[1;36m"
 white = "\033[1;37m"
 crimson = "\033[1;38m"
 
-def copying_keep_tree(data_base_in, backup_loc):
+def copying_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 	"""
-	$ The function
+	The function
 	Start copying, with directory tree preserved. Will check if the
 	file is already existing in backup location.
 
-	$ Inputs
+	Inputs
 	"data_base_in" => File name of the data base of either full or 
 					selected backup
 	"backup_loc" => path to store the backup files
+	"immedSchedIndex"=> A STRING. This index determines what kind of
+      backup that user wants. If = "1", means immediate backup, and = "2",
+      means scheduled backup.
 	"""
 	# read data base
 	data_base = open(data_base_in)
@@ -80,10 +83,28 @@ def copying_keep_tree(data_base_in, backup_loc):
 				not_preex_file_info_dict[backup_file_name] = \
 					per_path_input, backup_loc_files
 
-		else:
-			makedirs(backup_loc_dirs) # If the "backup_loc_dirs" doesnt exist.
-									  # create it!
+		#************************************************
+		# Special handling on pre/non-pre_file_info_dict
+		#              in SCHEDULED BACKUP
+		#************************************************
+		# During scheduled backup, force to overwrite the pre-existing files
+		# If the immedSchedIndex = 2(means user wants scheduled backup),
+		#   store all paths from database to dict of non-pre existing,
+		#   "not_preex_file_info_dict" ------ (0), because BackMeUp will
+		#   overwrite all files of non-pre existing ones, and
+		#   set dict for pre-existing file to empty ---- (1), so
+		#   BackMeUp wont deal with the pre-existing files.
+		# PROGRAM FLOW WILL GO THROUGH THIS SECTION ONLY WHEN USER CHOSE
+		#   SCHEDULED BACKUP
+		if immedSchedIndex == "2":     # 2 means scheduled backup
+			not_preex_file_info_dict[backup_file_name] = \
+				per_path_input, backup_loc_files     # ------ (0)
 
+			preex_file_info_dict = {}         # ----- (1)
+
+		if not isdir(backup_loc_dirs):  # If the "backup_loc_dirs" doesnt exist.
+			makedirs(backup_loc_dirs) 
+									  # create it!
 	### What to do after separate files into pre-exist and non pre-exist one.
 	#	o For the pre-existing files in "preex_file_info_dict", they will 
 	#		be assign into function	"handle_preex_file" to let user to make 
@@ -99,8 +120,7 @@ def copying_keep_tree(data_base_in, backup_loc):
 	
 
 ## testing the "copy_keep_tree"
-#copying_keep_tree(".sele_data_base.txt","/home/hsushipei/PREEXIST_TEST")
-
+#copying_keep_tree("newPlan.BakDB","/home/hsushipei/TESTING_backup_20140918", "2")
 
 def copying_dont_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 	"""
@@ -179,9 +199,6 @@ def copying_dont_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 		 
 			preex_file_info_dict = {}         # ----- (1)
 
-	print "Pre-exist dict= "+str(preex_file_info_dict)
-	print "Non pre-exist dict= "+str(not_preex_file_info_dict)
-
 	### What to do after separate files into pre-exist and non pre-exist one.
 	#   o For the pre-existing files in "preex_file_info_dict", they will 
 	#       be assign into function "handle_preex_file" to let user to make 
@@ -198,3 +215,5 @@ def copying_dont_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 ## Testing the "copy_keep_tree" 
 #    the third input parameter: "1" == immediate, "2" == scheduled
 #copying_dont_keep_tree("newPlan.BakDB","/home/hsushipei/TESTING_backup_20140918", "2")
+
+
