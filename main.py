@@ -35,6 +35,7 @@ from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
 from writeInfo2ConfigFile import createSchedBkConfigFile 
+from get_userSchedule import getUserInputSched
 
 ##### Define variables
 database_extension = ".BakDB"    # File extension of database.
@@ -103,6 +104,10 @@ backup_loc = backup_location()
 # Ask user if he/she needs a backup tag. 
 backup_tag = backup_tagging()
 new_backup_loc = add_tag_2_backupLocation(backup_tag, backup_loc)
+
+# [SCHEDULED BACKUP] Ask for time to run scheduled backup
+if immed_or_schedu == "2":
+	schedTime = getUserInputSched()
 
 ### Part 2: Verify user inputs
 verify_user_inputs(new_name_backup_plan, immed_or_schedu,\
