@@ -23,7 +23,6 @@ from choose_mode import immediate_or_scheduled_backup,\
                         path_to_backup,\
 					    backup_location,\
                         entire_or_extension_backup
-from configure import configure_scheduled
 from full_backup import locate_all_file_multi_dir
 from selected_backup import extens_input,\
 							find_multi_type_in_multi_dir 
@@ -35,7 +34,7 @@ from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
 from writeInfo2ConfigFile import createSchedBkConfigFile 
-from get_userSchedule import getUserInputSched
+from arrangeSchedule import getUserInputSched, generateCmd4Crontab
 
 ##### Define variables
 database_extension = ".BakDB"    # File extension of database.
@@ -75,9 +74,8 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
   immediate backup once to deal with the pre-existing file.
   After that, BackMeUp will overwrite the existing file at each
   scheduled backup."""
-	cont = raw_input("press enter to continue.")
+	cont = raw_input("Press enter to continue.")
 	clear_console()
-	#configure_scheduled()
 
 # Path to directories that user wants to backup
 # "path_input"=>  A LIST containing paths in UNICODE type.
@@ -116,11 +114,15 @@ keep_tree_value, backup_tag)
 
 ### Part 3: Start backup(copying): keep tree or not
 # Start copying. read data base and new backup path
-# decide to preserve directory tree or not
+#   decide to preserve directory tree or not
+# Here we force the third input parameter in 
+#   copying_*keep_tree, "immed_or_schedu" = "1", 
+#   because no matter immediate or scheduled backup, BackMeUp will do 
+#   at least once immediate copying()
 if keep_tree_value == "1": # keep dir tree
-	copying_keep_tree(database_name, new_backup_loc, immed_or_schedu)
+	copying_keep_tree(database_name, new_backup_loc, "1")
 elif keep_tree_value == "2": # do not keep dir tree
-    copying_dont_keep_tree(database_name, new_backup_loc, immed_or_schedu)
+    copying_dont_keep_tree(database_name, new_backup_loc, "1")
 
 #************************
 #   SCHEDULED BACKUP 
@@ -139,13 +141,10 @@ if immed_or_schedu == "2":
 	createSchedBkConfigFile(new_name_backup_plan, database_extension,\
 						keep_tree_value, new_backup_loc, immed_or_schedu)
 	
-	### Create Launcher"[bkPlanName]_launcher.sh"(UNIX) for scheduled backup
-	### The launcher will read configuration file and be executed by scheduling
-	###   software of user's OS.
-
-
-	### Run python-crontab
-	# (preparing)
+	### Generate command and output it as a file(to user's $HOME) 
+	### to let schedule manager to read and the schedule manager will 
+	### assign the command to crontab.
+	generateCmd4Crontab(new_name_backup_plan, schedTime)
 
 
 

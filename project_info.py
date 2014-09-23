@@ -4,5 +4,5 @@
 def ProjInfo():
 	# 專案版本資訊
 	Project = "BackMeUp"
-	Version = ""
+	Version = "beta0_20140922"
 	print "\n# Welcome to %s-%s" %(Project, Version)

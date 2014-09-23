@@ -19,11 +19,12 @@ crimson = "\033[1;38m"
 def getUserInputSched():
 	"""
 	The function
-
+	  Ask user to input the time for scheduled backup, using the crontab time
+	  format.
 	Function input parameter
-
+	  None
 	Return
-
+	  "sched_input"=> A STRING. Use the crontab format.
 	"""
 	ask4SchedPrmp = """\
 ------------------------------------------------------------
@@ -64,7 +65,40 @@ def getUserInputSched():
 			print_color(gray, trueOrFalseAllowed)
 
 
-
-
 ### Testing the function
 #print getUserInputSched()
+
+	
+def generateCmd4Crontab(backupPlan_name, time4SchedBk):
+	"""
+	The function
+	  To generate the command(time and what command to launch) for 
+	  setting up crontab. (like setting crontab -e)
+	Function input parameter
+	  "backupPlan_name"=> A STRING. The name of backup plan.
+	  "time4SchedBk"=> A STRING. The time to launch scheduled backup.
+	  It use the crontab format=> min hr day mon week.
+	Return
+	  Nothing returned from this function but a file containning the command
+	  for setting crontab is generated.
+	"""
+	# The command for crontab
+	schedBk_cmd = \
+	time4SchedBk+" python "+backupPlan_name+"_configFile.py"+\
+    " # BackMeUp_scheduledBackup_"+backupPlan_name
+
+	# Create a file for schedule manager(written in BASH)
+	schedBk_cmd_file = open(backupPlan_name+".schedCmd", "w")
+	
+	# Write the command to the file
+	schedBk_cmd_file.write(schedBk_cmd)
+
+	schedBk_cmd_file.close()
+
+### Testing the function
+#generateCmd4Crontab("newPlan", "* * * 3 *")
+
+
+
+
+
