@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 from sys import exit
 
 from print_color import print_color
@@ -69,34 +70,49 @@ def getUserInputSched():
 #print getUserInputSched()
 
 	
-def generateCmd4Crontab(backupPlan_name, time4SchedBk):
+def creatSched2Crontab(backupPlan_name, time4SchedBk, cronLog_name):
 	"""
 	The function
-	  To generate the command(time and what command to launch) for 
-	  setting up crontab. (like setting crontab -e)
+	  Generate the command(the time of scheduled backup and what command 
+	  to launch for crontab) for setting up crontab. (like setting crontab -e)
+	  Then "feed" this command to crontab using "os.system"(This is the "add 
+	  schedule" section, for the "view, edit, and delete schedule" section, 
+	  it's written in BASH.).
+
+	  # Procedure to add a scheduled backup to crontab
+	  1) Create a crontab log("~/BackMeUp/cronTab/cronLog") to obtain 
+	     the current jobs.
+		 $ crontab -l > cronLog 
+	  2) Assign the command(backup time and python xxxx_configFile.py) to 
+		 the crontab log
+		 $ echo 'command' >> cronLog
+	  3) Import the cronLog 
+		 $ crontab cronLog
+
 	Function input parameter
 	  "backupPlan_name"=> A STRING. The name of backup plan.
 	  "time4SchedBk"=> A STRING. The time to launch scheduled backup.
 	  It use the crontab format=> min hr day mon week.
+	  "cronLog_name"=> A STRING. The file name of crontab log.
 	Return
-	  Nothing returned from this function but a file containning the command
-	  for setting crontab is generated.
+
 	"""
-	# The command for crontab
+	# Create command for crontab
 	schedBk_cmd = \
 	time4SchedBk+" python "+backupPlan_name+"_configFile.py"+\
     " # BackMeUp_scheduledBackup_"+backupPlan_name
 
-	# Create a file for schedule manager(written in BASH)
-	schedBk_cmd_file = open(backupPlan_name+".schedCmd", "w")
-	
-	# Write the command to the file
-	schedBk_cmd_file.write(schedBk_cmd)
-
-	schedBk_cmd_file.close()
+	# Create a "crontab log" named "cronLog"
+	os.system("crontab -l > "+cronLog_name)
+	# Assign the command (add a job) to crontab log
+	os.system("echo '"+schedBk_cmd+"' >> "+cronLog_name)
+	# Add a job fron crontab log
+	os.system("crontab "+cronLog_name)	
 
 ### Testing the function
-#generateCmd4Crontab("newPlan", "* * * 3 *")
+#creatSched2Crontab("newPlan", "* * * 3 *", "testCronLog")
+
+
 
 
 

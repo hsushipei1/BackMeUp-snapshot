@@ -34,10 +34,11 @@ from verify_inputs import verify_user_inputs
 from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
 from writeInfo2ConfigFile import createSchedBkConfigFile 
-from arrangeSchedule import getUserInputSched, generateCmd4Crontab
+from arrangeSchedule import getUserInputSched, creatSched2Crontab
 
 ##### Define variables
 database_extension = ".BakDB"    # File extension of database.
+cronLog_name = "cronLog_BackMeUp"
 
 #***************************
 #    IMMEDIATE BACKUP
@@ -141,10 +142,8 @@ if immed_or_schedu == "2":
 	createSchedBkConfigFile(new_name_backup_plan, database_extension,\
 						keep_tree_value, new_backup_loc, immed_or_schedu)
 	
-	### Generate command and output it as a file(to user's $HOME) 
-	### to let schedule manager to read and the schedule manager will 
-	### assign the command to crontab.
-	generateCmd4Crontab(new_name_backup_plan, schedTime)
+	### Generate command and assign it to crontab.
+	creatSched2Crontab(new_name_backup_plan, schedTime, cronLog_name)
 
 
 
