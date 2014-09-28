@@ -5,7 +5,8 @@ import os
 from sys import exit
 
 from print_color import print_color
-from handle_ntpath import output_handled_NTpath, Handling_NTpath_return
+#from handle_ntpath import output_handled_NTpath, Handling_NTpath_return
+from pathHandlingTest import pathHandling
 
 ## colors
 default =  "\033[0m"
@@ -67,8 +68,9 @@ def path_to_backup():
 
     while True:
         # Use "handle_ntpath.py" to receive user input
-        output_handled_NTpath(".")
-        InPaths = Handling_NTpath_return(".") 
+        ##output_handled_NTpath(".")
+        ##InPaths = Handling_NTpath_return(".") 
+        InPaths = pathHandling()
 			# "InPaths"=> A LIST containing paths in UNICODE type. 
 
         # 製作陣列BoolChk，後面會依每個輸入的路徑檢查是否存在，把Boolean存入
