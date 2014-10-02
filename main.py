@@ -70,7 +70,6 @@ elif immed_or_schedu == "2": # schedule backup, jump to configure
 	#   The content of the configuration file will be written in 
 	#   SCHEDULED BACKUP section.
 	print """\
-# You chose scheduled backup. 
 # After all backup configuration is done, BackMeUp will run  
   immediate backup once to deal with the pre-existing file.
   After that, BackMeUp will overwrite the existing file at each
