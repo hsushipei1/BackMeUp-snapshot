@@ -15,6 +15,7 @@ from sys import exit
 from print_color import print_color
 from get_DatabaseName_woExten import get_DatabaseName_woExten
 from check_elem_inList import check_elem_inList
+from save2HomeDir import printDataBSavePath
 
 ## colors
 default =  "\033[0m"
@@ -37,8 +38,7 @@ def existn_database_finder(database_extension):
 	  function will return that list.
 
 	$ Function parameters(Inputs)
-	* "database_extension"=> A STRING that is ".BakDataBase" which is the 
-	  extension of database in this case.
+	* "database_extension"=> A STRING. The extension of database.
 
 	$ Returns
 	* The function will return "(A, B)"
@@ -51,8 +51,10 @@ def existn_database_finder(database_extension):
 	  backup plan is found".
 	"""
 
-    # Get path of "./"
+    # Get present working directoy.
 	pwd_path = getcwd()
+	# Get the dir path where the database is placed.
+	databSavePath = printDataBSavePath()
 
 	# Create a list that stores the name of pre-existing databases.
 	preex_database_name_list = []
@@ -63,8 +65,9 @@ def existn_database_finder(database_extension):
 	# that means no database can be found and will print the message.
 	database_NotFoundCheck = []
 
-	# Search file that has user desired extension.
-	for EachFileName_CurrnDir in listdir(pwd_path):
+	# Search for the database with extension "database_extension" in 
+	#   $HOME/BackMeUp/database
+	for EachFileName_CurrnDir in listdir(databSavePath):
 		if EachFileName_CurrnDir.endswith(database_extension):
 			# Database found!
 			#print EachFileName_CurrnDir

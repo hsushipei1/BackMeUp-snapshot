@@ -10,6 +10,7 @@ from handle_preexist import handle_preex_file
 from handle_non_preexist import handle_non_preex_file
 from SLASH import SLASH
 from print_color import print_color 
+from save2HomeDir import printDataBSavePath
 
 ## colors
 default =  "\033[0m"
@@ -37,8 +38,13 @@ def copying_keep_tree(data_base_in, backup_loc, immedSchedIndex):
       backup that user wants. If = "1", means immediate backup, and = "2",
       means scheduled backup.
 	"""
-	# read data base
-	data_base = open(data_base_in)
+	# Load SLASH() module
+	slash = SLASH()
+
+	# read database from $HOME/BackMeUp/database
+	databSavePath = printDataBSavePath()
+	databFullPath = databSavePath+slash+data_base_in
+	data_base = open(databFullPath)
 
 	# Create new dict to store file info of each pre-existing and 
 	# non pre-existing.
@@ -139,8 +145,13 @@ def copying_dont_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 	Return
 
 	"""
-	# read data base
-	data_base = open(data_base_in)
+	# Load slash module
+	slash = SLASH()
+
+	# read database from $HOME/BackMeUp/database
+	databSavePath = printDataBSavePath()
+	databFullPath = databSavePath+slash+data_base_in
+	data_base = open(databFullPath)
 
 	# Create new dict to store file info of each pre-existing and 
 	# non pre-existing.
@@ -151,8 +162,6 @@ def copying_dont_keep_tree(data_base_in, backup_loc, immedSchedIndex):
 	#   (2)file_path_backup_dir: If the file is pre-exist, this will the 
 	#       absolute path to that file in its backup dir.
 
-	# Load slash module
-	slash = SLASH()
 
 	# read and handle each path(file)   
 	for per_line in data_base:

@@ -8,6 +8,7 @@ from os import walk
 from print_color import print_color
 from UnixNt_Encoding import UnixNt_Encoding
 from SLASH import SLASH
+from save2HomeDir import printDataBSavePath
 
 ## colors
 default =  "\033[0m"
@@ -39,8 +40,10 @@ def locate_all_file_multi_dir\
 	# searching reminder
 	searching_prompt = "# Searching files and creating data base..."
 	print_color(blue,searching_prompt)
-	# create data base
-	data_base = open(data_base_name,"w")	
+	# create data base and save it to $HOME/BackMeUp/database
+	databSavePath = printDataBSavePath()
+	databFullPath = databSavePath+slash+data_base_name
+	data_base = open(databFullPath,"w+")	
 	# core of full backup
 	for each_input_path in sources_dir: # "each_input_path" UNICODE type
 		for dir_path, sub_dir_name, file_list in walk(each_input_path):
