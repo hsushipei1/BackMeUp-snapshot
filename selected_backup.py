@@ -8,6 +8,7 @@ from sys import exit
 from print_color import print_color
 from UnixNt_Encoding import UnixNt_Encoding
 from SLASH import SLASH
+from save2HomeDir import printDataBSavePath
 
 """
 Modules for selected backup(CopyTree)
@@ -81,8 +82,10 @@ def find_multi_type_in_multi_dir\
 	# searching reminder
 	searching_prompt = "# Searching files and creating data base..."
 	print_color(blue,searching_prompt)	
-	# create data base
-	DataBase = open(data_base_name,"w+")
+	# create data base and save it to $HOME/BackMeUp/database
+	databSavePath = printDataBSavePath()
+	databFullPath = databSavePath+slash+data_base_name
+	DataBase = open(databFullPath,"w+")
 	
 	# Get path of "./" Because I use "chdir" in loop below for traversing
 	# into sub-directories, I need to go back to "./" after finish searching

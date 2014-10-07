@@ -35,10 +35,19 @@ from start_copy_via_database import copying_keep_tree,\
 									copying_dont_keep_tree
 from writeInfo2ConfigFile import createSchedBkConfigFile 
 from arrangeSchedule import getUserInputSched, creatSched2Crontab
+from save2HomeDir import checkDirsExist, printDataBSavePath,\
+						printConfigFileSavePath, printCrontabLogSavePath
 
+#****************************
+#   PRE-START PREPARATION
+#****************************
 ##### Define variables
 database_extension = ".BakDB"    # File extension of database.
 cronLog_name = "cronLog_BackMeUp"
+##### Check dirs (in HOME) for saving database, configFile, and crontabLog
+checkDirsExist(printDataBSavePath())
+checkDirsExist(printConfigFileSavePath())
+checkDirsExist(printCrontabLogSavePath())
 
 #***************************
 #    IMMEDIATE BACKUP
