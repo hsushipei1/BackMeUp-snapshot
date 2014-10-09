@@ -2,6 +2,8 @@
 #-*- coding: utf-8 -*-
 
 import pickle
+from save2HomeDir import printConfigFileSavePath
+from SLASH import SLASH
 
 def createSchedBkConfigFile(backupPlan_name, dataB_extension, \
 							keepTree_value, backup_loc, immedSchedIndex):
@@ -34,6 +36,9 @@ def createSchedBkConfigFile(backupPlan_name, dataB_extension, \
 
 	Return:
 	"""
+	# Load SLASH() module
+	slash = SLASH()
+
 	# Name of configuration file of scheduled backup
 	configFile_name = backupPlan_name+"_configFile.py"
 
@@ -44,7 +49,9 @@ def createSchedBkConfigFile(backupPlan_name, dataB_extension, \
 	#   the copying functions. The backup is executed simply by
 	#   $ python [this_configure_file].py , but of course, it's executed by
 	#   schedule management software of user's OS.
-	configFile = open(configFile_name ,"w")
+	configFilSavePath = printConfigFileSavePath()
+	configFilFullPath = configFilSavePath+slash+configFile_name
+	configFile = open(configFilFullPath ,"w")
 
 	# Content to write
 	ConfigFile_content = \

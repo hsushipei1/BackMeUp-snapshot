@@ -140,4 +140,4 @@ def checkDirsExist(dir_path):
 #print printCrontabLogSavePath()
 #print printDataBSavePath()
 #print printConfigFileSavePath()
-checkDirsExist("/home/hsushipei/BackMeUp/database")
+#checkDirsExist("/home/hsushipei/BackMeUp/database")

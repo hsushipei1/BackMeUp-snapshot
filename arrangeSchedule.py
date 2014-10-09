@@ -4,6 +4,8 @@ import os
 from sys import exit
 
 from print_color import print_color
+from save2HomeDir import printConfigFileSavePath, printCrontabLogSavePath
+from SLASH import SLASH
 
 ## colors
 default =  "\033[0m"
@@ -97,17 +99,27 @@ def creatSched2Crontab(backupPlan_name, time4SchedBk, cronLog_name):
 	Return
 
 	"""
-	# Create command for crontab
+	# obtain the SLASH type of user's os
+	slash = SLASH()
+
+	# Create command for crontab: 
+	#   here, crontab will ask python to read the configuration file under 
+	#   $HOME/BackMeUp/configFile/ by the backup time that given by user.
+	#   i.e., python $HOME/BackMeUp/configFile/xxx_configFile.py 
 	schedBk_cmd = \
-	time4SchedBk+" python "+backupPlan_name+"_configFile.py"+\
+	time4SchedBk+" python "+printConfigFileSavePath()+slash+\
+							backupPlan_name+"_configFile.py"+\
     " # BackMeUp_scheduledBackup_"+backupPlan_name
 
-	# Create a "crontab log" named "cronLog"
-	os.system("crontab -l > "+cronLog_name)
+	# Create a "crontab log" (under $HOME/BackMeUp/crontabLog) named "cronLog"
+	os.system("crontab -l > "+\
+					printCrontabLogSavePath()+slash+cronLog_name)
 	# Assign the command (add a job) to crontab log
-	os.system("echo '"+schedBk_cmd+"' >> "+cronLog_name)
-	# Add a job fron crontab log
-	os.system("crontab "+cronLog_name)	
+	os.system("echo '"+schedBk_cmd+"' >> "+\
+					printCrontabLogSavePath()+slash+cronLog_name)
+	# Add a job from crontab log
+	os.system("crontab "+\
+					printCrontabLogSavePath()+slash+cronLog_name)	
 
 ### Testing the function
 #creatSched2Crontab("newPlan", "* * * 3 *", "testCronLog")
