@@ -39,7 +39,8 @@ def extens_input():
 -----------------------------------------------------------
 # Please insert the file extensions you want this program 
   to search and then back up. For multiple extensions, please
-  separate them by SPACE. e.g. *.c *.f *.gs *.ctl
+  separate them by COMMA "," . e.g. *.c,*.f,*.gs,*.ctl
+  and do not leave any SPACE between them.
 
 # Watch out for the format: "star dot <extension>"
 -----------------------------------------------------------"""
@@ -58,7 +59,7 @@ def extens_input():
 			print_color(gray,end_wi_space_msg)
 			pass
 		else:
-			FilExtList = FilExtIn.split(" ")
+			FilExtList = FilExtIn.split(",")
 			return FilExtList
 
 
@@ -115,8 +116,10 @@ def find_multi_type_in_multi_dir\
 				# "glob_find_ext"=> A LIST containing files with 
 				#   extension "Each_Exten"
 				if not glob_find_ext:  # if "glob_find_ext" is empty
-					# print "nothing is found"
-					pass
+					NothingFoundMsg = \
+					"# Nothing is found! Database could not be established! Please try again!"
+					print_color( gray, NothingFoundMsg )
+					exit()
 				else:
 					for EachFileSamDir in glob_find_ext:
 						# For each file with extension "Each_Exten" 
