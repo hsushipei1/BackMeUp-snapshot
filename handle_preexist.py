@@ -50,60 +50,64 @@ def handle_preex_file(preex_file_info_dict):
 								location which contains the pre-exist file.
 
 	"""
-	# clear console before showing the list of pre-existing files.
-	clear_console()
+	if preex_file_info_dict:   
+	# If there is at least one file is found to be pre-existing, or this 
+	#   list wont be shown!!
 
-	### First, show all the files that are already exist at once.
-	#   (and also the info of file)
-	# Printing all the file at once.
-	print_all_preex_prmp_begin = """\
+		# clear console before showing the list of pre-existing files.
+		clear_console()
+
+		### First, show all the files that are already exist at once.
+		#   (and also the info of file)
+		# Printing all the file at once.
+		print_all_preex_prmp_begin = """\
 ==============================================================
 # The following files are already exist in the backup location.
 =============================================================="""
-	print_color(red,print_all_preex_prmp_begin)
+		print_color(red,print_all_preex_prmp_begin)
 
-	### dict stores: file name, ori path of file, and the path to the file
-	#		in backup directory.
-	# Format: xxx_dict[file_name] = (1)ori_path_of_file,(2)file_path_backup_dir
-	#	(1)ori_path_of_file: The absolute path to the file in its original dir.
-	#	(2)file_path_backup_dir: If the file is pre-exist, this will the 
-	#		absolute path to that file in its backup dir.
-	
-	# "n" for counting the number of file
-	n = 0
+		### dict stores: file name, ori path of file, and the path to the file
+		#		in backup directory.
+		# Format: xxx_dict[file_name] = (1)ori_path_of_file,(2)file_path_backup_dir
+		#	(1)ori_path_of_file: The absolute path to the file in its original dir.
+		#	(2)file_path_backup_dir: If the file is pre-exist, this will the 
+		#		absolute path to that file in its backup dir.
+		
+		# "n" for counting the number of file
+		n = 1
 
-	for each_preex_file in preex_file_info_dict.keys():
-		# Info: ori_path_of_file + backup_loc_of_file
-		each_info =  preex_file_info_dict[each_preex_file]
-		# File name
-		file_name_from_preex_path = each_preex_file
-		# Original path of the file
-		each_preex_path = each_info[0]
-		# Backup path of the file(not dir)
-		file_path_backup_dir = each_info[1]
-		# Path to backup dir of the file
-		each_preexist_backup_loc = dirname(file_path_backup_dir)
+		for each_preex_file in preex_file_info_dict.keys():
+			# Info: ori_path_of_file + backup_loc_of_file
+			each_info =  preex_file_info_dict[each_preex_file]
+			# File name
+			file_name_from_preex_path = each_preex_file
+			# Original path of the file
+			each_preex_path = each_info[0]
+			# Backup path of the file(not dir)
+			file_path_backup_dir = each_info[1]
+			# Path to backup dir of the file
+			each_preexist_backup_loc = dirname(file_path_backup_dir)
 
-		# Get the file size and convert into human readable format
-		file_size_not_readable = getsize(each_preex_path)		
-		file_size = readable_format(file_size_not_readable)
-		# Print the file info at once. Just to give user overiew.
-		output_file_info_atOnce = \
-				 "(%d) File= \"%s\", Size= \"%s\" in \"%s\" " \
-				 %(n,\
-					blue + str(file_name_from_preex_path) + default,\
-					blue + str(file_size) + default,\
-					blue + each_preexist_backup_loc + default)  
-				 # Get the backup loc of preexist file from index
-		print output_file_info_atOnce
-		n = n + 1
+			# Get the file size and convert into human readable format
+			file_size_not_readable = getsize(each_preex_path)		
+			file_size = readable_format(file_size_not_readable)
+			# Print the file info at once. Just to give user overiew.
+			output_file_info_atOnce = \
+					 "(%d) File= \"%s\", Size= \"%s\" in \"%s\" " \
+					 %(n,\
+						blue + str(file_name_from_preex_path) + default,\
+						blue + str(file_size) + default,\
+						blue + each_preexist_backup_loc + default)  
+					 # Get the backup loc of preexist file from index
+			print output_file_info_atOnce
+			n = n + 1
 
-	print_all_preex_prmp_end = """\
+		print_all_preex_prmp_end = """\
 # Total= %s
-# Press ENTER to Continue.""" %(str(n))
-	print_color(red,print_all_preex_prmp_end)
+# Press ENTER to Continue.""" %(str(n-1))
+		print_color(red,print_all_preex_prmp_end)
 
-	cont1 = raw_input(" ")
+		cont1 = raw_input(" ")
 
 	# clear console before asking user file by file.
 	clear_console()
@@ -111,12 +115,12 @@ def handle_preex_file(preex_file_info_dict):
 	### Ask what to do file by file.
 	print_one_by_one_prmp_begin = """\
 ==============================================================
-# Now, BackMeUp will ask what will user do file by file.
+# Now will show what BackMeUp does file by file...
 =============================================================="""
 	print_color(red,print_one_by_one_prmp_begin)
 
 	# Count the number of the file
-	m = 0
+	m = 1
 
 	for each_preex_file in preex_file_info_dict.keys():
 	# Use if any(): to check whether the dict is empty, if not empty=>

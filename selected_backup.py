@@ -116,10 +116,10 @@ def find_multi_type_in_multi_dir\
 				# "glob_find_ext"=> A LIST containing files with 
 				#   extension "Each_Exten"
 				if not glob_find_ext:  # if "glob_find_ext" is empty
-					NothingFoundMsg = \
-					"# Nothing is found! Database could not be established! Please try again!"
-					print_color( gray, NothingFoundMsg )
-					exit()
+					# NothingFoundMsg = \
+					#   "# No "+Each_Exten+" files found!"
+					# print_color( gray, NothingFoundMsg )
+					pass
 				else:
 					for EachFileSamDir in glob_find_ext:
 						# For each file with extension "Each_Exten" 
